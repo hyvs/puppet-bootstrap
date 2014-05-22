@@ -17,9 +17,20 @@ class p::agent::newrelic (
     before  => Anchor['p::agent::newrelic::end'],
   }
 
+  p::resource::apt::repo {'newrelic':
+    location    => 'http://apt.newrelic.com/debian/',
+    release     => 'newrelic',
+    repos       => 'non-free',
+    key         => '548C16BF',
+    key_server  => 'https://download.newrelic.com',
+    include_src => false,
+    require     => Anchor['p::agent::newrelic::begin'],
+    before      => Anchor['p::agent::newrelic::end'],
+  }
+
   package {'newrelic-sysmond':
     ensure  => 'installed',
-    require => Anchor['p::agent::newrelic::begin'],
+    require => [Anchor['p::agent::newrelic::begin'], P::Resource::Apt::Repo['newrelic']],
   } ->
   file {'/etc/newrelic/nrsysmond.cfg':
     content => template('p/newrelic/nrsysmond.cfg.erb'),
@@ -33,7 +44,7 @@ class p::agent::newrelic (
   if defined(Package['apache2']) {
     package {'newrelic-php5':
       ensure  => 'installed',
-      require => [Package['apache2'], Package['php5'], Anchor['p::agent::newrelic::begin']],
+      require => [Package['apache2'], Package['php5'], Anchor['p::agent::newrelic::begin'], P::Resource::Apt::Repo['newrelic']],
     } ->
     file {'/etc/php5/conf.d/newrelic.ini':
       content => template('p/newrelic/newrelic.ini.erb'),
