@@ -1,4 +1,4 @@
-class p::system::files (
+class p::system::crons (
   $crons    = hiera_hash('crons'),
   $resource = 'p::resource::cron'
 ) {
