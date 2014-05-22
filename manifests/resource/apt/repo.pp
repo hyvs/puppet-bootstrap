@@ -12,7 +12,7 @@ define p::resource::apt::repo (
   $repo              = $name,
   $repos             = 'main',
   $required_packages = false,
-  $pins              = $::empty_hash,
+  $pins              = {},
   $pin_resource      = 'p::resource::apt::pin'
 ) {
 
