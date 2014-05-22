@@ -30,13 +30,15 @@ class p::agent::newrelic (
     before => Anchor['p::agent::newrelic::end'],
   }
 
-  package {'newrelic-php5':
-    ensure  => 'installed',
-    require => [Package['apache2'], Package['php5'], Anchor['p::agent::newrelic::begin']],
-  } ->
-  file {'/etc/php5/conf.d/newrelic.ini':
-    content => template('p/newrelic/newrelic.ini.erb'),
-    before  => Anchor['p::agent::newrelic::end'],
+  if defined(Package['apache2']) {
+    package {'newrelic-php5':
+      ensure  => 'installed',
+      require => [Package['apache2'], Package['php5'], Anchor['p::agent::newrelic::begin']],
+    } ->
+    file {'/etc/php5/conf.d/newrelic.ini':
+      content => template('p/newrelic/newrelic.ini.erb'),
+      before  => Anchor['p::agent::newrelic::end'],
+    }
   }
 
   anchor {'p::agent::newrelic::end':
