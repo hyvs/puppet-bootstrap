@@ -22,7 +22,7 @@ class p::agent::newrelic (
     release     => 'newrelic',
     repos       => 'non-free',
     key         => '548C16BF',
-    key_server  => 'https://download.newrelic.com',
+    key_server  => 'hkp://subkeys.pgp.net',
     include_src => false,
     require     => Anchor['p::agent::newrelic::begin'],
     before      => Anchor['p::agent::newrelic::end'],
