@@ -22,7 +22,7 @@ class p::agent::newrelic (
     require => Anchor['p::agent::newrelic::begin'],
   } ->
   file {'/etc/newrelic/nrsysmond.cfg':
-    content => template('puppet:///newrelic/nrsysmond.cfg.erb'),
+    content => template('p/newrelic/nrsysmond.cfg.erb'),
     require => File[$log_dir],
   } ->
   service {'newrelic-sysmond':
@@ -35,7 +35,7 @@ class p::agent::newrelic (
     require => [Package['apache2'], Package['php5'], Anchor['p::agent::newrelic::begin']],
   } ->
   file {'/etc/php5/conf.d/newrelic.ini':
-    content => template('puppet:///newrelic/newrelic.ini.erb'),
+    content => template('p/newrelic/newrelic.ini.erb'),
     before  => Anchor['p::agent::newrelic::end'],
   }
 
