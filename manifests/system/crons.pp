@@ -10,7 +10,7 @@ class p::system::crons (
     before  => Anchor['p::system::crons::end'],
   }
   
-  create_resources($resource, $files, $defaults)
+  create_resources($resource, $crons, $defaults)
   
   anchor {'p::system::crons::end':
     require => Anchor['p::system::crons::begin'],
