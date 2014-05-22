@@ -3,17 +3,17 @@ class p::system::crons (
   $resource = 'p::resource::cron'
 ) {
 
-  anchor {'p::system::files::begin': }
+  anchor {'p::system::crons::begin': }
   
   $defaults = {
-    require => Anchor['p::system::files::begin'],
-    before  => Anchor['p::system::files::end'],
+    require => Anchor['p::system::crons::begin'],
+    before  => Anchor['p::system::crons::end'],
   }
   
   create_resources($resource, $files, $defaults)
   
-  anchor {'p::system::files::end':
-    require => Anchor['p::system::files::begin'],
+  anchor {'p::system::crons::end':
+    require => Anchor['p::system::crons::begin'],
   }
   
 }
