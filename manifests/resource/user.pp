@@ -72,7 +72,7 @@ define p::resource::user (
       fail("No group defined for system user ${login}")
     }
 
-    user {$login:
+    ::user {$login:
       ensure     => 'present',
       comment    => $email ? {undef => $name, default => $name},
       uid        => $uid,
@@ -107,6 +107,8 @@ define p::resource::user (
       require => File["${real_home}/.gitconfig"],
     }
 
+    notice $keys
+    
     $keys.each { |$key_name, $key|
       create_resources($public_key_resource, {"${login}_${key_name}" => $key}, $default_public_key_params)
     }
@@ -127,7 +129,7 @@ define p::resource::user (
 
   } else {
 
-    user {$login:
+    ::user {$login:
       ensure  => absent,
     } ->
     file {$real_home:
