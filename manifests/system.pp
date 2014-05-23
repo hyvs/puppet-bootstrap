@@ -13,11 +13,6 @@ class p::system (
     before  => Anchor['p::system::end'],
   }
 
-  class { 'p::system::groups':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
   class { 'p::system::users':
     require => Anchor['p::system::begin'],
     before  => Anchor['p::system::end'],
