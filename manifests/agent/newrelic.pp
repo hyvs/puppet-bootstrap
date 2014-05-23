@@ -7,14 +7,8 @@ class p::agent::newrelic (
   $license_key = $secrets['newrelic.license']
   $log_file    = "${log_dir}/nrsysmond.log"
 
-  p::resource::apt::repo {'newrelic':
-    location    => 'http://apt.newrelic.com/debian/',
-    release     => 'newrelic',
-    repos       => 'non-free',
-    key         => '548C16BF',
-    key_server  => 'hkp://subkeys.pgp.net',
-    include_src => false,
-    stage       => 'repos',
+  class {'p::repo::newrelic':
+    stage => 'repos',
   }
 
   anchor { 'p::agent::newrelic::begin': }

@@ -3,16 +3,11 @@ class p::system::ssh (
   $port     = 22
 ) {
 
-  anchor {'p::system::ssh::begin': }
-
+  anchor {'p::system::ssh::begin': } ->
   p::resource::firewall::tcp {'sshd':
     enabled => any2bool($firewall),
     port    => $port,
-    stage   => 'firewall',
-  }
-
-  anchor {'p::system::ssh::end':
-    require => Anchor['p::system::ssh::begin'],
-  }
+  } ->
+  anchor {'p::system::ssh::end': }
   
 }

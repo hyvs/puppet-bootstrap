@@ -9,14 +9,22 @@
     "directories": {},
     "links": {},
     "users": {},
-    "groups": {},
+    "groups": {
+        "sudonopass": {
+            "gid": 1051,
+            "sudonopass": true
+        }
+    },
     "files": {},
     "crons": {},
     "hosts": {},
     "packages": {},
     "defaults": {
         "cron.user": "root",
-        "cron.environment": {}
+        "cron.environment": {
+            "SHELL": "/bin/bash",
+            "PATH":  "/usr/local/bin:/usr/bin:/bin"
+        }
     },
     "daemons": {},
     "opened_tcp_ports": [],

@@ -3,13 +3,14 @@ class p::server::apache (
   $port     = 80
 ) {
 
+  anchor {'p::server::apache::begin': }
+
   p::resource::firewall::tcp {'apache2':
     enabled => any2bool($firewall),
     port    => $port,
-    stage   => 'firewall',
+    require => Anchor['p::server::apache::begin'],
+    before  => Anchor['p::server::apache::end'],
   }
-
-  anchor {'p::server::apache::begin': }
 
   package {'apache2':
     ensure  => installed,

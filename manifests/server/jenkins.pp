@@ -3,23 +3,19 @@ class p::server::jenkins (
   $port     = 8080
 ) {
 
-  p::resource::apt::repo {'jenkins':
-    location    => 'http://pkg.jenkins-ci.org/debian',
-    release     => 'binary',
-    repos       => '',
-    key         => 'D50582E6',
-    key_source  => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
-    include_src => false,
-    stage       => 'repos',
+  class {'p::repo::jenkins':
+    stage => 'repos',
   }
+
+
+  anchor { 'p::server::jenkins::begin': }
 
   p::resource::firewall::tcp {'jenkins':
     enabled => any2bool($firewall),
     port    => $port,
-    stage   => 'firewall',
+    require => Anchor['p::server::jenkins::begin'],
+    before  => Anchor['p::server::jenkins::end'],
   }
-
-  anchor { 'p::server::jenkins::begin': }
 
   package {'jenkins':
     ensure  => 'installed',

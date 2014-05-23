@@ -3,13 +3,15 @@ class p::server::puppet (
   $port     = 8140
 ) {
 
+
+  anchor { 'p::server::puppet::begin': }
+
   p::resource::firewall::tcp {'puppetmaster':
     enabled => any2bool($firewall),
     port    => $port,
-    stage   => 'firewall',
+    require => Anchor['p::server::puppet::begin'],
+    before  => Anchor['p::server::puppet::end'],
   }
-
-  anchor { 'p::server::puppet::begin': }
 
   package { 'puppetmaster-passenger':
     ensure  => 'installed',
