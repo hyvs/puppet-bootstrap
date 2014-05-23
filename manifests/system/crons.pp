@@ -1,7 +1,7 @@
 class p::system::crons (
   $crons    = hiera_hash('crons'),
   $resource = 'p::resource::cron',
-  $defaults = hierahash('cron_user')
+  $defaults = hiera_hash('defaults')
 ) {
 
   anchor {'p::system::crons::begin': }

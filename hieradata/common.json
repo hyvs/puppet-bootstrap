@@ -17,5 +17,11 @@
     "defaults": {
         "cron.user": "root",
         "cron.environment": {}
-    }
+    },
+    "daemons": {},
+    "opened_tcp_ports": [],
+    "opened_udp_ports": [],
+    "opened_ports": [],
+    "user_authorized_keys": {},
+    "user_keys": {}
 }

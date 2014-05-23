@@ -1,16 +1,31 @@
 define p::resource::file (
-  $owner   = 'root',
-  $group   = 'root',
-  $mode    = undef,
-  $content = ''
+  $group           = 'root',
+  $mode            = '0755',
+  $path            = $name,
+  $owner           = 'root',
+  $content         = undef,
+  $template        = undef,
+  $inline_template = undef,
+  $vars            = $::empty_hash
 ) {
 
+  if undef != $template {
+    $real_content = template($template)
+  } else {
+    if undef != $inline_template {
+      $real_content = inline_template($inline_template)
+    } else {
+      $real_content = $content
+    }
+  }
+
   file {$name:
-    ensure  => 'file',
-    owner   => $owner,
+    ensure  => file,
     group   => $group,
     mode    => $mode,
-    content => $content,
+    owner   => $owner,
+    path    => $path,
+    content => $real_content,
   }
 
 }

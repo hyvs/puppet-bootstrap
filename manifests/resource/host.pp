@@ -1,9 +1,12 @@
 define p::resource::host (
-  $ip
+  $ip,
+  $aliases = undef,
+  $host    = $name
 ) {
 
-  host {$name:
-    ip => $ip,
+  host {$host:
+    ip           => $ip,
+    host_aliases => $aliases,
   }
 
 }

@@ -1,5 +1,4 @@
 class p::server::mysql (
-
 ) {
 
   anchor {'p::server::mysql::begin': }

@@ -1,5 +1,4 @@
 class p::agent::puppet (
-
 ) {
 
   anchor { 'p::agent::puppet::begin': }

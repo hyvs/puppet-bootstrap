@@ -1,16 +1,18 @@
 define p::resource::link (
   $target,
-  $owner = 'root',
-  $group = 'root',
-  $mode  = undef
+  $group   = undef,
+  $mode    = '0755',
+  $owner   = undef,
+  $replace = 'no'
 ) {
 
   file {$name:
-    ensure => 'link',
-    owner  => $owner,
-    group  => $group,
-    mode   => $mode,
-    target => $target,
+    ensure  => link,
+    owner   => $owner,
+    group   => $group,
+    mode    => $mode,
+    target  => $target,
+    replace => $replace,
   }
 
 }

@@ -1,5 +1,4 @@
 class p::server::backup (
-
 ) {
 
   anchor {'p::server::backup::begin': }

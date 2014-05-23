@@ -1,14 +1,20 @@
 define p::resource::directory (
-  $owner = 'root',
-  $group = 'root',
-  $mode  = undef
+  $group        = 'root',
+  $mode         = '0755',
+  $path         = $name,
+  $owner        = 'root',
+  $recurse      = false,
+  $recurselimit = undef
 ) {
 
   file {$name:
-    ensure => 'directory',
-    owner  => $owner,
-    group  => $group,
-    mode   => $mode,
+    ensure       => directory,
+    group        => $group,
+    mode         => $mode,
+    owner        => $owner,
+    path         => $path,
+    recurse      => $recurse,
+    recurselimit => $recurselimit,
   }
 
 }

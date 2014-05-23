@@ -1,5 +1,5 @@
 class p::tool::composer (
-  $dirs = hiera_hash('dirs'),
+  $dirs             = hiera_hash('dirs'),
   $full_bin         = '/usr/bin/composer',
   $bin              = 'composer',
   $filename         = 'composer.phar',
