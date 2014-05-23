@@ -1,6 +1,13 @@
 class p::server::apache (
-
+  $firewall = true,
+  $port     = 80
 ) {
+
+  p::resource::firewall::tcp {'apache2':
+    enabled => any2bool($firewall),
+    port    => $port,
+    stage   => 'firewall',
+  }
 
   anchor {'p::server::apache::begin': }
 

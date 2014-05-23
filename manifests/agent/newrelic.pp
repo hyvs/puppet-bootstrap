@@ -7,6 +7,16 @@ class p::agent::newrelic (
   $license_key = $secrets['newrelic.license']
   $log_file    = "${log_dir}/nrsysmond.log"
 
+  p::resource::apt::repo {'newrelic':
+    location    => 'http://apt.newrelic.com/debian/',
+    release     => 'newrelic',
+    repos       => 'non-free',
+    key         => '548C16BF',
+    key_server  => 'hkp://subkeys.pgp.net',
+    include_src => false,
+    stage       => 'repos',
+  }
+
   anchor { 'p::agent::newrelic::begin': }
 
   file {$log_dir:
@@ -15,17 +25,6 @@ class p::agent::newrelic (
     group  => 'root',
     require => Anchor['p::agent::newrelic::begin'],
     before  => Anchor['p::agent::newrelic::end'],
-  }
-
-  p::resource::apt::repo {'newrelic':
-    location    => 'http://apt.newrelic.com/debian/',
-    release     => 'newrelic',
-    repos       => 'non-free',
-    key         => '548C16BF',
-    key_server  => 'hkp://subkeys.pgp.net',
-    include_src => false,
-    require     => Anchor['p::agent::newrelic::begin'],
-    before      => Anchor['p::agent::newrelic::end'],
   }
 
   package {'newrelic-sysmond':

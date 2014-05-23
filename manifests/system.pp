@@ -1,5 +1,13 @@
 class p::system (
+  $sshd_firewall = true,
+  $sshd_port     = 22
 ) {
+
+  p::resource::firewall::tcp {'sshd':
+    enabled => any2bool($sshd_firewall),
+    port    => $sshd_port,
+    stage   => 'firewall',
+  }
 
   anchor { 'p::base::begin': }
 

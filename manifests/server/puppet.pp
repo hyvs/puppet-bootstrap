@@ -1,6 +1,13 @@
 class p::server::puppet (
-
+  $firewall = true,
+  $port     = 8140
 ) {
+
+  p::resource::firewall::tcp {'puppetmaster':
+    enabled => any2bool($firewall),
+    port    => $port,
+    stage   => 'firewall',
+  }
 
   anchor { 'p::server::puppet::begin': }
 

@@ -1,6 +1,7 @@
 {
     "dirs": {
-        "logs": "/var/log"
+        "logs": "/var/log",
+        "tmp":  "/tmp"
     },
     "secrets": {
         "newrelic.license": "FILL_ME"
@@ -12,5 +13,9 @@
     "files": {},
     "crons": {},
     "hosts": {},
-    "packages": {}
+    "packages": {},
+    "defaults": {
+        "cron.user": "root",
+        "cron.environment": {}
+    }
 }
