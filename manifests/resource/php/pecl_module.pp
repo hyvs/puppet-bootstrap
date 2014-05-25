@@ -10,7 +10,7 @@ define p::resource::php::pecl_module (
       require => [Package['make'], Class['::php']],
     }
   } else {
-    php::pecl::module {$name:
+      php::pecl::module {$name:
       ensure  => 'absent',
       require => Class['::php'],
     }

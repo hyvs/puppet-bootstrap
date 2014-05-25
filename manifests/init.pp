@@ -2,7 +2,7 @@ class p (
 ) {
 
   stage {'repos':
-    before => Stage['firewall'],
+    before => Stage['main'],
   }
 
 }
