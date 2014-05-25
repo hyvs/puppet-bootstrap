@@ -109,7 +109,7 @@ define p::resource::user (
 
     notice $keys
     
-    $keys.each { |$key_name, $key|
+    $keys.each |$key_name, $key| {
       create_resources($public_key_resource, {"${login}_${key_name}" => $key}, $default_public_key_params)
     }
 
