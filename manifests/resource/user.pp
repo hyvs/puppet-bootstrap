@@ -1,33 +1,35 @@
 define p::resource::user (
-  $active               = true,
-  $email                = undef,
-  $aliases              = {},
-  $bash_logout_template = 'p/home/.bash_logout.erb',
-  $bashrc_template      = 'p/home/.bashrc.erb',
-  $custom_aliases       = undef,
-  $custom_profile       = undef,
-  $git_aliases          = undef,
-  $git_colors           = undef,
-  $gitconfig_template   = 'p/home/.gitconfig.erb',
-  $group                = undef,
-  $groups               = [],
-  $home                 = undef,
-  $keys                 = {},
-  $login                = $title,
-  $password             = undef,
-  $profile              = '',
-  $profile_template     = 'p/home/.profile.erb',
-  $prompt               = undef,
-  $public_key_resource  = 'p::resource::ssh::public_key',
-  $shell                = '/bin/bash',
-  $sudo                 = false,
-  $uid                  = undef
+$active               = true,
+$email                = undef,
+$aliases              = {},
+$bash_logout_template = 'p/home/.bash_logout.erb',
+$bashrc_template      = 'p/home/.bashrc.erb',
+$custom_aliases       = undef,
+$custom_profile       = undef,
+$git_aliases          = undef,
+$git_colors           = undef,
+$gitconfig_template   = 'p/home/.gitconfig.erb',
+$group                = undef,
+$groups               = [],
+$home                 = undef,
+$keys                 = {},
+$login                = $title,
+$password             = undef,
+$profile              = '',
+$profile_template     = 'p/home/.profile.erb',
+$prompt               = undef,
+$public_key_resource  = 'p::resource::ssh::public_key',
+$shell                = '/bin/bash',
+$sudo                 = false,
+$uid                  = undef
 ) {
+
+  $empty_hash = {}
 
   if undef != $custom_aliases {
     $custom_aliases_list = $custom_aliases
   } else {
-    $custom_aliases_list = hiera_hash("${login}_user_aliases", {})
+    $custom_aliases_list = hiera_hash("${login}_user_aliases", $empty_hash)
   }
 
   if undef != $custom_profile {
@@ -39,13 +41,13 @@ define p::resource::user (
   if undef != $git_aliases {
     $git_aliases_list = $git_aliases
   } else {
-    $git_aliases_list = hiera_hash("${login}_user_git_aliases", {})
+    $git_aliases_list = hiera_hash("${login}_user_git_aliases", $empty_hash)
   }
 
   if undef != $git_colors {
     $git_colors_list = $git_colors
   } else {
-    $git_colors_list = hiera_hash("${login}_user_git_colors", {})
+    $git_colors_list = hiera_hash("${login}_user_git_colors", $empty_hash)
   }
 
   validate_hash($custom_aliases_list)
@@ -107,8 +109,6 @@ define p::resource::user (
       require => File["${real_home}/.gitconfig"],
     }
 
-    notice $keys
-    
     $keys.each |$key_name, $key| {
       create_resources($public_key_resource, {"${login}_${key_name}" => $key}, $default_public_key_params)
     }

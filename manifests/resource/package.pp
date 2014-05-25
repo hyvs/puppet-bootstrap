@@ -11,8 +11,8 @@ define p::resource::package (
     $real_ensure = 'present'
   }
 
-  if ! defined(Package[$name]) {
-    package {$name:
+  if ! defined(::Package[$name]) {
+    ::package {$name:
       name     => $name,
       ensure   => $real_ensure,
       source   => $source,
