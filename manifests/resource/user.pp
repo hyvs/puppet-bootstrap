@@ -74,7 +74,7 @@ $uid                  = undef
       fail("No group defined for system user ${login}")
     }
 
-    ::user {$login:
+    user {$login:
       ensure     => 'present',
       comment    => $email ? {undef => $name, default => $name},
       uid        => $uid,
@@ -129,7 +129,7 @@ $uid                  = undef
 
   } else {
 
-    ::user {$login:
+    user {$login:
       ensure  => absent,
     } ->
     file {$real_home:

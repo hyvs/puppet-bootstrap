@@ -6,7 +6,7 @@ define p::resource::apt::pin (
   $originator = undef
 ) {
 
-  ::apt::pin { $name:
+  apt::pin { $name:
     packages   => $packages,
     originator => $originator,
     release    => $release,
