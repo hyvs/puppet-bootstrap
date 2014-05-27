@@ -7,9 +7,7 @@ class p::agent::newrelic (
   $license_key = $secrets['newrelic.license']
   $log_file    = "${log_dir}/nrsysmond.log"
 
-  class {'p::repo::newrelic':
-    stage => 'repos',
-  }
+  class {'p::repo::newrelic': }
 
   anchor { 'p::agent::newrelic::begin': }
 

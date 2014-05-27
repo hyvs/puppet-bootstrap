@@ -3,10 +3,7 @@ class p::server::jenkins (
   $port     = 8080
 ) {
 
-  class {'p::repo::jenkins':
-    stage => 'repos',
-  }
-
+  class {'p::repo::jenkins': }
 
   anchor { 'p::server::jenkins::begin': }
 

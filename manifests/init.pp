@@ -1,8 +1,6 @@
 class p (
 ) {
 
-  stage {'repos':
-    before => Stage['main'],
-  }
+  Apt::Source <| |> -> Package <| |>
 
 }
