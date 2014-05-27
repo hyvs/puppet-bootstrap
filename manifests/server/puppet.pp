@@ -4,6 +4,10 @@ class p::server::puppet (
 ) {
 
 
+  if !defined(Class['p::repo::puppetlabs']) {
+    class {'p::repo::puppetlabs': }
+  }
+
   anchor { 'p::server::puppet::begin': }
 
   p::resource::firewall::tcp {'puppetmaster':

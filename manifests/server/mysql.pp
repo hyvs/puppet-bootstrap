@@ -1,6 +1,10 @@
 class p::server::mysql (
 ) {
 
+  if !defined(Class['p::repo::dotdeb']) {
+    class {'p::repo::dotdeb': }
+  }
+
   anchor {'p::server::mysql::begin': }
 
   package {'mysql-server':

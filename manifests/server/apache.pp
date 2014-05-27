@@ -3,6 +3,10 @@ class p::server::apache (
   $port     = 80
 ) {
 
+  if !defined(Class['p::repo::dotdeb']) {
+    class {'p::repo::dotdeb': }
+  }
+
   anchor {'p::server::apache::begin': }
 
   p::resource::firewall::tcp {'apache2':

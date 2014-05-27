@@ -1,0 +1,14 @@
+class p::repo::puppetlabs (
+) {
+
+  anchor {'p::repo::puppetlabs::begin': } ->
+  p::resource::apt::repo {'puppetlabs':
+    location    => 'http://apt.puppetlabs.com',
+    release     => 'stable',
+    repos       => 'main',
+    key         => '4BD6EC30',
+    key_server  => 'http://apt.puppetlabs.com/pubkey.gpg',
+  } ->
+  anchor {'p::repo::puppetlabs::end': }
+
+}

@@ -1,6 +1,10 @@
 class p::client::mysql (
 ) {
 
+  if !defined(Class['p::repo::dotdeb']) {
+    class {'p::repo::dotdeb': }
+  }
+
   anchor {'p::client::mysql::begin': }
 
   package {'mysql-client':
