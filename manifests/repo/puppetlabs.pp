@@ -4,8 +4,15 @@ class p::repo::puppetlabs (
   anchor {'p::repo::puppetlabs::begin': } ->
   p::resource::apt::repo {'puppetlabs':
     location    => 'http://apt.puppetlabs.com',
-    release     => 'stable',
+    release     => 'wheezy',
     repos       => 'main',
+    key         => '4BD6EC30',
+    key_server  => 'http://apt.puppetlabs.com/pubkey.gpg',
+  } ->
+  p::resource::apt::repo {'puppetlabs-dependencies':
+    location    => 'http://apt.puppetlabs.com',
+    release     => 'wheezy',
+    repos       => 'dependencies',
     key         => '4BD6EC30',
     key_server  => 'http://apt.puppetlabs.com/pubkey.gpg',
   } ->
