@@ -7,6 +7,9 @@ class p::server::puppet (
   if !defined(Class['p::repo::puppetlabs']) {
     class {'p::repo::puppetlabs': }
   }
+  if !defined(Class['p::repo::puppetlabs_dependencies']) {
+    class {'p::repo::puppetlabs_dependencies': }
+  }
 
   anchor { 'p::server::puppet::begin': }
 

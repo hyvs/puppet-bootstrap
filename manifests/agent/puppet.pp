@@ -1,6 +1,13 @@
 class p::agent::puppet (
 ) {
 
+  if !defined(Class['p::repo::puppetlabs']) {
+    class {'p::repo::puppetlabs': }
+  }
+  if !defined(Class['p::repo::puppetlabs_dependencies']) {
+    class {'p::repo::puppetlabs_dependencies': }
+  }
+
   anchor { 'p::agent::puppet::begin': }
 
   package { 'puppet':
