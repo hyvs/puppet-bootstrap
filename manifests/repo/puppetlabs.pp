@@ -13,8 +13,6 @@ class p::repo::puppetlabs (
     location    => 'http://apt.puppetlabs.com',
     release     => 'wheezy',
     repos       => 'dependencies',
-    key         => '4BD6EC30',
-    key_server  => 'http://apt.puppetlabs.com/pubkey.gpg',
   } ->
   anchor {'p::repo::puppetlabs::end': }
 
