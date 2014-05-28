@@ -1,7 +1,8 @@
 {
     "dirs": {
         "logs": "/var/log",
-        "tmp":  "/tmp"
+        "tmp":  "/tmp",
+        "home.jenkins": "/var/lib/jenkins"
     },
     "secrets": {
         "newrelic.license": "FILL_ME"
@@ -31,5 +32,36 @@
     "opened_udp_ports": [],
     "opened_ports": [],
     "user_authorized_keys": {},
-    "user_keys": {}
+    "user_keys": {},
+    "postfix_sender_canonical_maps": {
+        "maps": {
+        }
+    },
+    "postfix_canonical_maps": {
+        "maps": {
+        }
+    },
+    "postfix_maps": {
+    },
+    "php_directives": {
+    },
+    "php_modules": {
+    },
+    "pear_modules": {
+    },
+    "pecl_modules": {
+    },
+    "ntp_servers": [],
+    "npm_local_packages": {
+    },
+    "npm_packages": {
+    },
+    "memcached_instances": {
+    },
+    "mcollective_plugins": {
+    },
+    "jenkins_jobs": {
+    },
+    "jenkins_plugins": {
+    }
 }
