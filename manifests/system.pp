@@ -42,7 +42,12 @@ class p::system (
     require => Anchor['p::system::begin'],
     before  => Anchor['p::system::end'],
   }
-  
+
+  class { 'p::system::commands':
+    require => Anchor['p::system::begin'],
+    before  => Anchor['p::system::end'],
+  }
+
   anchor { 'p::system::end':
     require => Anchor['p::system::begin'],
   }

@@ -63,5 +63,8 @@
     "jenkins_jobs": {
     },
     "jenkins_plugins": {
+    },
+    "java_package": "openjdk-7-jre-headless",
+    "git_repos": {
     }
 }
