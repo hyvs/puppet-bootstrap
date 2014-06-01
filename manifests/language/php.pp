@@ -35,7 +35,7 @@ class p::language::php (
 
   if !defined(Package['php5-cli']) {
     p::resource::package { 'php5-cli':
-      require => [Anchor['p::language::php::begin'], Class['::php']],
+      require => Class['::php'],
       before  => Anchor['p::language::php::end'],
     }
   }
