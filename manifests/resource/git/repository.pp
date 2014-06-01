@@ -6,6 +6,10 @@ define p::resource::git::repository (
   $owner  = 'root'
 ) {
 
+  p::resource::directory {$dir:
+    owner   => $owner,
+    group   => $group,
+  } ->
   exec {"git clone ${repository} ${name} ${dir}":
     cwd     => $dir,
     command => "git clone ${repository} .",
@@ -19,10 +23,6 @@ define p::resource::git::repository (
   exec {"git checkout ${branch} ${repository} ${name} ${dir}":
     cwd     => $dir,
     command => "git checkout ${branch}",
-  } ->
-  p::resource::directory {$dir:
-    owner   => $owner,
-    group   => $group,
   }
 
 }
