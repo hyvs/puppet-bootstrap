@@ -1,5 +1,6 @@
 class p::tool::git (
-  $repositories = hiera_hash('git_repos')
+  $repository_resource = 'p::resource::git::repository',
+  $repositories        = hiera_hash('git_repos')
 ) {
 
   $repositories_defaults = {
