@@ -3,8 +3,8 @@ class p::server::ssh (
   $port     = 22
 ) {
 
-  if !defined(P::Resource::Firewall::Tcp['ssh']) {
-    p::resource::firewall::tcp {'ssh':
+  if !defined(P::Resource::Firewall::Tcp['sshd']) {
+    p::resource::firewall::tcp {'sshd':
       enabled => any2bool($firewall),
       port    => any2int($port),
       require => Anchor['p::server::ssh::begin'],

@@ -22,7 +22,7 @@ class p::tool::composer (
     command     => "${download_command}",
     cwd         => $tmp_dir,
     creates     => "${tmp_dir}/${filename}",
-    require     => [Package['curl'], Anchor['p::tool::composer::begin']],
+    require     => [Package['curl'], Package['php5-cli'], Anchor['p::tool::composer::begin']],
     unless      => $test_install,
   } ->
   exec {"install_${filename}":
