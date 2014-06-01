@@ -33,6 +33,13 @@ class p::language::php (
   class {'::php': } ->
   anchor {'p::language::php::end': }
 
+  if !defined(Package['php5-cli']) {
+    p::resource::package { 'php5-cli':
+      require => [Anchor['p::language::php::begin'], Class['::php']],
+      before  => Anchor['p::language::php::end'],
+    }
+  }
+
   create_resources($module_resource, $modules, $modules_defaults)
   create_resources($pecl_module_resource, $pecl_modules, $pecl_modules_defaults)
   create_resources($pear_module_resource, $pear_modules, $pear_modules_defaults)
