@@ -66,5 +66,7 @@
     },
     "java_package": "openjdk-7-jre-headless",
     "git_repos": {
+    },
+    "commands": {
     }
 }
