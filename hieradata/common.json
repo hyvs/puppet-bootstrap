@@ -68,5 +68,11 @@
     "git_repos": {
     },
     "commands": {
-    }
+    },
+    "lang": "en_US.UTF-8",
+    "locales": [
+        "en_US ISO-8859-1",
+        "en_US.UTF-8 UTF-8"
+    ],
+    "timezone": "Europe/Paris"
 }

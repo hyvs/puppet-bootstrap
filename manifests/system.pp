@@ -3,6 +3,11 @@ class p::system (
 
   anchor { 'p::system::begin': }
 
+  class { 'p::system::locales':
+    require => Anchor['p::system::begin'],
+    before  => Anchor['p::system::end'],
+  }
+
   class { 'p::system::packages':
     require => Anchor['p::system::begin'],
     before  => Anchor['p::system::end'],
