@@ -20,7 +20,7 @@ define p::resource::git::repository (
     cwd     => $dir,
     command => "git checkout ${branch}",
   } ->
-  ftven_build::resource::directory {$dir:
+  p::resource::directory {$dir:
     owner   => $owner,
     group   => $group,
   }
