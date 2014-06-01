@@ -31,14 +31,8 @@ class p::language::php (
 
   anchor {'p::language::php::begin': } ->
   class {'::php': } ->
+  p::resource::package { 'php5-cli': } ->
   anchor {'p::language::php::end': }
-
-  if !defined(Package['php5-cli']) {
-    p::resource::package { 'php5-cli':
-      require => Class['::php'],
-      before  => Anchor['p::language::php::end'],
-    }
-  }
 
   create_resources($module_resource, $modules, $modules_defaults)
   create_resources($pecl_module_resource, $pecl_modules, $pecl_modules_defaults)
