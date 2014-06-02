@@ -74,5 +74,11 @@
         "en_US ISO-8859-1",
         "en_US.UTF-8 UTF-8"
     ],
-    "timezone": "Europe/Paris"
+    "timezone": "Europe/Paris",
+    "ssh_knownhosts": {
+        "github.com": {
+            "ssh_user": "git",
+            "user": "root"
+        }
+    }
 }
