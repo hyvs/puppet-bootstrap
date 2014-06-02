@@ -6,7 +6,7 @@ define p::resource::composer::project (
   exec {"composer install ${dir}" :
     cwd     => $dir,
     user    => $user,
-    command => "composer install --no-interactive",
+    command => "composer install --no-interaction",
   }
 
 }

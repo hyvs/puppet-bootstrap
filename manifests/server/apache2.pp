@@ -18,7 +18,8 @@ class p::server::apache2 (
   $server_signature        = 'Off',
   $server_tokens           = 'Prod',
   $timeout                 = 120,
-  $user                    = 'www-data'
+  $user                    = 'www-data',
+  $firewall                = true
 ) {
 
   $logs_dir        = $dirs['logs']
