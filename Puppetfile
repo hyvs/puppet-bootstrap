@@ -69,4 +69,7 @@ mod "puppet",
 mod "jenkins",
   :git => "https://github.com/jenkinsci/puppet-jenkins.git",
   :ref => 'v1.1.0'
+mod "java",
+  :git => "https://github.com/puppetlabs/puppetlabs-java.git",
+  :ref => '1.1.0'
 
