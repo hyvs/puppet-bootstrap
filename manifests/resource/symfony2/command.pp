@@ -38,6 +38,7 @@ define p::resource::symfony2::command (
       } else {
         $redirect = "${operator} ${blackhole} 2${operator} ${stderr}"
       }
+    }
   }
 
   exec {"symfony2 ${command} ${params} ${env} ${dir}" :
