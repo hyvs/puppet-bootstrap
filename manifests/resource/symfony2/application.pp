@@ -45,7 +45,9 @@ define p::resource::symfony2::application (
 
   p::resource::composer::project {$dir: } ->
   p::resource::symfony2::command::cache_clear {$dir:
-    env => $env,
+    env    => $env,
+    stdout => $install_log_file,
+    stderr => $install_log_file,
   }
 
   if is_hash($commands) {
@@ -69,7 +71,9 @@ define p::resource::symfony2::application (
   }
 
   p::resource::symfony2::command::assets_install {$dir:
-    mode    => $install_assets_mode,
+    mode   => $install_assets_mode,
+    stdout => $install_log_file,
+    stderr => $install_log_file,
   }
 
 }

@@ -30,11 +30,14 @@ define p::resource::symfony2::command (
       $redirect = "${operator} ${stdout} 2${operator} ${stderr}"
     }
   } else {
-    if undef == $stdout {
-      $redirect = "${operator} ${stdout} 2${operator} ${blackhole}"
+    if undef == $stdout and undef == $stderr {
+      $redirect = "${operator} ${blackhole} 2${operator} ${blackhole}"
     } else {
-      $redirect = "${operator} ${blackhole} 2${operator} ${stderr}"
-    }
+      if undef != $stdout {
+        $redirect = "${operator} ${stdout} 2${operator} ${blackhole}"
+      } else {
+        $redirect = "${operator} ${blackhole} 2${operator} ${stderr}"
+      }
   }
 
   exec {"symfony2 ${command} ${params} ${env} ${dir}" :

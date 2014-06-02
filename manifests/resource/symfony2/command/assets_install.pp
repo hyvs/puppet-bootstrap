@@ -2,7 +2,9 @@ define p::resource::symfony2::command::assets_install (
   $dir        = $name,
   $env        = undef,
   $log_append = true,
-  $mode       = 'symlink'
+  $mode       = 'symlink',
+  $stdout      = undef,
+  $stderr      = undef
 ) {
 
   if 'symlink' == $mode {
@@ -16,6 +18,8 @@ define p::resource::symfony2::command::assets_install (
     params     => "${mode_options}",
     dir        => $dir,
     env        => $env,
+    stdout     => $stdout,
+    stderr     => $stderr,
     log_append => $log_append,
   }
 

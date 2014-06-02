@@ -1,7 +1,9 @@
 define p::resource::symfony2::command::cache_clear (
   $dir        = $name,
   $env        = undef,
-  $log_append = true
+  $log_append = true,
+  $stdout     = undef,
+  $stderr     = undef
 ) {
 
   p::resource::symfony2::command {"${dir} cache:clear":
@@ -9,6 +11,8 @@ define p::resource::symfony2::command::cache_clear (
     dir        => $dir,
     env        => $env,
     log_append => $log_append,
+    stderr     => $stderr,
+    stdout     => $stdout,
   }
 
 }
