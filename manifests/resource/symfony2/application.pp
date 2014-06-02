@@ -14,9 +14,6 @@ define p::resource::symfony2::application (
 
 
   if undef != $require_git_repos {
-    if !defined(Class['p::tool::git']) {
-      fail("Class[p::tool::git] must be defined")
-    }
     anchor {"p::resource::symfony2::application::${title}": }
   } else {
     anchor {"p::resource::symfony2::application::${title}":
@@ -26,13 +23,6 @@ define p::resource::symfony2::application (
 
   validate_array($users)
   validate_array($directories)
-
-  if !defined(File[$dir]) {
-    p::resource::directory {$dir:
-      owner => $owner,
-      group => $group,
-    }
-  }
 
   $directories.each { |$directory|
     p::resource::directory {"${dir}/${directory}":
@@ -55,10 +45,10 @@ define p::resource::symfony2::application (
 
   p::resource::composer::project {$dir: } ->
   p::resource::symfony2::command::cache_clear {$dir:
-    env     => $env,
+    env => $env,
   }
 
-  if undef != $commands {
+  if is_hash($commands) {
     $commands.each { |$command_name, $command|
       create_resources(
         $command_resource,
