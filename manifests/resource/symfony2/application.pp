@@ -1,7 +1,7 @@
 define p::resource::symfony2::application (
   $dir,
   $directories          = ['app/cache', 'app/logs'],
-  $users                = ['`whoami`', 'www-data'],
+  $users                = ['`whoami`', 'www-data', 'root'],
   $owner                = 'www-data',
   $group                = 'www-data',
   $install_log_file     = 'app/logs/puppet.log',
