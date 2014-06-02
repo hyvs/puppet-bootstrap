@@ -12,14 +12,17 @@ define p::resource::git::repository (
       p::resource::directory {$require_dir:
         owner   => $owner,
         group   => $group,
+        before  => Anchor["p::resource::git::repository::${title}"],
       }
     }
   }
 
+  anchor {"p::resource::git::repository::${title}": }
+
   p::resource::directory {$dir:
     owner   => $owner,
     group   => $group,
-    require => defined(P::Resource::Directory[$require_dir]) ? {false => undef, true => P::Resource::Directory[$require_dir]}
+    require => Anchor["p::resource::git::repository::${title}"],
   } ->
   exec {"git clone ${repository} ${name} ${dir}":
     cwd     => $dir,
