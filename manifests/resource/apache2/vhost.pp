@@ -8,7 +8,7 @@ define p::resource::apache2::vhost (
   $domain           = $name,
   $env              = 'prod',
   $ip               = '*',
-  $port             = 80,
+  $port             = '80',
   $priority         = '25',
   $setenvs          = undef,
   $setenvs_if       = [],
