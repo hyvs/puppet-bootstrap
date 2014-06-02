@@ -24,7 +24,7 @@ define p::resource::symfony2::application (
   validate_array($users)
   validate_array($directories)
 
-  $directories.each { |$directory|
+  $directories.each |$directory| {
     p::resource::directory {"${dir}/${directory}":
       owner   => $owner,
       group   => $group,
@@ -32,8 +32,8 @@ define p::resource::symfony2::application (
     }
   }
 
-  $users.each { |$user|
-    $directories.each { |$directory|
+  $users.each |$user| {
+    $directories.each |$directory| {
       exec {"symfony2 directory permissions on ${dir}/${directory} for user ${user}" :
         cwd     => $dir,
         command => "sudo rm -rf ${directory}/* && sudo setfacl -dR -m u:${user}:rwx ${directory} && sudo setfacl -R -m u:${user}:rwX ${directory}",
@@ -49,24 +49,23 @@ define p::resource::symfony2::application (
   }
 
   if is_hash($commands) {
-     notice $commands
-#    $commands.each { |$command_name, $command|
-#      create_resources(
-#        $command_resource,
-#        {
-#          "${dir} ${command_name}" => $command
-#        },
-#        {
-#          dir        => $dir,
-#          env        => $env,
-#          require    => P::Resource::Symfony2::Command::Cache_clear[$dir],
-#          stdout     => $install_log_file,
-#          stderr     => $install_log_file,
-#          log_append => true,
-#          before     => P::Resource::Symfony2::Command::Assets_install[$dir]
-#        }
-#      )
-#    }
+    $commands.each |$command_name, $command| {
+      create_resources(
+        $command_resource,
+        {
+          "${dir} ${command_name}" => $command
+        },
+        {
+          dir        => $dir,
+          env        => $env,
+          require    => P::Resource::Symfony2::Command::Cache_clear[$dir],
+          stdout     => $install_log_file,
+          stderr     => $install_log_file,
+          log_append => true,
+          before     => P::Resource::Symfony2::Command::Assets_install[$dir]
+        }
+      )
+    }
   }
 
   p::resource::symfony2::command::assets_install {$dir:

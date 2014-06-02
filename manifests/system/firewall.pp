@@ -8,7 +8,7 @@ class p::system::firewall (
   anchor {'p::system::firewall::end': }
 
   $opened_tcp_ports.each |$port| {
-    p::resource::firewall::tcp {$port:
+    p::resource::firewall::tcp {"${port}":
       port    => $port,
       require => Anchor['p::system::firewall::begin'],
       before  => Anchor['p::system::firewall::end'],
@@ -16,7 +16,7 @@ class p::system::firewall (
   }
 
   $opened_udp_ports.each |$port| {
-    p::resource::firewall::udp {$port:
+    p::resource::firewall::udp {"${port}":
       port    => $port,
       require => Anchor['p::system::firewall::begin'],
       before  => Anchor['p::system::firewall::end'],
@@ -24,7 +24,7 @@ class p::system::firewall (
   }
 
   $opened_ports.each |$port| {
-    p::resource::firewall::port {$port:
+    p::resource::firewall::port {"${port}":
       port    => $port,
       require => Anchor['p::system::firewall::begin'],
       before  => Anchor['p::system::firewall::end'],
