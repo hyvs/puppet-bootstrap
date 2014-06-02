@@ -44,7 +44,7 @@ define p::resource::apache::vhost (
 
   $common_custom_fragment = template($common_template)
 
-  apache::vhost { $domain:
+  ::apache::vhost { $domain:
     access_log      => true,
     access_log_file => $access_log,
     add_listen      => false,

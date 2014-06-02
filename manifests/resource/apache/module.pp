@@ -1,6 +1,6 @@
 define p::resource::apache::module (
 ) {
 
-  apache::mod {$name: }
+  ::apache::mod {$name: }
 
 }
