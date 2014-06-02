@@ -7,13 +7,11 @@ define p::resource::php::module (
   if any2bool($enabled) {
     ::php::module {$module:
       module_prefix => $prefix,
-      require       => Class['::php'],
     }
   } else {
     ::php::module {$module:
       absent        => true,
       module_prefix => $prefix,
-      require       => Class['::php'],
     }
   }
 
