@@ -72,7 +72,7 @@ class p::server::apache (
     before  => Anchor['p::server::apache2::end'],
   }
 
-  apache::listen {$port:
+  apache::listen {"${port}":
     require => Anchor['p::server::apache2::begin'],
     before  => Anchor['p::server::apache2::end'],
   }
