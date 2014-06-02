@@ -1,6 +1,6 @@
 define p::resource::directory (
   $group        = 'root',
-  $mode         = '0755',
+  $mode         = undef,
   $path         = $name,
   $owner        = 'root',
   $recurse      = false,
