@@ -80,5 +80,9 @@
             "ssh_user": "git",
             "user": "root"
         }
+    },
+    "symfony2_applications": {
+    },
+    "composer_projects": {
     }
 }
