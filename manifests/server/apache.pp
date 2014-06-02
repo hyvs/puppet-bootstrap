@@ -4,15 +4,15 @@ class p::server::apache (
   $apache_modules          = hiera_hash('apache_modules'),
   $apache_vhosts           = hiera_hash('apache_vhosts'),
   $apache_types            = hiera_hash('apache_types'),
-  $apache2_module_resource = 'p::resource::apache2::module',
-  $apache2_vhost_resource  = 'p::resource::apache2::vhost',
+  $apache_module_resource  = 'p::resource::apache::module',
+  $apache_vhost_resource   = 'p::resource::apache::vhost',
   $confd_dir               = '/etc/apache2/conf.d',
-  $default_template        = 'p/apache2/default.erb',
+  $default_template        = 'p/apache/default.erb',
   $dirs                    = hiera_hash('dirs'),
   $group                   = 'www-data',
   $keepalive               = 'Off',
   $keepalive_timeout       = 15,
-  $log_format_template     = 'p/apache2/LogFormat.conf.erb',
+  $log_format_template     = 'p/apache/LogFormat.conf.erb',
   $mpm_module              = 'prefork',
   $port                    = 80,
   $server_signature        = 'Off',
@@ -24,16 +24,16 @@ class p::server::apache (
   $logs_dir        = $dirs['logs']
   $apache_logs_dir = "${logs_dir}/apache2"
 
-  $apache2_modules_defaults = {
-    require => Anchor['p::server::apache2::begin'],
-    before  => Anchor['p::server::apache2::end'],
+  $apache_modules_defaults = {
+    require => Anchor['p::server::apache::begin'],
+    before  => Anchor['p::server::apache::end'],
   }
 
-  $apache2_vhosts_defaults = {
+  $apache_vhosts_defaults = {
     logs_dir => $apache_logs_dir,
     expires  => $apache_expires,
-    require  => Anchor['p::server::apache2::begin'],
-    before   => Anchor['p::server::apache2::end'],
+    require  => Anchor['p::server::apache::begin'],
+    before   => Anchor['p::server::apache::end'],
   }
 
   if !defined(Class['p::repo::dotdeb']) {
@@ -45,8 +45,8 @@ class p::server::apache (
   p::resource::directory {[$apache_logs_dir]:
     owner   => $user,
     group   => $group,
-    require => [User[$user], Group[$group], Anchor['p::server::apache2::begin']],
-    before  => Anchor['p::server::apache2::end'],
+    require => [User[$user], Group[$group], Anchor['p::server::apache::begin']],
+    before  => Anchor['p::server::apache::end'],
   }
 
   class {'::apache' :
@@ -59,8 +59,8 @@ class p::server::apache (
     keepalive_timeout => $keepalive_timeout,
     server_tokens     => $server_tokens,
     server_signature  => $server_signature,
-    require           => Anchor['p::server::apache2::begin'],
-    before            => Anchor['p::server::apache2::end'],
+    require           => Anchor['p::server::apache::begin'],
+    before            => Anchor['p::server::apache::end'],
   }
 
   file {"${confd_dir}/LogFormat.conf" :
@@ -68,17 +68,17 @@ class p::server::apache (
     group   => 'root',
     mode    => '0644',
     content => template($log_format_template),
-    require => [File["${confd_dir}"], Anchor['p::server::apache2::begin']],
-    before  => Anchor['p::server::apache2::end'],
+    require => [File["${confd_dir}"], Anchor['p::server::apache::begin']],
+    before  => Anchor['p::server::apache::end'],
   }
 
   apache::listen {"${port}":
-    require => Anchor['p::server::apache2::begin'],
-    before  => Anchor['p::server::apache2::end'],
+    require => Anchor['p::server::apache::begin'],
+    before  => Anchor['p::server::apache::end'],
   }
 
-  create_resources($apache2_module_resource, $apache_modules, $apache2_modules_defaults)
-  create_resources($apache2_vhost_resource, $apache_vhosts, $apache2_vhosts_defaults)
+  create_resources($apache_module_resource, $apache_modules, $apache_modules_defaults)
+  create_resources($apache_vhost_resource, $apache_vhosts, $apache_vhosts_defaults)
 
   User <| title == $user |>
   User <| title == $user |> {groups +> 'www-data'}
@@ -90,11 +90,11 @@ class p::server::apache (
     mode    => '0644',
     content => template($default_template),
     notify  => Class['::apache::service'],
-    require => [Class['::apache'], Anchor['p::server::apache2::begin']],
-    before  => Anchor['p::server::apache2::end'],
+    require => [Class['::apache'], Anchor['p::server::apache::begin']],
+    before  => Anchor['p::server::apache::end'],
   }
 
-  p::resource::firewall::tcp {'apache2':
+  p::resource::firewall::tcp {'apache':
     enabled => any2bool($firewall),
     port    => $port,
     require => Anchor['p::server::apache::begin'],

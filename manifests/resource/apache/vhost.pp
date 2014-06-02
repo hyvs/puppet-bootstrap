@@ -1,7 +1,7 @@
-define p::resource::apache2::vhost (
+define p::resource::apache::vhost (
   $docroot,
   $logs_dir,
-  $common_template  = 'p/apache2/common.conf.erb',
+  $common_template  = 'p/apache/common.conf.erb',
   $user             = 'www-data',
   $group            = 'www-data',
   $public_dir       = undef,
