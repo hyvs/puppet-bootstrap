@@ -1,5 +1,5 @@
 define p::resource::composer::project (
-  $dir,
+  $dir = $name,
   $user = 'root'
 ) {
 

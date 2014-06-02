@@ -8,7 +8,7 @@ define p::resource::apache2::vhost (
   $domain           = $name,
   $env              = 'prod',
   $ip               = '*',
-  $port             = '80',
+  $port             = 80,
   $priority         = '25',
   $setenvs          = undef,
   $setenvs_if       = [],
@@ -60,7 +60,7 @@ define p::resource::apache2::vhost (
     logroot         => "${logs_dir}/${domain}",
     options         => $options,
     override        => $override,
-    port            => $port,
+    port            => "${port}", # string mandatory, because of "Cannot use Fixnum where String is expected" error
     priority        => $priority,
     request_headers => $request_headers,
     rewrite_cond    => $rewrite_conds,
