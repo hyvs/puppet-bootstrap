@@ -25,7 +25,8 @@ define p::resource::apache::vhost (
   $ensure           = present,
   $request_headers  = undef,
   $directories      = undef,
-  $expires          = undef
+  $expires          = undef,
+  $types            = undef
 ) {
 
   if undef != $directories {

@@ -35,6 +35,7 @@ class p::server::apache2 (
     expires  => $apache_expires,
     require  => Anchor['p::server::apache2::begin'],
     before   => Anchor['p::server::apache2::end'],
+    types    => $apache_types
   }
 
   if !defined(Class['p::repo::dotdeb']) {
