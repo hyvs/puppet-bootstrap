@@ -27,7 +27,7 @@ define p::resource::git::repository (
   exec {"git clone ${repository} ${name} ${dir}":
     cwd     => $dir,
     command => "git clone ${repository} .",
-    creates => "${repo_dir}/.git",
+    creates => "${dir}/.git",
     require => Package['git'],
   } ->
   exec {"git pull ${repository} ${name} ${dir}":
