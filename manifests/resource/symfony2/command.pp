@@ -25,18 +25,18 @@ define p::resource::symfony2::command (
 
   if undef != $stdout and undef != $stderr {
     if $stdout == $stderr {
-      $redirect = "${operator} ${stdout} 2${operator}&1"
+      $redirect = "${operator} ${stdout} 2>&1"
     } else {
       $redirect = "${operator} ${stdout} 2${operator} ${stderr}"
     }
   } else {
     if undef == $stdout and undef == $stderr {
-      $redirect = "${operator} ${blackhole} 2${operator} ${blackhole}"
+      $redirect = "${operator} ${blackhole} 2>&1"
     } else {
       if undef != $stdout {
-        $redirect = "${operator} ${stdout} 2${operator} ${blackhole}"
+        $redirect = "${operator} ${stdout} 2> ${blackhole}"
       } else {
-        $redirect = "${operator} ${blackhole} 2${operator} ${stderr}"
+        $redirect = "> ${blackhole} 2${operator} ${stderr}"
       }
     }
   }
