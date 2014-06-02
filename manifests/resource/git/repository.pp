@@ -1,14 +1,25 @@
 define p::resource::git::repository (
   $dir,
   $repository,
-  $branch = 'master',
-  $group  = 'root',
-  $owner  = 'root'
+  $branch      = 'master',
+  $group       = 'root',
+  $owner       = 'root',
+  $require_dir = undef
 ) {
+
+  if undef != $require_dir {
+    if !defined(P::Resource::Directory[$require_dir]) {
+      p::resource::directory {$require_dir:
+        owner   => $owner,
+        group   => $group,
+      }
+    }
+  }
 
   p::resource::directory {$dir:
     owner   => $owner,
     group   => $group,
+    require => defined(P::Resource::Directory[$require_dir]) ? {false => undef, true => P::Resource::Directory[$require_dir]}
   } ->
   exec {"git clone ${repository} ${name} ${dir}":
     cwd     => $dir,
