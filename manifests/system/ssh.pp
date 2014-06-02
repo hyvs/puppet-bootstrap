@@ -2,7 +2,7 @@ class p::system::ssh (
   $firewall = true,
   $port     = 22,
   $knownhost_resource = 'p::resource::ssh::knownhost',
-  $knownhosts         = hiera_hash('ssh_knowhosts')
+  $knownhosts         = hiera_hash('ssh_knownhosts')
 ) {
 
   $knownhosts_defaults = {
