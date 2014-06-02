@@ -14,11 +14,11 @@ define p::resource::symfony2::application (
 
 
   if undef != $require_git_repos {
-    anchor {"p::resource::symfony2::application::${title}": }
-  } else {
     anchor {"p::resource::symfony2::application::${title}":
       require => P::Resource::Git::Repository[$require_git_repos],
     }
+  } else {
+    anchor {"p::resource::symfony2::application::${title}": }
   }
 
   validate_array($users)
@@ -49,23 +49,24 @@ define p::resource::symfony2::application (
   }
 
   if is_hash($commands) {
-    $commands.each { |$command_name, $command|
-      create_resources(
-        $command_resource,
-        {
-          "${dir} ${command_name}" => $command
-        },
-        {
-          dir        => $dir,
-          env        => $env,
-          require    => P::Resource::Symfony2::Command::Cache_clear[$dir],
-          stdout     => $install_log_file,
-          stderr     => $install_log_file,
-          log_append => true,
-          before     => P::Resource::Symfony2::Command::Assets_install[$dir],
-        }
-      )
-    }
+     notice $commands
+#    $commands.each { |$command_name, $command|
+#      create_resources(
+#        $command_resource,
+#        {
+#          "${dir} ${command_name}" => $command
+#        },
+#        {
+#          dir        => $dir,
+#          env        => $env,
+#          require    => P::Resource::Symfony2::Command::Cache_clear[$dir],
+#          stdout     => $install_log_file,
+#          stderr     => $install_log_file,
+#          log_append => true,
+#          before     => P::Resource::Symfony2::Command::Assets_install[$dir]
+#        }
+#      )
+#    }
   }
 
   p::resource::symfony2::command::assets_install {$dir:
