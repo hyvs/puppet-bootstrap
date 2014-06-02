@@ -1,10 +1,18 @@
 class p::tool::git (
   $repository_resource = 'p::resource::git::repository',
-  $repositories        = hiera_hash('git_repos')
+  $repositories        = hiera_hash('git_repos'),
+  $package             = 'git'
 ) {
 
+  if !defined(P::Resource::Package[$package]) {
+    p::resource::package {$package:
+      require  => Anchor['p::tool::git::begin'],
+      before   => Anchor['p::tool::git::end'],
+    }
+  }
+
   $repositories_defaults = {
-    require  => Anchor['p::tool::git::begin'],
+    require  => [P::Resource::Package[$package], Anchor['p::tool::git::begin']],
     before   => Anchor['p::tool::git::end']
   }
 
