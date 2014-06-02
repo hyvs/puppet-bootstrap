@@ -66,4 +66,7 @@ mod "stdmod",
 mod "puppet",
   :git => "https://github.com/puppetlabs/puppetlabs-puppet.git",
   :ref => "f6f1d7b6f783855a7f5871d27e0a1ee39855c6e6"
+mod "jenkins",
+  :git => "https://github.com/francetv/puppet-jenkins.git",
+  :ref => '92e4d8c6fce59be386bb92bb812ee50c42efabd4'
 
