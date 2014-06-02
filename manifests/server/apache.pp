@@ -90,7 +90,7 @@ class p::server::apache (
     mode    => '0644',
     content => template($default_template),
     notify  => Class['::apache::service'],
-    require => [Class['::apache'], Anchor['p::server::apache::begin']],
+    require => Class['::apache'],
     before  => Anchor['p::server::apache::end'],
   }
 

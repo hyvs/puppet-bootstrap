@@ -10,22 +10,22 @@ class p::language::php (
 ) {
 
   $modules_defaults = {
-    require => [Class['::php'], Anchor['p::language::php::begin']],
+    require => Class['::php'],
     before  => Anchor['p::language::php::end']
   }
 
   $pecl_modules_defaults = {
-    require => [Class['::php'], Anchor['p::language::php::begin']],
+    require => Class['::php'],
     before  => Anchor['p::language::php::end']
   }
 
   $pear_modules_defaults = {
-    require => [Class['::php'], Anchor['p::language::php::begin']],
+    require => Class['::php'],
     before  => Anchor['p::language::php::end']
   }
 
   $directives_defaults = {
-    require => [Class['::php'], Anchor['p::language::php::begin']],
+    require => Class['::php'],
     before  => Anchor['p::language::php::end']
   }
 
