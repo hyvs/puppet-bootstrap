@@ -29,8 +29,8 @@ mod "ntp",
   :git => "https://github.com/example42/puppet-ntp.git",
   :ref => "01779959f839b25596e28d65e9ff4373951a75bf"
 mod "apache",
-  :git => "https://github.com/francetv/puppetlabs-apache.git",
-  :ref => "797945d5b676633385b4d3e423e355c5bcd9c173"
+  :git => "https://github.com/ohoareau/puppetlabs-apache.git",
+  :ref => "35b9506dd068d7399f448914b9e206349f11d3be"
 mod "git",
   :git => "https://github.com/nesi/puppet-git.git",
   :ref => "2eb5bc07576af0afa327094bf81878d4bcf49989"
@@ -44,8 +44,8 @@ mod "hosts",
   :git => "https://github.com/example42/puppet-hosts.git",
   :ref => "fb96a1140e5bda31dc0d383591a17c989bb78dc2"
 mod "mysql",
-  :git => "https://github.com/francetv/puppetlabs-mysql.git",
-  :ref => "36177df8e169a1be70a95f9cd296ba84e3dd75af"
+  :git => "https://github.com/puppetlabs/puppetlabs-mysql.git",
+  :ref => "2.2.3"
 mod "cron",
   :git => "https://github.com/torrancew/puppet-cron.git",
   :ref => "ca2c3832c9d3d709a0f416e716c77634cb774955"
@@ -67,6 +67,6 @@ mod "puppet",
   :git => "https://github.com/puppetlabs/puppetlabs-puppet.git",
   :ref => "f6f1d7b6f783855a7f5871d27e0a1ee39855c6e6"
 mod "jenkins",
-  :git => "https://github.com/francetv/puppet-jenkins.git",
-  :ref => '92e4d8c6fce59be386bb92bb812ee50c42efabd4'
+  :git => "https://github.com/jenkinsci/puppet-jenkins.git",
+  :ref => 'v1.1.0'
 
