@@ -84,5 +84,13 @@
     "symfony2_applications": {
     },
     "composer_projects": {
+    },
+    "apache_expires": {
+    },
+    "apache_modules": {
+    },
+    "apache_types": {
+    },
+    "apache_vhosts": {
     }
 }
