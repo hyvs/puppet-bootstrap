@@ -1,4 +1,4 @@
-class p::repo::10gen (
+class p::repo::tengen (
 ) {
 
   anchor {'p::repo::10gen::begin': } ->
@@ -7,7 +7,7 @@ class p::repo::10gen (
     release     => 'dist',
     repos       => '10gen',
     key         => '7F0CEB10',
-    key_server  => 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x7F0CEB10',
+    key_server  => 'keyserver.ubuntu.com',
     pin         => 10,
     include_src => false,
   } ->

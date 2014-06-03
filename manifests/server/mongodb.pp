@@ -1,29 +1,30 @@
 class p::server::mongodb (
   $firewall = true,
-  $port     = 27017
+  $port     = 27017,
+  $version  = '2.6.1'
 ) {
 
-  if !defined(Class['p::repo::10gen']) {
-    class {'p::repo::10gen': }
+  if !defined(Class['p::repo::tengen']) {
+    class {'p::repo::tengen': }
   }
 
   anchor {'p::server::mongodb::begin': }
 
-  p::resource::firewall::tcp {'mongodb-10gen':
+  p::resource::firewall::tcp {'mongodb':
     enabled => any2bool($firewall),
     port    => $port,
-    require => Anchor['p::server::10gen::begin'],
-    before  => Anchor['p::server::10gen::end'],
+    require => Anchor['p::server::mongodb::begin'],
+    before  => Anchor['p::server::mongodb::end'],
   }
 
-  package {'apache2':
-    ensure  => installed,
-    require => Anchor['p::server::10gen::begin'],
-    before  => Anchor['p::server::10gen::end'],
+  p::resource::package {['mongodb-org', 'mongodb-org-server', 'mongodb-org-shell', 'mongodb-org-mongos', 'mongodb-org-tools']:
+    version => $version,
+    require => Anchor['p::server::mongodb::begin'],
+    before  => Anchor['p::server::mongodb::end'],
   }
 
-  anchor {'p::server::10gen::end':
-    require => Anchor['p::server::10gen::begin'],
+  anchor {'p::server::mongodb::end':
+    require => Anchor['p::server::mongodb::begin'],
   }
 
 }

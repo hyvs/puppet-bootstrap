@@ -92,5 +92,13 @@
     "apache_types": {
     },
     "apache_vhosts": {
+    },
+    "varnish_acls": [],
+    "varnish_backends": [],
+    "varnish_conditions": [],
+    "varnish_directors": [],
+    "varnish_probes": [],
+    "varnish_selectors": [],
+    "gems": {
     }
 }

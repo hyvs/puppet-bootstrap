@@ -58,6 +58,9 @@ mod "file_concat",
 mod "epel",
   :git => "https://github.com/stahnma/puppet-module-epel.git",
   :ref => "master"
+mod "rvm",
+  :git => "https://github.com/example42/puppet-rvm.git",
+  :ref => '6915ba744ac3287c1c482128496ef39dcf2b9743'
 mod "remi",
   :git => "https://github.com/lboynton/puppet-remi.git"
 mod "stdmod",
@@ -72,4 +75,21 @@ mod "jenkins",
 mod "java",
   :git => "https://github.com/puppetlabs/puppetlabs-java.git",
   :ref => '1.1.0'
-
+mod "memcached",
+  :git => "https://github.com/francetv/puppet-memcached.git",
+  :ref => '3839b1836ebcc5362c0e5973575adb8d53d2912e'
+mod "rabbitmq",
+  :git => "https://github.com/francetv/puppetlabs-rabbitmq.git",
+  :ref => '0fc01a29bbe8fc93afa0525d8f51080a45b33a1e'
+mod "varnish",
+  :git => "https://github.com/maxchk/puppet-varnish.git",
+  :ref => 'e6714bd05f8d904c92da095554a522dc816878a6'
+mod "redis",
+  :git => "https://github.com/example42/puppet-redis.git",
+  :ref => 'v2.0.8'
+mod "nfs",
+  :git => "https://github.com/example42/puppet-nfs.git",
+  :ref => 'v2.0.13'
+mod "vcsrepo",
+  :git => "https://github.com/puppetlabs/puppetlabs-vcsrepo.git",
+  :ref => '0.2.0'
