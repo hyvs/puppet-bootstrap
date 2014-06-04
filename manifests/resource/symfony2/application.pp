@@ -9,16 +9,30 @@ define p::resource::symfony2::application (
   $install_assets_mode  = 'symlink',
   $commands             = undef,
   $env                  = 'dev',
-  $require_git_repos    = undef
+  $require_git_repos    = undef,
+  $require_mysql_db     = undef,
+  $migrate_db           = false,
+  $zenstruck_migrate_db = false,
+  $clear_cache          = true,
+  $dump_assetics        = false,
+  $install_assets       = false
 ) {
 
 
   if undef != $require_git_repos {
-    anchor {"p::resource::symfony2::application::${title}":
+    anchor {"p::resource::symfony2::application::git_repos::${title}":
       require => P::Resource::Git::Repository[$require_git_repos],
     }
   } else {
-    anchor {"p::resource::symfony2::application::${title}": }
+    anchor {"p::resource::symfony2::application::git_repos::${title}": }
+  }
+
+  if undef != $require_mysql_db {
+    anchor {"p::resource::symfony2::application::mysql_db::${title}":
+      require => P::Resource::Mysql::Database[$require_mysql_db],
+    }
+  } else {
+    anchor {"p::resource::symfony2::application::mysql_db::${title}": }
   }
 
   validate_array($users)
@@ -28,7 +42,7 @@ define p::resource::symfony2::application (
     p::resource::directory {"${dir}/${directory}":
       owner   => $owner,
       group   => $group,
-      require => [File[$dir], Anchor["p::resource::symfony2::application::${title}"]]
+      require => [File[$dir], Anchor["p::resource::symfony2::application::git_repos::${title}"], Anchor["p::resource::symfony2::application::mysql_db::${title}"]]
     }
   }
 
@@ -44,10 +58,19 @@ define p::resource::symfony2::application (
   }
 
   p::resource::composer::project {$dir: } ->
-  p::resource::symfony2::command::cache_clear {$dir:
-    env    => $env,
-    stdout => $install_log_file,
-    stderr => $install_log_file,
+  anchor {"p::resource::symfony2::application::init_commands": } ->
+  anchor {"p::resource::symfony2::application::pre_commands": } ->
+  anchor {"p::resource::symfony2::application::commands": } ->
+  anchor {"p::resource::symfony2::application::post_commands": }
+
+  if any2bool($clear_cache) {
+    p::resource::symfony2::command::cache_clear {$dir:
+      env     => $env,
+      stdout  => $install_log_file,
+      stderr  => $install_log_file,
+      require => Anchor["p::resource::symfony2::application::init_commands"],
+      before  => Anchor["p::resource::symfony2::application::pre_commands"],
+    }
   }
 
   if is_hash($commands) {
@@ -60,20 +83,54 @@ define p::resource::symfony2::application (
         {
           dir        => $dir,
           env        => $env,
-          require    => P::Resource::Symfony2::Command::Cache_clear[$dir],
+          require    => Anchor["p::resource::symfony2::application::commands"],
           stdout     => $install_log_file,
           stderr     => $install_log_file,
           log_append => true,
-          before     => P::Resource::Symfony2::Command::Assets_install[$dir]
+          before     => Anchor["p::resource::symfony2::application::post_commands"]
         }
       )
     }
   }
 
-  p::resource::symfony2::command::assets_install {$dir:
-    mode   => $install_assets_mode,
-    stdout => $install_log_file,
-    stderr => $install_log_file,
+  if any2bool($dump_assetics) {
+    p::resource::symfony2::command::assetic_dump {$dir:
+      env    => $env,
+      force  => true,
+      stdout => $install_log_file,
+      stderr => $install_log_file,
+      require => Anchor["p::resource::symfony2::application::pre_commands"],
+      before  => Anchor["p::resource::symfony2::application::commands"],
+    }
+  }
+
+  if any2bool($migrate_db) {
+    p::resource::symfony2::command::doctrine_migrations_migrate {$dir:
+      env    => $env,
+      stdout => $install_log_file,
+      stderr => $install_log_file,
+      require => Anchor["p::resource::symfony2::application::pre_commands"],
+      before  => Anchor["p::resource::symfony2::application::commands"],
+    }
+  }
+
+  if any2bool($zenstruck_migrate_db) {
+    p::resource::symfony2::command::zenstruck_migrations_migrate {$dir:
+      env     => $env,
+      stdout  => $install_log_file,
+      stderr  => $install_log_file,
+      require => Anchor["p::resource::symfony2::application::pre_commands"],
+      before  => Anchor["p::resource::symfony2::application::commands"],
+    }
+  }
+
+  if any2bool($install_assets) {
+    p::resource::symfony2::command::assets_install {$dir:
+      mode    => $install_assets_mode,
+      stdout  => $install_log_file,
+      stderr  => $install_log_file,
+      require => Anchor["p::resource::symfony2::application::post_commands"],
+    }
   }
 
 }
