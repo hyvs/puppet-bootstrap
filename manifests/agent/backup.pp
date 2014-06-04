@@ -20,7 +20,7 @@ class p::agent::backup (
     $full_script_dir = $script_dir
   }
 
-  $backup_dir = $dirs['backup']
+  $backup_dir = $dirs['backups']
 
   $crons_defaults = {
     require => Anchor['p::agent::backup::crons'],
