@@ -42,6 +42,7 @@ class p::agent::backup (
   }
 
   p::resource::user {$agent_user:
+    group   => 'nogroup',
     home    => $real_agent_user_home,
     require => Anchor['p::agent::backup::begin'],
   } ->
