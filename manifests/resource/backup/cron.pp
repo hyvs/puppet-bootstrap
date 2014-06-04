@@ -13,11 +13,18 @@ define p::resource::backup::cron (
 ) {
 
   $shell_file   = "${script_dir}/${script_prefix}${name}"
-  $real_options = merge($options, {frequency => $frequency})
+
+  $forced_options = {frequency => "${minute} ${hour} ${date} ${month} ${weekday}"}
+
+  if is_hash($options) {
+    $real_options = merge($options, $forced_options)
+  } else {
+    $real_options = $forced_options
+  }
 
   p::resource::file {$shell_file:
     template => $template,
-    vars => $real_options,
+    vars     => $real_options,
   }
 
   p::resource::cron {"${script_prefix}${name}":

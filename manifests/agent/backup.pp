@@ -42,7 +42,7 @@ class p::agent::backup (
   }
 
   p::resource::user {$agent_user:
-    home    => $agent_user_home,
+    home    => $real_agent_user_home,
     require => Anchor['p::agent::backup::begin'],
   } ->
   p::resource::directory {$full_script_dir:
