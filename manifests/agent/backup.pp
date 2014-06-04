@@ -3,9 +3,9 @@ class p::agent::backup (
   $crons = hiera_hash('backup_crons'),
   $agent_user      = "backupagent",
   $agent_user_home = undef,
-  $script_prefix = "backup-",
-  $script_dir    = undef
-
+  $script_prefix   = "backup-",
+  $script_dir      = undef,
+  $cron_resource   = 'p::resource::backup::cron'
 ) {
 
   if undef == $agent_user_home {
