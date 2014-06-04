@@ -53,7 +53,7 @@ class p::agent::backup (
     before  => Anchor['p::agent::backup::crons'],
   }
 
-  create_resource($cron_resource, $crons, $crons_defaults)
+  create_resources($cron_resource, $crons, $crons_defaults)
 
   anchor {'p::agent::backup::begin': } ->
   anchor {'p::agent::backup::crons': } ->
