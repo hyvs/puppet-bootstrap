@@ -58,18 +58,18 @@ define p::resource::symfony2::application (
   }
 
   p::resource::composer::project {$dir: } ->
-  anchor {"p::resource::symfony2::application::init_commands": } ->
-  anchor {"p::resource::symfony2::application::pre_commands": } ->
-  anchor {"p::resource::symfony2::application::commands": } ->
-  anchor {"p::resource::symfony2::application::post_commands": }
+  anchor {"p::resource::symfony2::application::init_commands::${title}": } ->
+  anchor {"p::resource::symfony2::application::pre_commands::${title}": } ->
+  anchor {"p::resource::symfony2::application::commands::${title}": } ->
+  anchor {"p::resource::symfony2::application::post_commands::${title}": }
 
   if any2bool($clear_cache) {
     p::resource::symfony2::command::cache_clear {$dir:
       env     => $env,
       stdout  => $install_log_file,
       stderr  => $install_log_file,
-      require => Anchor["p::resource::symfony2::application::init_commands"],
-      before  => Anchor["p::resource::symfony2::application::pre_commands"],
+      require => Anchor["p::resource::symfony2::application::init_commands::${title}"],
+      before  => Anchor["p::resource::symfony2::application::pre_commands::${title}"],
     }
   }
 
@@ -83,11 +83,11 @@ define p::resource::symfony2::application (
         {
           dir        => $dir,
           env        => $env,
-          require    => Anchor["p::resource::symfony2::application::commands"],
+          require    => Anchor["p::resource::symfony2::application::commands::${title}"],
           stdout     => $install_log_file,
           stderr     => $install_log_file,
           log_append => true,
-          before     => Anchor["p::resource::symfony2::application::post_commands"]
+          before     => Anchor["p::resource::symfony2::application::post_commands::${title}"]
         }
       )
     }
@@ -99,8 +99,8 @@ define p::resource::symfony2::application (
       force  => true,
       stdout => $install_log_file,
       stderr => $install_log_file,
-      require => Anchor["p::resource::symfony2::application::pre_commands"],
-      before  => Anchor["p::resource::symfony2::application::commands"],
+      require => Anchor["p::resource::symfony2::application::pre_commands::${title}"],
+      before  => Anchor["p::resource::symfony2::application::commands::${title}"],
     }
   }
 
@@ -109,8 +109,8 @@ define p::resource::symfony2::application (
       env    => $env,
       stdout => $install_log_file,
       stderr => $install_log_file,
-      require => Anchor["p::resource::symfony2::application::pre_commands"],
-      before  => Anchor["p::resource::symfony2::application::commands"],
+      require => Anchor["p::resource::symfony2::application::pre_commands::${title}"],
+      before  => Anchor["p::resource::symfony2::application::commands::${title}"],
     }
   }
 
@@ -119,8 +119,8 @@ define p::resource::symfony2::application (
       env     => $env,
       stdout  => $install_log_file,
       stderr  => $install_log_file,
-      require => Anchor["p::resource::symfony2::application::pre_commands"],
-      before  => Anchor["p::resource::symfony2::application::commands"],
+      require => Anchor["p::resource::symfony2::application::pre_commands::${title}"],
+      before  => Anchor["p::resource::symfony2::application::commands::${title}"],
     }
   }
 
@@ -129,7 +129,7 @@ define p::resource::symfony2::application (
       mode    => $install_assets_mode,
       stdout  => $install_log_file,
       stderr  => $install_log_file,
-      require => Anchor["p::resource::symfony2::application::post_commands"],
+      require => Anchor["p::resource::symfony2::application::post_commands::${title}"],
     }
   }
 
