@@ -1,0 +1,66 @@
+#!/bin/bash 
+
+set -eu
+
+DATADIR="<%= @vars['backup_dir'] %>"
+DATANAME="backup_mysql_db_<%= @vars['name'] %>_$(date +%Y%m%d_%Hh%M)"
+EMAIL="<%= @vars['email'] %>"
+RETENTION="<%= @vars['retention'] %>"
+DATABASE_NAME="<%= @vars['db'] %>"
+USER="<%= @vars['user'] %>"
+PASS="<%= @vars['pass'] %>"
+HOST="<%= @vars['host'] %>"
+
+COMPRESSIONCMD="tar -cjf"
+COMPRESSIONEXT=".tar.bz2"
+ERRORDIR="${DATADIR}/_errors"
+ERRORFILE="${ERRORDIR}/${DATANAME}.log"
+ERRORMAILSUBJECT="[NODE] Backup failed (${DATANAME})"
+BACKUPFILE="${DATADIR}/${DATANAME}${COMPRESSIONEXT}"
+EXCLUSIONS='(information_schema|performance_schema)'
+DATATMP="${DATADIR}"
+
+if [ ! -d "$DATADIR" ]; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') ERROR [Backup] Backup directory '${DATADIR}' does not exist"
+    exit 1;
+fi
+
+mkdir -p ${ERRORDIR}
+exec 2> ${ERRORFILE}
+
+function cleanup {
+    if [ "`stat --format %s ${ERRORFILE}`" != "0" ] && [ "$EMAIL" != "0" ] && [ "`grep -iE 'error|failed' ${ERRORFILE}`" ] ; then
+        cat ${ERRORFILE} | mail -s "${ERRORMAILSUBJECT}" ${EMAIL}
+    fi
+}
+
+trap cleanup EXIT
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Dumping MySQL database ${DATABASE_NAME} to temp directory ..."
+mkdir -p ${DATATMP}/${DATANAME}
+mysqldump -u "${USER}" -p"${PASS}" -h"${HOST}" --quick --add-locks --lock-tables --extended-insert ${DATABASE_NAME} > "${DATATMP}/${DATANAME}/${DATANAME}.sql"
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Compressing MySQL dump ${DATATMP}/${DATANAME}/${DATANAME}.sql ..."
+cd ${DATATMP}
+${COMPRESSIONCMD} ${DATANAME}${COMPRESSIONEXT} ${DATANAME}/
+chmod 660 ${DATANAME}${COMPRESSIONEXT}
+
+if [ "$DATATMP" != "$DATADIR" ] ; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Moving tarball to backup directory ${DATADIR} ..."
+    mv ${DATANAME}${COMPRESSIONEXT} ${DATADIR}
+fi
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Updating last${COMPRESSIONEXT} to ${BACKUPFILE} ..."
+cd ${DATADIR}
+set +eu
+unlink last${COMPRESSIONEXT}
+set -eu
+ln ${DATANAME}${COMPRESSIONEXT} last${COMPRESSIONEXT}
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Cleaning outdated backups (> ${RETENTION} days) ..."
+find ${DATADIR} -name "*${COMPRESSIONEXT}" -mtime +${RETENTION} -print -exec rm {} \;
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Cleaning dump temp directory ${DATATMP}/${DATANAME} ..."
+rm -rf ${DATATMP}/${DATANAME}
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Completed successfully"

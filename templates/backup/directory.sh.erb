@@ -1,0 +1,47 @@
+#!/bin/bash 
+
+set -eu
+
+DATADIR="<%= @vars['backup_dir'] %>"
+DATANAME="backup_directory_<%= @vars['name'] %>_$(date +%Y%m%d_%Hh%M)"
+EMAIL="<%= @vars['email'] %>"
+RETENTION="<%= @vars['retention'] %>"
+BACKUPEDDIR=<%= @vars['dir'] %>
+
+COMPRESSIONCMD="tar -cjf"
+COMPRESSIONEXT=".tar.bz2"
+ERRORDIR="${DATADIR}/_errors"
+ERRORFILE="${ERRORDIR}/${DATANAME}.log"
+ERRORMAILSUBJECT="[NODE] Backup failed (${DATANAME})"
+BACKUPFILE="${DATADIR}/${DATANAME}${COMPRESSIONEXT}"
+
+if [ ! -d "$DATADIR" ]; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') ERROR [Backup] Backup directory '${DATADIR}' does not exist"
+    exit 1;
+fi
+
+mkdir -p ${ERRORDIR}
+exec 2> ${ERRORFILE}
+
+function cleanup {
+    if [ "`stat --format %s ${ERRORFILE}`" != "0" ] && [ "$EMAIL" != "0" ] && [ "`grep -iE 'error|failed' ${ERRORFILE}`" ] ; then
+        cat ${ERRORFILE} | mail -s "${ERRORMAILSUBJECT}" ${EMAIL}
+    fi
+}
+
+trap cleanup EXIT
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Compressing ${BACKUPEDDIR} to ${BACKUPFILE} ..."
+${COMPRESSIONCMD} ${BACKUPFILE} ${BACKUPEDDIR}
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Updating last${COMPRESSIONEXT} to ${BACKUPFILE} ..."
+cd ${DATADIR}
+set +eu
+unlink last${COMPRESSIONEXT}
+set -eu
+ln ${DATANAME}${COMPRESSIONEXT} last${COMPRESSIONEXT}
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Cleaning outdated backups (> ${RETENTION} days) ..."
+find ${DATADIR} -name "*${COMPRESSIONEXT}" -mtime +${RETENTION} -print -exec rm {} \;
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Completed successfully to ${BACKUPFILE}"
