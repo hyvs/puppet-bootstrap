@@ -8,6 +8,7 @@ define p::resource::mysql::database (
 
   $users_defaults = {
     password => $default_user_password,
+    database => $name
   }
 
   mysql_database {$name:
