@@ -6,7 +6,7 @@ define p::resource::file (
   $content         = undef,
   $template        = undef,
   $inline_template = undef,
-  $vars            = $::empty_hash
+  $vars            = undef
 ) {
 
   if undef != $template {

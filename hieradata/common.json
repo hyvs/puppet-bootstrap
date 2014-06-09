@@ -104,5 +104,7 @@
     "gems": {
     },
     "backup_crons": {
+    },
+    "mysql_databases": {
     }
 }

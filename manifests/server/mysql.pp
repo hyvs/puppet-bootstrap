@@ -39,13 +39,13 @@ class p::server::mysql (
   $transaction_isolation           = 'READ-COMMITTED',
   $wait_timeout                    = '60',
   $packages                        = hiera_array('mysql_packages', ['percona-toolkit']),
-  $dirs                            = hiera_hash('dirs', $::empty_hash),
-  $databases                       = hiera_hash('mysql_databases', $::empty_hash),
+  $dirs                            = hiera_hash('dirs'),
+  $databases                       = hiera_hash('mysql_databases'),
   $database_resource               = 'p::resource::mysql::database',
   $log_error_filename              = 'errors.log',
   $user_resource                   = 'p::resource::mysql::user',
   $firewall                        = false,
-  $secrets                         = hiera_hash('secrets', $::empty_hash)
+  $secrets                         = hiera_hash('secrets')
 ) {
 
   if !defined(Class['p::repo::dotdeb']) {
