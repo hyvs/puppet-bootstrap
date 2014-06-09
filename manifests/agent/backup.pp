@@ -41,10 +41,14 @@ class p::agent::backup (
     before  => Anchor['p::agent::backup::crons'],
   }
 
+  if !defined(Group['nogroup']) {
+    p::resource::group {'nogroup': }
+  }
+
   p::resource::user {$agent_user:
     group   => 'nogroup',
     home    => $real_agent_user_home,
-    require => Anchor['p::agent::backup::begin'],
+    require => [Anchor['p::agent::backup::begin'], Group['nogroup']],
   } ->
   p::resource::directory {$full_script_dir:
     owner   => $agent_user,
