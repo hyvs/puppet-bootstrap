@@ -18,6 +18,8 @@ class p::server::mcollective (
     provider => gem,
   } ->
   class { '::mcollective':
+    install_stomp_server => true,
+    install_client       => true,
     stomp_host           => $stomp_host,
     stomp_password       => $stomp_password,
     psk                  => $stomp_psk,
