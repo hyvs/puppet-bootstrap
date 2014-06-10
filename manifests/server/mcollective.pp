@@ -1,7 +1,7 @@
 class p::server::mcollective (
   $plugin_resource = 'p::resource::mcollective::plugin',
   $stomp_version   = '1.2.2',
-  $stomp_host      = 'localhost',
+  $stomp_host      = hiera('mcollective_middleware', 'localhost'),
   $plugins         = hiera_hash('mcollective_plugins'),
   $secrets         = hiera_hash('secrets')
 ) {
