@@ -96,3 +96,6 @@ mod "vcsrepo",
 mod "mcollective",
   :git => "https://github.com/example42/puppet-mcollective.git",
   :ref => "v2.0.13"
+mod "activemq",
+  :git => "https://github.com/example42/puppet-activemq.git",
+  :ref => "v2.0.13"
