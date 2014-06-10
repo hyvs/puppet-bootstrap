@@ -1,6 +1,6 @@
 class p::server::activemq (
   $firewall = true,
-  $activemq = 61616
+  $port = 61616
 ) {
 
   anchor {'p::server::activemq::begin': } ->
