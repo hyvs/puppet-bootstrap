@@ -4,7 +4,9 @@ class p::server::activemq (
 ) {
 
   anchor {'p::server::activemq::begin': } ->
-  class {'::activemq': } ->
+  class {'::activemq':
+    install_dependencies => false,
+  } ->
   p::resource::firewall::tcp {'activemq':
     port    => $port,
     enabled => any2bool($firewall),
