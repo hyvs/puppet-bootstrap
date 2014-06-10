@@ -93,3 +93,6 @@ mod "nfs",
 mod "vcsrepo",
   :git => "https://github.com/puppetlabs/puppetlabs-vcsrepo.git",
   :ref => '0.2.0'
+mod "mcollective",
+  :git => "https://github.com/example42/puppet-mcollective.git",
+  :ref => "v2.0.13"

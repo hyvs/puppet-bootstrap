@@ -1,4 +1,4 @@
-class p::agent::mcollective (
+class p::client::mcollective (
   $plugin_resource = 'p::resource::mcollective::plugin',
   $stomp_version   = '1.2.2',
   $stomp_host      = 'localhost',
@@ -15,14 +15,14 @@ class p::agent::mcollective (
   $stomp_admin_password = $secrets['stomp.admin.password']
   $stomp_psk            = $secrets['stomp.psk']
 
-  anchor {'p::agent::mcollective::begin': } ->
+  anchor {'p::client::mcollective::begin': } ->
   p::resource::package {'stomp':
     version  => $stomp_version,
     provider => gem,
   } ->
   class { '::mcollective':
     install_stomp_server => false,
-    install_client       => false,
+    install_client       => true,
     stomp_user           => $stomp_user,
     stomp_admin          => $stomp_admin,
     stomp_admin_password => $stomp_admin_password,
@@ -33,7 +33,7 @@ class p::agent::mcollective (
     dependencies_class   => '',
     install_plugins      => false,
   } ->
-  anchor {'p::agent::mcollective::end': }
+  anchor {'p::client::mcollective::end': }
 
   create_resources($plugin_resource, $plugins, $plugins_defaults)
 

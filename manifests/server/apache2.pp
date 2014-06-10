@@ -19,7 +19,8 @@ class p::server::apache2 (
   $server_tokens           = 'Prod',
   $timeout                 = 120,
   $user                    = 'www-data',
-  $firewall                = true
+  $firewall                = true,
+  $default_docroot         = '/var/www/default'
 ) {
 
   $logs_dir        = $dirs['logs']
@@ -77,6 +78,20 @@ class p::server::apache2 (
   apache::listen {"${port}":
     require => Anchor['p::server::apache2::begin'],
     before  => Anchor['p::server::apache2::end'],
+  }
+
+  if !defined(P::Resource::Directory[$default_docroot]) {
+    p::resource::directory {$default_docroot:
+      owner => $user,
+      group => $group,
+    }
+  }
+
+  p::resource::file {"${default_docroot}/index.html":
+    owner => $user,
+    group => $group,
+    template => 'p/apache/index.html.erb',
+    require  => P::Resource::Directory[$default_docroot],
   }
 
   create_resources($apache_module_resource, $apache_modules, $apache_modules_defaults)

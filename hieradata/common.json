@@ -94,6 +94,9 @@
     "apache_types": {
     },
     "apache_vhosts": {
+        "default": {
+            "docroot": "/var/www/default"
+        }
     },
     "varnish_acls": [],
     "varnish_backends": [],
@@ -106,5 +109,6 @@
     "backup_crons": {
     },
     "mysql_databases": {
-    }
+    },
+    "mcollective_middleware_hosts": []
 }
