@@ -18,7 +18,7 @@ class p::server::mcollective (
     provider => gem,
   } ->
   class { '::mcollective':
-    install_stomp_server => true,
+    install_stomp_server => false,
     install_client       => true,
     stomp_host           => $stomp_host,
     stomp_password       => $stomp_password,
@@ -26,6 +26,7 @@ class p::server::mcollective (
     package_dependencies => '',
     dependencies_class   => '',
     install_plugins      => false,
+    require              => Class['p::server::activemq'],
   } ->
   anchor {'p::server::mcollective::end': }
 
