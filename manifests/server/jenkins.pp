@@ -45,7 +45,7 @@ class p::server::jenkins (
     groups  => ['shadow','sudonopass'],
     require => Group['sudonopass'],
   } ->
-  p::resource::directory {[$jenkins_logs_dir, $jenkins_home]:
+  p::resource::directory {[$jenkins_logs_dir]:
     owner   => $user,
     group   => $group,
   } ->
