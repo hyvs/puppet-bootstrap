@@ -27,11 +27,11 @@ class p::server::jenkinsci (
   $jenkins_home     = $dirs['home.jenkins']
 
   $plugins_defaults = {
-    require => Class['::jenkins'],
+    require => P::Resource::Directory[$jenkins_logs_dir],
     before  => Anchor['p::server::jenkinsci::end']
   }
   $jobs_defaults    = {
-    require => Class['::jenkins'],
+    require => P::Resource::Directory[$jenkins_logs_dir],
     before  => Anchor['p::server::jenkinsci::end']
   }
 
