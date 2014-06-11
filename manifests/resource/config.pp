@@ -3,7 +3,7 @@ define p::resource::config (
   $file
 ) {
 
-  augeas { $config:
+  augeas { "${file}/${name}/${value}":
     context => "/files/${file}",
     changes => [
     "set ${name} ${value}"
