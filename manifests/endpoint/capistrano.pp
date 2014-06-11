@@ -20,5 +20,5 @@ class p::endpoint::capistrano (
   } ->
   anchor {'p::endpoint::capistrano::end': }
 
-  create_resources($application_resources, $applications, $applications_defaults)
+  create_resources($application_resource, $applications, $applications_defaults)
 }

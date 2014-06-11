@@ -24,8 +24,8 @@ class p::language::nodejs (
 
   if !defined(P::Resource::Package['build-essential']) and !defined(Package['build-essential']) {
     p::resource::package {'build-essential':
-      require => Ancor['p::language::nodejs::begin'],
-      before  => Ancor['p::language::nodejs::before'],
+      require => Anchor['p::language::nodejs::begin'],
+      before  => Anchor['p::language::nodejs::end'],
     }
   }
 
