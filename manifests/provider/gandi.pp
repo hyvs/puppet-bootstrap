@@ -20,7 +20,7 @@ class p::provider::gandi (
   }
 
   create_resources($default_resource, $defaults, $defaults_defaults)
-  create_resources($systemdefault_resource, $system_defaults, $system_defaults_defaults)
+  create_resources($system_default_resource, $system_defaults, $system_defaults_defaults)
 
   anchor {'p::provider::gandi::begin': } ->
   anchor {'p::provider::gandi::end': }
