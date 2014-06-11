@@ -60,7 +60,7 @@ class p::server::jenkins (
     'HTTP_PORT' => { 'value' => $port },
     'AJP_PORT'  => { 'value' => $ajp_port }
     },
-    require            => Class['p::server::java'],
+    require            => Class['p::language::java'],
   } ->
   anchor {'p::server::jenkins::end': }
 
