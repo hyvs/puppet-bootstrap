@@ -1,4 +1,4 @@
-define p::resource::jenkins::plugin (
+define p::resource::jenkinsci::plugin (
   $ensure     = 'present',
   $plugin_dir = '/var/lib/jenkins/plugins'
 ) {
@@ -8,7 +8,7 @@ define p::resource::jenkins::plugin (
       ensure  => absent,
       notify  => Service['jenkins'],
     } ->
-    file {"${plugin_dir}/${name}.hdi" :
+    file {"${plugin_dir}/${name}.hpi" :
       ensure  => absent,
       notify  => Service['jenkins'],
     } ->

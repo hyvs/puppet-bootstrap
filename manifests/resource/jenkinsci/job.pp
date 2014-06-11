@@ -1,4 +1,4 @@
-define p::resource::jenkins::job (
+define p::resource::jenkinsci::job (
   $config,
   $group        = 'jenkins',
   $home         = '/var/lib/jenkins',
