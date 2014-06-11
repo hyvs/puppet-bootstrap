@@ -20,7 +20,7 @@ class p::server::apache2 (
   $timeout                 = 120,
   $user                    = 'www-data',
   $firewall                = true,
-  $default_docroot         = '/var/www/default'
+  $default_docroot         = '/var/www'
 ) {
 
   $logs_dir        = $dirs['logs']
@@ -56,7 +56,7 @@ class p::server::apache2 (
     mpm_module        => $mpm_module,
     serveradmin       => $admin_email,
     logroot           => $apache_logs_dir,
-    default_vhost     => false,
+    default_vhost     => true,
     timeout           => $timeout,
     keepalive         => $keepalive,
     keepalive_timeout => $keepalive_timeout,
