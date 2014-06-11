@@ -1,4 +1,4 @@
-class p::server::jenkins (
+class p::server::jenkinsci (
   $ajp_port        = 8009,
   $dirs            = hiera_hash('dirs'),
   $group           = 'jenkins',
@@ -17,8 +17,8 @@ class p::server::jenkins (
   p::resource::firewall::tcp {'jenkins':
     enabled => any2bool($firewall),
     port    => $port,
-    require => Anchor['p::server::jenkins::begin'],
-    before  => Anchor['p::server::jenkins::end'],
+    require => Anchor['p::server::jenkinsci::begin'],
+    before  => Anchor['p::server::jenkinsci::end'],
   }
 
   $logs_dir         = $dirs['logs']
@@ -28,14 +28,14 @@ class p::server::jenkins (
 
   $plugins_defaults = {
     require => Class['::jenkins'],
-    before  => Anchor['p::server::jenkins::end']
+    before  => Anchor['p::server::jenkinsci::end']
   }
   $jobs_defaults    = {
     require => Class['::jenkins'],
-    before  => Anchor['p::server::jenkins::end']
+    before  => Anchor['p::server::jenkinsci::end']
   }
 
-  anchor {'p::server::jenkins::begin': } ->
+  anchor {'p::server::jenkinsci::begin': } ->
   group {$group:
     members => [$user],
   } ->
@@ -46,7 +46,7 @@ class p::server::jenkins (
     groups  => ['shadow','sudonopass'],
     require => Group['sudonopass'],
   } ->
-  p::resource::directory {[$jenkins_logs_dir]:
+  p::resource::directory {$jenkins_logs_dir:
     owner   => $user,
     group   => $group,
   } ->
@@ -63,9 +63,8 @@ class p::server::jenkins (
     },
     require            => Class['p::language::java'],
   } ->
-  anchor {'p::server::jenkins::end': }
+  anchor {'p::server::jenkinsci::end': }
 
   create_resources($plugin_resource, $plugins, $plugins_defaults)
   create_resources($job_resource, $jobs, $jobs_defaults)
-
 }
