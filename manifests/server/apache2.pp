@@ -80,7 +80,7 @@ class p::server::apache2 (
     before  => Anchor['p::server::apache2::end'],
   }
 
-  if !defined(P::Resource::Directory[$default_docroot]) {
+  if !defined(P::Resource::Directory[$default_docroot]) and !defined(File[$default_docroot]) {
     p::resource::directory {$default_docroot:
       owner => $user,
       group => $group,
