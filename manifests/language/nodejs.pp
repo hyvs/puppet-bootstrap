@@ -22,6 +22,13 @@ class p::language::nodejs (
     before  => Anchor['p::language::nodejs::end']
   }
 
+  if !defined(P::Resource::Package['build-essential']) and !defined(Package['build-essential']) {
+    p::resource::package {'build-essential':
+      require => Ancor['p::language::nodejs::begin'],
+      before  => Ancor['p::language::nodejs::before'],
+    }
+  }
+
   anchor {'p::language::nodejs::begin': } ->
   exec {'download_node':
     command     => "curl -o ${node_tar} http://nodejs.org/dist/${version}/${node_tar}",
