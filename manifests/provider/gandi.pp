@@ -1,6 +1,6 @@
 class p::provider::gandi (
   $defaults                = hiera_hash('gandi_defaults'),
-  $defaults                = hiera_hash('gandi_system_defaults'),
+  $system_defaults         = hiera_hash('gandi_system_defaults'),
   $default_resource        = 'p::resource::config',
   $system_default_resource = 'p::resource::config',
   $default_file            = '/etc/default/gandi',
