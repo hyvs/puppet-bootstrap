@@ -7,9 +7,7 @@ class p::server::activemq (
   anchor {'p::server::activemq::begin': } ->
   class {'::activemq':
     install_dependencies => false,
-    install_source       => "http://www.eu.apache.org/dist/activemq/${version}/apache-activemq-${version}-bin.zip",
-    install              => 'source',
-    version              => $version,
+    install              => 'package',
     template             => 'mcollective/activemq.xml.erb',
   } ->
   p::resource::firewall::tcp {'activemq':
