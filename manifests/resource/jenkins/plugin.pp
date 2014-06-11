@@ -18,7 +18,7 @@ define p::resource::jenkins::plugin (
       notify  => Service['jenkins'],
     }
   } else {
-    jenkins::plugin {$name: }
+    ::jenkins::plugin {$name: }
   }
 
 }
