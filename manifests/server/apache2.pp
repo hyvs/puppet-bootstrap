@@ -91,7 +91,7 @@ class p::server::apache2 (
     owner => $user,
     group => $group,
     template => 'p/apache/index.html.erb',
-    require  => P::Resource::Directory[$default_docroot],
+    require  => File[$default_docroot],
   }
 
   create_resources($apache_module_resource, $apache_modules, $apache_modules_defaults)
