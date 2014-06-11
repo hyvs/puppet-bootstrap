@@ -26,11 +26,11 @@ class p::server::jenkins (
   $jenkins_log_file = "${jenkins_logs_dir}/application.log"
   $jenkins_home     = $dirs['home.jenkins']
   $plugins_defaults = {
-    require => [P::Resource::Directory[$jenkins_logs_dir, $jenkins_home], Class['::jenkins'], Anchor['p::server::jenkins::begin']],
+    require => [P::Resource::Directory[$jenkins_logs_dir], File[$jenkins_home], Class['::jenkins'], Anchor['p::server::jenkins::begin']],
     before  => Anchor['p::server::jenkins::end']
   }
   $jobs_defaults    = {
-    require => [P::Resource::Directory[$jenkins_logs_dir, $jenkins_home], Class['::jenkins'], Anchor['p::server::jenkins::begin']],
+    require => [P::Resource::Directory[$jenkins_logs_dir], File[$jenkins_home], Class['::jenkins'], Anchor['p::server::jenkins::begin']],
     before  => Anchor['p::server::jenkins::end']
   }
 
