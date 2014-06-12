@@ -114,7 +114,6 @@ class p::server::mysql (
         'skip-external-locking'         => $skip_external_locking,
         'skip-name-resolve'             => $skip_name_resolve,
         sort_buffer_size                => $sort_buffer_size,
-        table_cache                     => $table_cache,
         thread_cache_size               => $thread_cache_size,
         thread_concurrency              => $thread_concurrency,
         thread_stack                    => $thread_stack,
