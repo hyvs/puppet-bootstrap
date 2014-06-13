@@ -108,5 +108,6 @@
     "mysql_databases": {
     },
     "mcollective_middleware_hosts": [],
-    "opened_interfaces": []
+    "opened_interfaces": [],
+    "autofs_roots": {}
 }
