@@ -4,17 +4,20 @@ class p::server::nfs (
 ) {
 
   $exports_defaults = {
-    require => Service['nfs-kernel-server'],
+    require => P::Resource::Directory['/etc/exports.d'],
     before  => Anchor['p::server::nfs::end'],
     notify  => Service['nfs-kernel-server'],
   }
 
-  anchor {'p::server::nfs::begin': } ->
-  p::resource::package {'nfs-kernel-server': } ->
   service {'nfs-kernel-server':
     ensure => 'running',
     enable => true,
-  } ->
+    require => Anchor['p::server::nfs::begin'],
+    before  => Anchor['p::server::nfs::end'],
+  }
+
+  anchor {'p::server::nfs::begin': } ->
+  p::resource::package {'nfs-kernel-server': } ->
   p::resource::directory {'/etc/exports.d':
   } ->
   anchor {'p::server::nfs::end': }
