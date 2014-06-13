@@ -10,6 +10,8 @@ class p::server::nfs (
 
   anchor {'p::server::nfs::begin': } ->
   p::resource::package {'nfs-kernel-server': } ->
+  p::resource::directory {'/etc/exports.d':
+  } ->
   anchor {'p::server::nfs::end': }
 
   create_resources($export_resource, $exports, $exports_defaults)
