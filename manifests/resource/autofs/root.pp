@@ -13,7 +13,7 @@ define p::resource::autofs::root (
   $automounts = hiera_hash("autofs_automounts_${name}", $empty_hash)
 
   file {"/etc/auto.master.d/${name}":
-    content => template('p/autofs/autmount.erb'),
+    content => template('p/autofs/automount.erb'),
     require => Package['autofs'],
   }
 
