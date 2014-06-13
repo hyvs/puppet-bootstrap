@@ -4,5 +4,5 @@
 #
 
 <% @automounts.each do |automount_name, automount| -%>
-<%= automount_name %>    -fstype=<%= automount['type'] %>,<% automount['readonly'] ? "ro" : "rw" %><%= automount['options'] ? "," : "" %><%= automount['options'] %>   <%= automount['source'] %>
+<%= automount_name %>    -fstype=<%= automount['type'] %>,<% automount['readonly'] ? "ro" : "rw" %><% if automount['options'] -%>,<%= automount['options'] %><% end -%>   <%= automount['source'] %>
 <% end -%>
