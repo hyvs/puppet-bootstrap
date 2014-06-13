@@ -18,6 +18,11 @@ class p::system (
     before  => Anchor['p::system::end'],
   }
 
+  class { 'p::system::firewall':
+    require => Anchor['p::system::begin'],
+    before  => Anchor['p::system::end'],
+  }
+
   class { 'p::system::packages':
     require => Anchor['p::system::begin'],
     before  => Anchor['p::system::end'],
