@@ -5,12 +5,17 @@ class p::agent::autofs (
 
   $roots_defaults = {
     require => P::Resource::Package['/etc/auto.master.d'],
-    before  => Anchor['p::agent::autofs::end']
+    before  => Anchor['p::agent::autofs::end'],
+    notify  => Service['autofs'],
   }
 
   anchor {'p::agent::autofs::begin': } ->
   p::resource::package {'autofs': } ->
-  p::resource::package {'/etc/auto.master.d':
+  p::resource::directory {'/etc/auto.master.d':
+  } ->
+  service {'autofs':
+    ensure => 'running',
+    enable => true,
   } ->
   anchor {'p::agent::autofs::end': }
 
