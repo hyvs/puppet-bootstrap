@@ -4,6 +4,5 @@ define p::resource::nfs::export (
 ) {
   file {"/etc/exports.d/${name}.exports":
     content => template('p/nfs/export.erb'),
-    require => File['/etc/exports.d'],
   }
 }
