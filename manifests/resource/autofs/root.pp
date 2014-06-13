@@ -5,7 +5,7 @@ define p::resource::autofs::root (
 
   file {"/etc/auto.master.d/${name}.autofs":
     content => template('p/autofs/root.erb'),
-    require => Package['autofs'],
+    require => P::Resource::Package['autofs'],
   }
 
   $empty_hash = {}
@@ -14,7 +14,7 @@ define p::resource::autofs::root (
 
   file {"/etc/auto.master.d/${name}":
     content => template('p/autofs/automount.erb'),
-    require => Package['autofs'],
+    require => P::Resource::Package['autofs'],
   }
 
 }
