@@ -4,7 +4,7 @@ class p::server::nfs (
 ) {
 
   $exports_defaults = {
-    require => Anchor['p::server::nfs::begin'],
+    require => Service['nfs-kernel-server'],
     before  => Anchor['p::server::nfs::end'],
     notify  => Service['nfs-kernel-server'],
   }
