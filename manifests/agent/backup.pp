@@ -30,11 +30,6 @@ class p::agent::backup (
     script_prefix => $script_prefix
   }
 
-  p::resource::package {'nfs-common':
-    require => Anchor['p::agent::backup::begin'],
-    before  => Anchor['p::agent::backup::crons'],
-  }
-
   file {$backup_dir:
     ensure => directory,
     require => Anchor['p::agent::backup::begin'],
