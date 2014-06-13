@@ -9,6 +9,7 @@ class p::agent::autofs (
   }
 
   anchor {'p::agent::autofs::begin': } ->
+  p::resource::package {'autofs': } ->
   anchor {'p::agent::autofs::end': }
 
   create_resources($root_resource, $roots, $roots_defaults)
