@@ -99,3 +99,6 @@ mod "mcollective",
 mod "activemq",
   :git => "https://github.com/example42/puppet-activemq.git",
   :ref => "v2.0.13"
+mod "autofs",
+  :git => "https://github.com/pdxcat/puppet-module-autofs.git",
+  :ref => "99608898999af4b91bb5a25fe38da41e9512295c"

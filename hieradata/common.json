@@ -107,5 +107,6 @@
     },
     "mysql_databases": {
     },
-    "mcollective_middleware_hosts": []
+    "mcollective_middleware_hosts": [],
+    "opened_interfaces": []
 }
