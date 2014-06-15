@@ -14,7 +14,7 @@ define p::resource::backup::cron (
 
   $shell_file   = "${script_dir}/${script_prefix}${name}"
 
-  $forced_options = {frequency => "${minute} ${hour} ${date} ${month} ${weekday}"}
+  $forced_options = {cron_name => $name, frequency => "${minute} ${hour} ${date} ${month} ${weekday}"}
 
   if is_hash($options) {
     $real_options = merge($options, $forced_options)

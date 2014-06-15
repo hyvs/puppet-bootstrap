@@ -3,7 +3,7 @@
 set -eu
 
 DATADIR="<%= @vars['backup_dir'] %>"
-DATANAME="backup_mysql_db_<%= @name %>_$(date +%Y%m%d_%Hh%M)"
+DATANAME="backup_mysql_db_<%= @vars['name'] %>_$(date +%Y%m%d_%Hh%M)"
 EMAIL="<%= @vars['email'] %>"
 RETENTION="<%= @vars['retention'] %>"
 DATABASE_NAME="<%= @vars['db'] %>"
