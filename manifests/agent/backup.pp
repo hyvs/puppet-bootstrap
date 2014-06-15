@@ -27,6 +27,7 @@ class p::agent::backup (
     require => Anchor['p::agent::backup::crons'],
     before  => Anchor['p::agent::backup::end'],
     agent_user => $agent_user,
+    agent_group => $agent_group,
     script_dir => $full_script_dir,
     script_prefix => $script_prefix
   }
