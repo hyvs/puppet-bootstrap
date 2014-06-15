@@ -29,7 +29,7 @@ define p::resource::backup::cron (
   }
 
   p::resource::cron {"${script_prefix}${name}":
-    command => "sh ${shell_file}",
+    command => "${shell_file}",
     date    => $date,
     hour    => $hour,
     minute  => $minute,
