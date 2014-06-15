@@ -2,6 +2,7 @@ class p::agent::backup (
   $dirs  = hiera_hash('dirs'),
   $crons = hiera_hash('backup_crons'),
   $agent_user      = "backupagent",
+  $agent_group     = "nogroup",
   $agent_user_home = undef,
   $script_prefix   = "backup-",
   $script_dir      = undef,

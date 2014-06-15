@@ -1,6 +1,7 @@
 define p::resource::backup::cron (
   $template,
   $agent_user,
+  $agent_group,
   $script_dir,
   $script_prefix = 'backup-',
   $options       = undef,
@@ -14,7 +15,7 @@ define p::resource::backup::cron (
 
   $shell_file   = "${script_dir}/${script_prefix}${name}"
 
-  $forced_options = {cron_name => $name, frequency => "${minute} ${hour} ${date} ${month} ${weekday}"}
+  $forced_options = {cron_name => $name, owner => "${agent_user}:${agent_group}", frequency => "${minute} ${hour} ${date} ${month} ${weekday}"}
 
   if is_hash($options) {
     $real_options = merge($options, $forced_options)
