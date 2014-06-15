@@ -34,12 +34,21 @@ trap cleanup EXIT
 echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Compressing ${BACKUPEDDIR} to ${BACKUPFILE} ..."
 ${COMPRESSIONCMD} ${BACKUPFILE} ${BACKUPEDDIR}
 
+<% if @vars['owner'] -%>
+chown <%= @vars['owner'] %> ${BACKUPFILE}
+<% end -%>
+
 echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Updating last${COMPRESSIONEXT} to ${BACKUPFILE} ..."
 cd ${DATADIR}
 set +eu
 unlink last${COMPRESSIONEXT}
 set -eu
 ln -s ${DATANAME}${COMPRESSIONEXT} last${COMPRESSIONEXT}
+
+
+<% if @vars['owner'] -%>
+chown <%= @vars['owner'] %> last${COMPRESSIONEXT}
+<% end -%>
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Cleaning outdated backups (> ${RETENTION} days) ..."
 find ${DATADIR} -name "*${COMPRESSIONEXT}" -mtime +${RETENTION} -print -exec rm {} \;

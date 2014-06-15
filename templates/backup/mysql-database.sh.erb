@@ -45,6 +45,10 @@ cd ${DATATMP}
 ${COMPRESSIONCMD} ${DATANAME}${COMPRESSIONEXT} ${DATANAME}/
 chmod 660 ${DATANAME}${COMPRESSIONEXT}
 
+<% if @vars['owner'] -%>
+chown <%= @vars['owner'] %> ${BACKUPFILE}
+<% end -%>
+
 if [ "$DATATMP" != "$DATADIR" ] ; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Moving tarball to backup directory ${DATADIR} ..."
     mv ${DATANAME}${COMPRESSIONEXT} ${DATADIR}
@@ -56,6 +60,10 @@ set +eu
 unlink last${COMPRESSIONEXT}
 set -eu
 ln -s ${DATANAME}${COMPRESSIONEXT} last${COMPRESSIONEXT}
+
+<% if @vars['owner'] -%>
+chown <%= @vars['owner'] %> last${COMPRESSIONEXT}
+<% end -%>
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Cleaning outdated backups (> ${RETENTION} days) ..."
 find ${DATADIR} -name "*${COMPRESSIONEXT}" -mtime +${RETENTION} -print -exec rm {} \;
