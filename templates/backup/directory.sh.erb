@@ -39,7 +39,7 @@ cd ${DATADIR}
 set +eu
 unlink last${COMPRESSIONEXT}
 set -eu
-ln ${DATANAME}${COMPRESSIONEXT} last${COMPRESSIONEXT}
+ln -s ${DATANAME}${COMPRESSIONEXT} last${COMPRESSIONEXT}
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') INFO  [Backup] Cleaning outdated backups (> ${RETENTION} days) ..."
 find ${DATADIR} -name "*${COMPRESSIONEXT}" -mtime +${RETENTION} -print -exec rm {} \;
