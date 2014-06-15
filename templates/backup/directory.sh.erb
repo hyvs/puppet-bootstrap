@@ -3,7 +3,7 @@
 set -eu
 
 DATADIR="<%= @vars['backup_dir'] %>"
-DATANAME="backup_directory_<%= @vars['name'] %>_$(date +%Y%m%d_%Hh%M)"
+DATANAME="backup_directory_<%= @name %>_$(date +%Y%m%d_%Hh%M)"
 EMAIL="<%= @vars['email'] %>"
 RETENTION="<%= @vars['retention'] %>"
 BACKUPEDDIR=<%= @vars['dir'] %>
