@@ -28,7 +28,9 @@ define p::resource::backup::cron (
     vars     => $real_options,
   }
 
-  p::resource::cron {"${script_prefix}${name}":
+  $code_name = regsubst($name, '/', '-', 'G')
+
+  p::resource::cron {"${script_prefix}${code_name}":
     command => "${shell_file}",
     date    => $date,
     hour    => $hour,
