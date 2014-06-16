@@ -7,6 +7,7 @@ class p::server::mcollective (
 ) {
 
   $plugins_defaults = {
+    install_client => true
   }
 
   $stomp_password = $secrets['stomp.password']
