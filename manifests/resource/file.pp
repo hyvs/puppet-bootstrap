@@ -6,7 +6,9 @@ define p::resource::file (
   $content         = undef,
   $template        = undef,
   $inline_template = undef,
-  $vars            = undef
+  $vars            = undef,
+  $require_file    = undef,
+  $require_dir     = undef
 ) {
 
   if undef != $template {
@@ -26,6 +28,14 @@ define p::resource::file (
     owner   => $owner,
     path    => $path,
     content => $real_content,
+  }
+
+  if undef != $require_file {
+    File[$require_file] -> File[$name]
+  }
+
+  if undef != $require_dir {
+    File[$require_dir] -> File[$name]
   }
 
 }

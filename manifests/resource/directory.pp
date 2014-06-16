@@ -4,7 +4,8 @@ define p::resource::directory (
   $path         = $name,
   $owner        = 'root',
   $recurse      = false,
-  $recurselimit = undef
+  $recurselimit = undef,
+  $require_dir  = undef
 ) {
 
   file {$name:
@@ -15,6 +16,10 @@ define p::resource::directory (
     path         => $path,
     recurse      => $recurse,
     recurselimit => $recurselimit,
+  }
+
+  if undef != $require_dir {
+    File[$require_dir] -> File[$name]
   }
 
 }
