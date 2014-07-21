@@ -32,6 +32,13 @@ class p::agent::backup (
     script_prefix => $script_prefix
   }
 
+  if !defined(Class['p::agent::nfs']) {
+    class {'p::agent::nfs':
+      require => Anchor['p::agent::backup::begin'],
+      before  => Anchor['p::agent::backup::crons'],
+    }
+  }
+
   file {$backup_dir:
     ensure => directory,
     require => Anchor['p::agent::backup::begin'],
