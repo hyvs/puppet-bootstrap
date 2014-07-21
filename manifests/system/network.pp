@@ -1,29 +1,23 @@
 class p::system::network (
-  $interfaces         = hiera_hash('network_interfaces'),
-  $interface_resource = 'p::resource::netinterface'
+  $interfaces = hiera_hash('network_interfaces')
 ) {
 
-  $interface_main_file = "/etc/network/interfaces"
-  $interface_dir       = "/etc/network/interfaces.d"
+  $interfaces_file = "/etc/network/interfaces"
 
-  anchor {'p::system::network::begin': } ->
-  p::resource::directory {$interface_dir: } ->
-  file_line { "${interface_dir} source-directory":
-    line => "source-directory ${interface_dir}",
-    path => $interface_main_file,
-  } ->
-  anchor {'p::system::network::init': }
-
-  $defaults = {
-    require => Anchor['p::system::network::init'],
-    before  => Anchor['p::system::network::reload'],
-    dir     => $interface_dir
+  if !$interfaces['lo'] {
+    fail("No lo interfaces defined")
   }
 
-  create_resources($interface_resource, $interfaces, $defaults)
+  if !$interfaces['eth0'] {
+    fail("No eth0 interfaces defined")
+  }
 
-  anchor {'p::system::network::reload':
-    require => Anchor['p::system::network::begin'],
+  anchor {'p::system::network::begin': } ->
+  p::resource::file {$interfaces_file:
+    template => "p/network/interfaces",
+    vars     => {
+      interfaces => $interfaces
+    },
   } ->
   exec {'reload network':
     command => "sudo service networking stop ; sudo service networking start",
