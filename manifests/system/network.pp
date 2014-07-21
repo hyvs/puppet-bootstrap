@@ -17,6 +17,7 @@ class p::system::network (
   $defaults = {
     require => Anchor['p::system::network::init'],
     before  => Anchor['p::system::network::reload'],
+    dir     => $interface_dir
   }
 
   create_resources($interface_resource, $interfaces, $defaults)
