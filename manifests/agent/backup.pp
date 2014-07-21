@@ -32,8 +32,8 @@ class p::agent::backup (
     script_prefix => $script_prefix
   }
 
-  if !defined(Class['p::agent::nfs']) {
-    class {'p::agent::nfs':
+  if !defined(Class['p::client::nfs']) {
+    class {'p::client::nfs':
       require => Anchor['p::agent::backup::begin'],
       before  => Anchor['p::agent::backup::crons'],
     }
