@@ -3,20 +3,13 @@ define p::resource::netinterface (
   $netmask,
   $network,
   $broadcast,
+  $dir,
   $comment = undef
 ) {
 
-  $interface_main_file = "/etc/network/interfaces"
-  $interface_dir       = "/etc/network/interfaces.d"
-  $interface_file      = "${interface_dir}/${name}"
+  $file = "${dir}/${name}"
 
-  p::resource::directory {$interface_dir:
-  } ->
-  file_line { "${interface_dir} source-directory":
-    line => 'source-directory interfaces.d',
-    path => $interface_main_file,
-  } ->
-  p::resource::file {$interface_file:
+  p::resource::file {$file:
     template => 'p/network/interface.erb',
     vars     => {
       name      => $name,
