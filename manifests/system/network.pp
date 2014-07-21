@@ -14,7 +14,7 @@ class p::system::network (
 
   anchor {'p::system::network::begin': } ->
   p::resource::file {$interfaces_file:
-    template => "p/network/interfaces",
+    template => "p/network/interfaces.erb",
     vars     => {
       interfaces => $interfaces
     },
