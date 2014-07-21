@@ -6,7 +6,7 @@ define p::resource::config (
   augeas { "${file}/${name}/${value}":
     context => "/files/${file}",
     changes => [
-    "set ${name} \"'${value}'\""
+    "set ${name} ${value}"
     ],
   }
 
