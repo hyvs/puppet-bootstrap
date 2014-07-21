@@ -3,7 +3,7 @@ define p::resource::config (
   $file
 ) {
 
-  if $value =~ /\s+/ {
+  if is_string($value) and $value =~ /\s+/ {
     $real_value = "\"'${value}'\""
   }
   augeas { "${file}/${name}/${value}":
