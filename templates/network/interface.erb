@@ -1,0 +1,10 @@
+# DON'T MODIFY THIS FILE DIRECTLY - MANAGED BY PUPPET
+
+# <%= @vars['comment'] %>
+
+auto <%= @vars['name'] %>
+iface <%= @vars['name'] %> inet static
+address <%= @vars['ip'] %>
+netmask <%= @vars['netmask'] %>
+network <%= @vars['network'] %>
+broadcast <%= @vars['broadcast'] %>
