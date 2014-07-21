@@ -3,10 +3,13 @@ define p::resource::config (
   $file
 ) {
 
+  if $value =~ /\s+/ {
+    $real_value = "\"'${value}'\""
+  }
   augeas { "${file}/${name}/${value}":
     context => "/files/${file}",
     changes => [
-    "set ${name} ${value}"
+    "set ${name} ${real_value}"
     ],
   }
 
