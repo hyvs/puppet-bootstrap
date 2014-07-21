@@ -5,7 +5,10 @@ define p::resource::config (
 
   if is_string($value) and $value =~ /\s+/ {
     $real_value = "\"'${value}'\""
+  } else {
+    $real_value = $value
   }
+  
   augeas { "${file}/${name}/${value}":
     context => "/files/${file}",
     changes => [
