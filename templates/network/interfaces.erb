@@ -1,9 +1,12 @@
 # DON'T MODIFY THIS FILE DIRECTLY - MANAGED BY PUPPET
-
 <%- @vars['interfaces'].each do |interfaceName, interface| -%>
+
+
 # <%= interface['comment'] %>
 
+<%- if interface['auto'] -%>
 auto <%= interfaceName %>
+<%- end -%>
 <%- if 'loopback' == interface['type'] -%>
 iface <%= interfaceName %> inet loopback
 <% elsif 'static' == interface['type'] -%>
