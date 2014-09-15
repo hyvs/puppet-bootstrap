@@ -1,7 +1,7 @@
 class p::server::mongodb (
-  $firewall = true,
+  $firewall = false,
   $port     = 27017,
-  $version  = '2.6.1'
+  $version  = '2.6.4'
 ) {
 
   if !defined(Class['p::repo::tengen']) {
