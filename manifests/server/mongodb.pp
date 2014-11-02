@@ -1,7 +1,8 @@
 class p::server::mongodb (
-  $firewall = false,
-  $port     = 27017,
-  $version  = '2.6.4'
+  $firewall   = false,
+  $port       = 27017,
+  $version    = '2.6.4',
+  $listen_all = false
 ) {
 
   if !defined(Class['p::repo::tengen']) {
@@ -21,6 +22,16 @@ class p::server::mongodb (
     version => $version,
     require => Anchor['p::server::mongodb::begin'],
     before  => Anchor['p::server::mongodb::end'],
+  } ->
+  anchor {'p::server::mongodb::after_packages': }
+
+  if $listen_all {
+    file_line { 'mongodb enable listen on all interfaces':
+      require => Anchor['p::server::mongodb::after_packages'],
+      path  => '/etc/mongod.conf',
+      line  => '#bind_ip = 127.0.0.1',
+      match => '^bind_ip ',
+    }
   }
 
   anchor {'p::server::mongodb::end':
