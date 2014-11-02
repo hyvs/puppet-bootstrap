@@ -23,6 +23,10 @@ class p::server::mongodb (
     require => Anchor['p::server::mongodb::begin'],
     before  => Anchor['p::server::mongodb::end'],
   } ->
+  service { "mongod":
+    ensure  => "running",
+    enable  => "true",
+  } ->
   anchor {'p::server::mongodb::after_packages': }
 
   if $listen_all {
@@ -31,6 +35,7 @@ class p::server::mongodb (
       path  => '/etc/mongod.conf',
       line  => '#bind_ip = 127.0.0.1',
       match => '^(\#)?bind_ip ',
+      notify => Service['mongodb'],
     }
   }
 
