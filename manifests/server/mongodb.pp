@@ -30,7 +30,7 @@ class p::server::mongodb (
       require => Anchor['p::server::mongodb::after_packages'],
       path  => '/etc/mongod.conf',
       line  => '#bind_ip = 127.0.0.1',
-      match => '^bind_ip ',
+      match => '^(\#)?bind_ip ',
     }
   }
 
