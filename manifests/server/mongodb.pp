@@ -35,7 +35,7 @@ class p::server::mongodb (
       path  => '/etc/mongod.conf',
       line  => '#bind_ip = 127.0.0.1',
       match => '^(\#)?bind_ip ',
-      notify => Service['mongodb'],
+      notify => Service['mongod'],
     }
   }
 
