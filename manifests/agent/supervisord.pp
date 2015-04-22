@@ -11,7 +11,7 @@ class p::agent::supervisord (
   $log_dir         = "${dirs['logs']}/supervisord"
   $daemons_defaults = {
     log_dir => $log_dir,
-    package => 'supervisor',
+    tool_package => 'supervisor',
     notify  => Service['supervisorctl'],
     require => [P::Resource::Directory[$log_dir], Anchor['p::agent::supervisord::begin']],
     before  => Anchor['p::agent::supervisord::end'],
