@@ -9,7 +9,7 @@ class p::agent::supervisord (
 ) {
 
   $log_dir         = "${dirs['logs']}/supervisord"
-  $daemon_defaults = {
+  $daemons_defaults = {
     log_dir => $log_dir,
     package => 'supervisor',
     notify  => Service['supervisorctl'],
