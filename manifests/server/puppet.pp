@@ -9,10 +9,6 @@ class p::server::puppet (
     class {'p::repo::puppetlabs': }
   }
 
-  if !defined(Class['p::repo::puppetlabs_dependencies']) {
-    class {'p::repo::puppetlabs_dependencies': }
-  }
-
      anchor { 'p::server::puppet::begin': }
   -> p::resource::firewall::tcp {'puppetserver': enabled => any2bool($firewall), port => $port }
   -> p::resource::package { 'puppet-common': version => $puppet_version }
