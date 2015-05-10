@@ -29,7 +29,7 @@ define p::resource::apt::repo (
       src => any2bool($include_src),
     },
     key               => {
-      id      => $key,
+      id      => !$key ? undef : $key,
       server  => $key_server,
       content => $key_content,
       source  => $key_source,
