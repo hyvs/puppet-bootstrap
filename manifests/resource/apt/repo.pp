@@ -11,7 +11,6 @@ define p::resource::apt::repo (
   $release           = 'UNDEF',
   $repo              = $name,
   $repos             = 'main',
-  $required_packages = false,
   $pins              = {},
   $pin_resource      = 'p::resource::apt::pin'
 ) {
@@ -29,7 +28,6 @@ define p::resource::apt::repo (
       deb => true,
       src => any2bool($include_src),
     },
-    required_packages => $required_packages,
     key               => $key,
     key_server        => $key_server,
     key_content       => $key_content,
