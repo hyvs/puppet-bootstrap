@@ -28,10 +28,12 @@ define p::resource::apt::repo (
       deb => true,
       src => any2bool($include_src),
     },
-    key               => $key,
-    key_server        => $key_server,
-    key_content       => $key_content,
-    key_source        => $key_source,
+    key               => {
+      id      => $key,
+      server  => $key_server,
+      content => $key_content,
+      source  => $key_source,
+    },
     pin               => $pin,
     architecture      => $architecture,
   }
