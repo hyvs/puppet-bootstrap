@@ -25,7 +25,10 @@ define p::resource::apt::repo (
     location          => $location,
     release           => $release,
     repos             => $repos,
-    include_src       => any2bool($include_src),
+    include           => {
+      deb => true,
+      src => any2bool($include_src),
+    },
     required_packages => $required_packages,
     key               => $key,
     key_server        => $key_server,
