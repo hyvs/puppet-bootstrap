@@ -59,7 +59,7 @@ mod "concat",
   :ref => "1.2.1"
 
 # 2015-03-25
-mod "postfix",
+mod "puppi",
   :git => "https://github.com/example42/puppi.git",
   :ref => "v2.1.11"
 
