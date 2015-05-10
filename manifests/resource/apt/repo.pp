@@ -19,21 +19,36 @@ define p::resource::apt::repo (
     require => Apt::Source[$repo],
   }
 
+  case $key {
+    false: {
+      $key_hash = {
+        server  => $key_server,
+        content => $key_content,
+        source  => $key_source,
+      }
+    }
+    default: {
+      $key_hash = {
+        id      => $key,
+        server  => $key_server,
+        content => $key_content,
+        source  => $key_source,
+      }
+    }
+  }
+
+  $include_hash = {
+    deb => true,
+    src => any2bool($include_src),
+  }
+
   apt::source {$repo:
     ensure            => $ensure,
     location          => $location,
     release           => $release,
     repos             => $repos,
-    include           => {
-      deb => true,
-      src => any2bool($include_src),
-    },
-    key               => {
-      id      => $key ? { false => undef, default => $key},
-      server  => $key_server,
-      content => $key_content,
-      source  => $key_source,
-    },
+    include           => $include_hash,
+    key               => $key_hash,
     pin               => $pin,
     architecture      => $architecture,
   }
