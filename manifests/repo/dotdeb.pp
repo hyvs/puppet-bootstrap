@@ -6,7 +6,7 @@ class p::repo::dotdeb (
     location    => 'http://packages.dotdeb.org',
     release     => 'jessie',
     repos       => 'all',
-    key         => '89DF5277',
+    key         => '7E3F070089DF5277',
     key_server  => 'http://www.dotdeb.org/dotdeb.gpg',
     pin         => 1000,
   } ->

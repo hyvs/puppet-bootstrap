@@ -29,10 +29,10 @@ define p::resource::apt::repo (
     }
     default: {
       $key_hash = {
-        id      => $key,
-        server  => $key_server,
-        content => $key_content,
-        source  => $key_source,
+        'id'      => $key,
+        'server'  => $key_server,
+        'content' => $key_content,
+        'source'  => $key_source,
       }
     }
   }

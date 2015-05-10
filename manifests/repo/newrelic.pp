@@ -6,7 +6,7 @@ class p::repo::newrelic (
     location    => 'http://apt.newrelic.com/debian/',
     release     => 'newrelic',
     repos       => 'non-free',
-    key         => '548C16BF',
+    key         => 'B31B29E5548C16BF',
     key_server  => 'hkp://subkeys.pgp.net',
     include_src => false,
   } ->
