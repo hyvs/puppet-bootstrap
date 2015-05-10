@@ -15,7 +15,7 @@ class p::server::puppet (
 
      anchor { 'p::server::puppet::begin': }
   -> p::resource::firewall::tcp {'puppetserver': enabled => any2bool($firewall), port => $port }
-  -> p::resource::pacakge { 'puppet-common': version => $puppet_version }
+  -> p::resource::package { 'puppet-common': version => $puppet_version }
   -> p::resource::package { 'puppetserver': version => $version }
   -> anchor { 'p::server::puppet::end': }
 
