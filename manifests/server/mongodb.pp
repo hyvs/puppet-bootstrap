@@ -1,7 +1,7 @@
 class p::server::mongodb (
   $firewall   = false,
   $port       = 27017,
-  $version    = '2.6.4',
+  $version    = '3.0.2',
   $listen_all = false
 ) {
 

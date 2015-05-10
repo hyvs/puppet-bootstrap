@@ -1,6 +1,6 @@
 class p::tool::phantomjs (
   $dirs    = hiera_hash('dirs'),
-  $version = '1.9.7'
+  $version = '2.0.0'
 ) {
 
   $tmp_dir      = $dirs['tmp']

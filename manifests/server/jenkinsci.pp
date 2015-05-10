@@ -35,21 +35,6 @@ class p::server::jenkinsci (
     before  => Anchor['p::server::jenkinsci::end']
   }
 
-  anchor {'p::server::jenkinsci::begin': } ->
-  group {$group:
-    members => [$user],
-  } ->
-  user {$user:
-    comment => '',
-    home    => $jenkins_home,
-    shell   => '/bin/bash',
-    groups  => ['shadow','sudonopass'],
-    require => Group['sudonopass'],
-  } ->
-  p::resource::directory {$jenkins_logs_dir:
-    owner   => $user,
-    group   => $group,
-  } ->
   class {'::jenkins':
     install_java       => false,
     repo               => false,
@@ -61,9 +46,22 @@ class p::server::jenkinsci (
     'HTTP_PORT' => { 'value' => $port },
     'AJP_PORT'  => { 'value' => $ajp_port }
     },
-    require            => Class['p::language::java'],
-  } ->
-  anchor {'p::server::jenkinsci::end': }
+    require => [Class['p::language::java'], P::Resource::Directory[$jenkins_logs_dir]],
+    before  => Anchor['p::server::jenkinsci::end'],
+  }
+
+     anchor {'p::server::jenkinsci::begin': }
+  -> group {$group: members => [$user] }
+  -> user {$user:
+    comment => '',
+    home    => $jenkins_home,
+    shell   => '/bin/bash',
+    groups  => ['shadow','sudonopass'],
+    require => Group['sudonopass'],
+  }
+  -> p::resource::directory {$jenkins_logs_dir: owner   => $user, group   => $group }
+  -> anchor {'p::server::jenkinsci::end': }
+
 
   create_resources($plugin_resource, $plugins, $plugins_defaults)
   create_resources($job_resource, $jobs, $jobs_defaults)

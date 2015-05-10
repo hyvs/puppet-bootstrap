@@ -16,15 +16,19 @@ define p::resource::cron (
     $real_command = join($command, ' && ')
   }
 
-  cron::job {$name:
-    minute      => $minute,
-    hour        => $hour,
-    date        => $date,
-    month       => $month,
-    weekday     => $weekday,
-    user        => $user,
-    command     => $real_command,
-    environment => join_keys_to_values(merge($default_environment, $environment), '='),
+  $real_environment = join_keys_to_values(merge($default_environment, $environment), '=')
+
+  if !defined(Package['cron']) {
+    package { 'cron':
+      ensure => 'installed',
+    }
+  }
+
+  file { "job_${title}":
+    ensure  => 'present',
+    path    => "/etc/cron.d/${title}",
+    content => template( 'p/cron/job.erb' ),
+    require => Package['cron'],
   }
 
 }

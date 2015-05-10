@@ -3,11 +3,17 @@ class p::language::java (
   $distribution = 'jdk'
 ) {
 
-  anchor {'p::language::java::begin': } ->
+  anchor {'p::language::java::begin': }
+
   class {'::java':
     package      => $package,
     distribution => $distribution,
-  } ->
-  anchor {'p::language::java::end': }
+    require      => Anchor['p::language::java::begin'],
+    before       => Anchor['p::language::java::end'],
+  }
+
+  anchor {'p::language::java::end':
+    require => Anchor['p::language::java::begin'],
+  }
 
 }

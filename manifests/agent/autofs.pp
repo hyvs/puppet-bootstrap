@@ -9,15 +9,11 @@ class p::agent::autofs (
     notify  => Service['autofs'],
   }
 
-  anchor {'p::agent::autofs::begin': } ->
-  p::resource::package {'autofs': } ->
-  p::resource::directory {'/etc/auto.master.d':
-  } ->
-  service {'autofs':
-    ensure => 'running',
-    enable => true,
-  } ->
-  anchor {'p::agent::autofs::end': }
+     anchor {'p::agent::autofs::begin': }
+  -> p::resource::package {'autofs': }
+  -> p::resource::directory {'/etc/auto.master.d': }
+  -> service {'autofs': ensure => 'running', enable => true}
+  -> anchor {'p::agent::autofs::end': }
 
   create_resources($root_resource, $roots, $roots_defaults)
 }

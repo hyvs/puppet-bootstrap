@@ -11,10 +11,14 @@ class p::server::postfix (
     before  => Anchor['p::server::postfix::maps'],
   }
 
-  anchor {'p::server::postfix::begin': } ->
-  class {'::postfix': } ->
-  anchor {'p::server::postfix::maps': } ->
-  anchor {'p::server::postfix::end': }
+  class {'::postfix':
+    require => Anchor['p::server::postfix::begin'],
+    before  => Anchor['p::server::postfix::maps'],
+  }
+
+     anchor {'p::server::postfix::begin': }
+  -> anchor {'p::server::postfix::maps': }
+  -> anchor {'p::server::postfix::end': }
 
   create_resources($map_resource, {"sender_canonical" => $sender_canonical_maps}, $maps_defaults)
   create_resources($map_resource, {"canonical"        => $canonical_maps},        $maps_defaults)

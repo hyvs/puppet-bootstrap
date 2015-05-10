@@ -5,27 +5,44 @@ class p::system::locales (
 ) {
 
   anchor {'p::system::locales::begin': }
-
-  class { '::locales':
-    locales => $locales,
-    require => Anchor['p::system::locales::begin'],
-  } ->
-  exec {'change_default_locale':
+  -> package { 'locales':
+    ensure  => 'installed',
+  }
+  -> file { 'locales.conf':
+    ensure  => 'present',
+    path    => '/etc/locale.gen',
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => template('p/locales/locale.gen.erb'),
+    replace => true,
+  }
+  -> exec { 'generate_locales':
+    command     => '/usr/sbin/locale-gen',
+    refreshonly => true,
+    subscribe   => File['locales.conf'],
+  }
+  -> exec {'change_default_locale':
     command => "sudo update-locale LANGUAGE=${lang} LANG=${lang}",
-  } ->
-  exec { 'change_default_locale_LC_ALL':
+  }
+  -> exec { 'change_default_locale_LC_ALL':
     command => "sudo update-locale LC_ALL=''; export LC_ALL=''",
-    before   => Anchor['p::system::locales::end'],
   }
-
-  class {'::timezone':
-    timezone => $timezone,
-    require  => Anchor['p::system::locales::begin'],
-    before   => Anchor['p::system::locales::end'],
+  -> file { 'timezone':
+    ensure  => 'present',
+    path    => '/etc/timezone',
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => $timezone,
+    replace => true,
   }
-
-  anchor {'p::system::locales::end':
-    require => Anchor['p::system::locales::begin'],
+  -> exec { 'set-timezone':
+    command     => 'dpkg-reconfigure -f noninteractive tzdata',
+    path        => '/usr/bin:/usr/sbin:/bin:/sbin',
+    subscribe   => File['timezone'],
+    refreshonly => true,
   }
+  -> anchor {'p::system::locales::end': }
   
 }

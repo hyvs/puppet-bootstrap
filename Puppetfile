@@ -1,104 +1,69 @@
-forge "http://forge.puppetlabs.com"
+forge "https://forge.puppetlabs.com"
 
 
+# 2015-05-19
 mod "firewall",
   :git => "https://github.com/puppetlabs/puppetlabs-firewall.git",
-  :ref => '0.4.2'
-mod "iptables",
-  :git => "https://github.com/example42/puppet-iptables.git",
-  :ref => "v2.1.3"
-mod "concat",
-  :git => "https://github.com/puppetlabs/puppetlabs-concat.git",
-  :ref => "04356974f72b90a1d0f57346a00e95a717924e43"
-mod "locales",
-  :git => "https://github.com/netmanagers/puppet-locales.git",
-  :ref => "4a8d9b6d68f82f4b29c95811c2be44bdbea38005"
+  :ref => '1.5.0'
+
+# 2015-04-28
 mod "apt",
   :git => "https://github.com/puppetlabs/puppetlabs-apt.git",
-  :ref => "ec793355278ab509928b832c5f43a12736552912"
-mod "timezone",
-  :git => "https://github.com/example42/puppet-timezone.git",
-  :ref => "73f32fa2e25a55f990e513ec49db14c1072c8e23"
-mod "postfix",
-  :git => "https://github.com/example42/puppet-postfix.git",
-  :ref => "445340dbde8cdbacca4736e2fe397b2801261341"
-mod "sudo",
-  :git => "https://github.com/example42/puppet-sudo.git",
-  :ref => "a3df4c8d724905c743439175ec874b04d6b39df8"
-mod "ntp",
-  :git => "https://github.com/example42/puppet-ntp.git",
-  :ref => "01779959f839b25596e28d65e9ff4373951a75bf"
+  :ref => "2.0.1"
+
+# 2015-04-27
 mod "apache",
-  :git => "https://github.com/ohoareau/puppetlabs-apache.git",
-  :ref => "35b9506dd068d7399f448914b9e206349f11d3be"
-mod "git",
-  :git => "https://github.com/nesi/puppet-git.git",
-  :ref => "2eb5bc07576af0afa327094bf81878d4bcf49989"
-mod "puppi",
-  :git => "https://github.com/example42/puppi.git",
-  :ref => "94aec8ae219137840a4ca39130863f1b71d3f401"
-mod "php",
-  :git => "https://github.com/example42/puppet-php.git",
-  :ref => "b4289255feac5b90a44fea70b21f666632eadeb9"
-mod "hosts",
-  :git => "https://github.com/example42/puppet-hosts.git",
-  :ref => "fb96a1140e5bda31dc0d383591a17c989bb78dc2"
-mod "mysql",
-  :git => "https://github.com/puppetlabs/puppetlabs-mysql.git",
-  :ref => "2.2.3"
-mod "cron",
-  :git => "https://github.com/torrancew/puppet-cron.git",
-  :ref => "ca2c3832c9d3d709a0f416e716c77634cb774955"
-mod "stdlib",
-  :git => "https://github.com/puppetlabs/puppetlabs-stdlib.git",
-  :ref => "44c181ec0e230768b8dce10de57f9b32638e66e1"
-mod "file_concat",
-  :git => "https://github.com/electrical/puppet-lib-file_concat.git",
-  :ref => "master"
-mod "epel",
-  :git => "https://github.com/stahnma/puppet-module-epel.git",
-  :ref => "master"
-mod "rvm",
-  :git => "https://github.com/example42/puppet-rvm.git",
-  :ref => '6915ba744ac3287c1c482128496ef39dcf2b9743'
-mod "remi",
-  :git => "https://github.com/lboynton/puppet-remi.git"
-mod "stdmod",
-  :git => "https://github.com/stdmod/stdmod.git",
-  :ref => "72e4ac8cd6a4d254c9356c69c645fa553f96a01e"
-mod "puppet",
-  :git => "https://github.com/puppetlabs/puppetlabs-puppet.git",
-  :ref => "f6f1d7b6f783855a7f5871d27e0a1ee39855c6e6"
-mod "jenkins",
-  :git => "https://github.com/jenkinsci/puppet-jenkins.git",
-  :ref => 'v1.1.0'
+  :git => "https://github.com/puppetlabs/puppetlabs-apache.git",
+  :ref => "1.4.1"
+
+# 2015-04-27 (3.3.0)
+mod "ntp",
+  :git => "https://github.com/puppetlabs/puppetlabs-ntp.git",
+  :ref => "53570725fa40ae5bd7368cbaf47b549966d030f2"
+
+# 2015-05-07 (1.3.0)
 mod "java",
   :git => "https://github.com/puppetlabs/puppetlabs-java.git",
-  :ref => '1.1.0'
-mod "memcached",
-  :git => "https://github.com/francetv/puppet-memcached.git",
-  :ref => '3839b1836ebcc5362c0e5973575adb8d53d2912e'
-mod "rabbitmq",
-  :git => "https://github.com/francetv/puppetlabs-rabbitmq.git",
-  :ref => '0fc01a29bbe8fc93afa0525d8f51080a45b33a1e'
-mod "varnish",
-  :git => "https://github.com/maxchk/puppet-varnish.git",
-  :ref => 'e6714bd05f8d904c92da095554a522dc816878a6'
+  :ref => "461209338f2e184f0d948f10163947d442510a9c"
+
+# 2015-03-11
+mod "postfix",
+  :git => "https://github.com/example42/puppet-postfix.git",
+  :ref => "v2.0.19"
+
+# 2015-04-21
+mod "php",
+  :git => "https://github.com/example42/puppet-php.git",
+  :ref => "v2.0.20"
+
+# 2015-05-04
+mod "jenkins",
+  :git => "https://github.com/jenkinsci/puppet-jenkins.git",
+  :ref => "v1.4.0"
+
+# 2013-10-25
 mod "redis",
   :git => "https://github.com/example42/puppet-redis.git",
   :ref => 'v2.0.8'
-mod "nfs",
-  :git => "https://github.com/example42/puppet-nfs.git",
-  :ref => 'v2.0.13'
-mod "vcsrepo",
-  :git => "https://github.com/puppetlabs/puppetlabs-vcsrepo.git",
-  :ref => '0.2.0'
-mod "mcollective",
-  :git => "https://github.com/example42/puppet-mcollective.git",
-  :ref => "v2.0.13"
-mod "activemq",
-  :git => "https://github.com/example42/puppet-activemq.git",
-  :ref => "v2.0.13"
-mod "autofs",
-  :git => "https://github.com/pdxcat/puppet-module-autofs.git",
-  :ref => "99608898999af4b91bb5a25fe38da41e9512295c"
+
+## Dependencies
+
+# 2015-04-15
+mod "stdlib",
+  :git => "https://github.com/puppetlabs/puppetlabs-stdlib.git",
+  :ref => "4.6.0"
+
+# 2015-04-14
+mod "concat",
+  :git => "https://github.com/puppetlabs/puppetlabs-concat.git",
+  :ref => "1.2.1"
+
+# 2015-03-25
+mod "postfix",
+  :git => "https://github.com/example42/puppi.git",
+  :ref => "v2.1.11"
+
+# 2015-04-24 (1.0.4)
+mod "staging",
+  :git => "https://github.com/nanliu/puppet-staging.git",
+  :ref => "a71e7d6261616fdba9f5c9109c4ad41c120d91be"
