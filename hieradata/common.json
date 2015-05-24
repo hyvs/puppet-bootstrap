@@ -110,5 +110,6 @@
     "mcollective_middleware_hosts": [],
     "opened_interfaces": [],
     "autofs_roots": {},
-    "network_interfaces": {}
+    "network_interfaces": {},
+    "extra_network_interfaces": {}
 }

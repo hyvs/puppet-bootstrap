@@ -1,0 +1,27 @@
+# DON'T MODIFY THIS FILE DIRECTLY - MANAGED BY PUPPET
+
+# <%= @comment %>
+
+<%- if @auto -%>
+auto <%= @name %>
+<%- end -%>
+<%- if 'loopback' == @type -%>
+iface <%= @name %> inet loopback
+<% elsif 'static' == @type -%>
+iface <%= @name %> inet static
+<%- if @ip -%>
+    address <%= @ip %>
+<%- end -%>
+<%- if @netmask -%>
+    netmask <%= @netmask %>
+<%- end -%>
+<%- if @network -%>
+    network <%= @network %>
+<%- end -%>
+<%- if @broadcast -%>
+    broadcast <%= @broadcast %>
+<%- end -%>
+<%- if @gateway -%>
+    gateway <%= @gateway %>
+<%- end -%>
+<%- end -%>
