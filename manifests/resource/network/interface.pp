@@ -1,7 +1,7 @@
 define p::resource::network::interface (
-  ip,
-  netmask,
-  broadcast,
+  $ip,
+  $netmask,
+  $broadcast,
   $comment   = undef,
   $auto      = true,
   type       = 'static',
