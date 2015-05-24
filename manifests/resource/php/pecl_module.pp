@@ -2,7 +2,7 @@ define p::resource::php::pecl_module (
   $enabled = true
 ) {
 
-  if any2bool($enabled) {
+  if $enabled {
     if !defined(Package['make']) {
       p::resource::package {'make': }
     }

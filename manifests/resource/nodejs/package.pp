@@ -22,7 +22,7 @@ define p::resource::nodejs::package (
     $require = Class['p::language::nodejs']
   }
 
-  if !any2bool($manual_install) {
+  if !$manual_install {
     p::resource::package {$name:
       ensure   => $version,
       provider => 'npm',

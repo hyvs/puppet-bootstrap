@@ -2,7 +2,7 @@ define p::resource::firewall::protocol (
   $enabled = true
 ) {
 
-  if any2bool($enabled) and defined('::firewall') {
+  if $enabled and defined('::firewall') {
 
     $description = "Allow protocol ${name}"
 

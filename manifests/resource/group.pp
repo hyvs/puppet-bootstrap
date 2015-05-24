@@ -8,7 +8,7 @@ define p::resource::group (
   $conf_file      = "/etc/sudoers.d/hiera-${group}-sudonopass"
   $conf_statement = "%${group} ALL = NOPASSWD: ALL"
 
-  if any2bool($enabled) {
+  if $enabled {
     group {$name:
       ensure  => present,
       gid     => $gid,

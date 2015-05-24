@@ -15,7 +15,7 @@ define p::resource::ssh::public_key (
   $ssh_dir  = "${real_home}/.ssh"
   $key_name = "${login}_${name}"
 
-  if any2bool($absent) {
+  if $absent {
     $ensure = 'absent'
   } else {
     $ensure = 'present'

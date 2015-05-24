@@ -13,7 +13,7 @@ define p::resource::ssh::private_key (
 
   $ssh_dir  = "${real_home}/.ssh"
 
-  if !any2bool($absent) {
+  if !$absent {
     $ensure = 'present'
   } else {
     $ensure = 'absent'

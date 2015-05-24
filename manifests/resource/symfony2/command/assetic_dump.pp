@@ -7,7 +7,7 @@ define p::resource::symfony2::command::assetic_dump (
   $stderr     = undef
 ) {
 
-  if any2bool($force) {
+  if $force {
     $options = '--force'
   } else {
     $options = ''

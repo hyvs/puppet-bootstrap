@@ -12,7 +12,7 @@ class p::system::ssh (
 
   anchor {'p::system::ssh::begin': } ->
   p::resource::firewall::tcp {'sshd':
-    enabled => any2bool($firewall),
+    enabled => $firewall,
     port    => $port,
   } ->
   anchor {'p::system::ssh::end': }

@@ -4,7 +4,7 @@ define p::resource::php::module (
   $enabled = true
 ) {
 
-  if any2bool($enabled) {
+  if $enabled {
     ::php::module {$module:
       module_prefix => $prefix,
     }

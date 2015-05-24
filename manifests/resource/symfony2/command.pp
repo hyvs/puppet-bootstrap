@@ -11,7 +11,7 @@ define p::resource::symfony2::command (
   $log_append  = true
 ) {
 
-  if any2bool($log_append) {
+  if $log_append {
     $operator = '>>'
   } else {
     $operator = '>'

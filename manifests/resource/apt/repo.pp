@@ -39,7 +39,7 @@ define p::resource::apt::repo (
 
   $include_hash = {
     deb => true,
-    src => any2bool($include_src),
+    src => $include_src,
   }
 
   apt::source {$repo:

@@ -105,7 +105,7 @@ class p::server::apache2 (
   }
 
   p::resource::firewall::tcp {'apache':
-    enabled => any2bool($firewall),
+    enabled => $firewall,
     port    => $port,
     require => Anchor['p::server::apache2::begin'],
     before  => Anchor['p::server::apache2::end'],

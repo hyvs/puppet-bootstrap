@@ -3,7 +3,7 @@ define p::resource::firewall::udp (
   $enabled = true
 ) {
 
-  if any2bool($enabled) and defined('::firewall') {
+  if $enabled and defined('::firewall') {
 
     $description = "Allow access to ${name} (UDP ${port})"
 

@@ -62,8 +62,8 @@ $uid                  = undef
     $real_home = "/home/${login}"
   }
 
-  if any2bool($active) {
-    if any2bool($sudo) {
+  if $active {
+    if $sudo {
       $concated_groups = concat($groups, ['sudonopass'])
       $ugroups         = unique($concated_groups)
     } else {

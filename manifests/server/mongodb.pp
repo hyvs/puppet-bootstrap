@@ -12,7 +12,7 @@ class p::server::mongodb (
   anchor {'p::server::mongodb::begin': }
 
   p::resource::firewall::tcp {'mongodb':
-    enabled => any2bool($firewall),
+    enabled => $firewall,
     port    => $port,
     require => Anchor['p::server::mongodb::begin'],
     before  => Anchor['p::server::mongodb::end'],

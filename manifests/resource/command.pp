@@ -23,7 +23,7 @@ define p::resource::command (
     }
   }
 
-  if any2bool($sudo) {
+  if $sudo {
     $sudo_string = 'sudo '
   } else {
     $sudo_string = ''

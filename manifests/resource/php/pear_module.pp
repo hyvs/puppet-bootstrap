@@ -5,7 +5,7 @@ define p::resource::php::pear_module (
   $enabled     = true
 ) {
 
-  if any2bool($enabled) {
+  if $enabled {
     php::pear::module {$module:
       repository  => $repository,
       use_package => $use_package,

@@ -40,7 +40,7 @@ define p::resource::symfony2::application (
   validate_array($users)
   validate_array($directories)
 
-  if any2bool($deploy) {
+  if $deploy {
     $directories.each |$directory| {
       p::resource::directory {"${dir}/${directory}":
         owner   => $owner,
@@ -107,7 +107,7 @@ define p::resource::symfony2::application (
       }
     }
 
-    if any2bool($migrate_db) {
+    if $migrate_db {
       p::resource::symfony2::command::doctrine_migrations_migrate {$dir:
         env    => $env,
         stdout => $install_log_file,
@@ -117,7 +117,7 @@ define p::resource::symfony2::application (
       }
     }
 
-    if any2bool($zenstruck_migrate_db) {
+    if $zenstruck_migrate_db {
       p::resource::symfony2::command::zenstruck_migrations_migrate {$dir:
         env     => $env,
         stdout  => $install_log_file,

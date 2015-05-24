@@ -53,7 +53,7 @@ class p::server::redis (
     },
   } ->
   p::resource::firewall::tcp {'redis':
-    enabled => any2bool($firewall),
+    enabled => $firewall,
     port    => any2int($port),
   } ->
   anchor {'p::server::redis::end': }

@@ -15,7 +15,7 @@ class p::server::jenkinsci (
   class {'p::repo::jenkins': }
 
   p::resource::firewall::tcp {'jenkins':
-    enabled => any2bool($firewall),
+    enabled => $firewall,
     port    => $port,
     require => Anchor['p::server::jenkinsci::begin'],
     before  => Anchor['p::server::jenkinsci::end'],
