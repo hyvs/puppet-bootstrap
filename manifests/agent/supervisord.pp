@@ -22,7 +22,7 @@ class p::agent::supervisord (
   p::resource::directory {$log_dir:
     owner   => 'root',
     group   => 'root',
-    mode    => 777,
+    mode    => '0777',
   } ->
   service {'supervisorctl':
     ensure  => 'running',

@@ -25,7 +25,7 @@ define p::resource::ssh::public_key (
     p::resource::directory {$ssh_dir:
       owner   => $login,
       group   => $login,
-      mode    => 0600,
+      mode    => '0600',
     }
   }
 

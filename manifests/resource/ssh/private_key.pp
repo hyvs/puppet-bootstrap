@@ -23,7 +23,7 @@ define p::resource::ssh::private_key (
     p::resource::directory {$ssh_dir:
       owner   => $login,
       group   => $login,
-      mode    => 0600,
+      mode    => '0600',
     }
   }
 
@@ -32,7 +32,7 @@ define p::resource::ssh::private_key (
     content => $key,
     owner   => $login,
     group   => $login,
-    mode    => 0600,
+    mode    => '0600',
     require => [User[$login], File[$ssh_dir]],
   }
 
