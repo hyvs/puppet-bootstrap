@@ -4,7 +4,7 @@ define p::resource::network::interface (
   $broadcast,
   $comment   = undef,
   $auto      = true,
-  type       = 'static',
+  $type       = 'static',
   $dir       = '/etc/network/interfaces.d'
 ) {
 
