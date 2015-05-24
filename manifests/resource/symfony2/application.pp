@@ -66,7 +66,7 @@ define p::resource::symfony2::application (
     anchor {"p::resource::symfony2::application::commands::${title}": } ->
     anchor {"p::resource::symfony2::application::post_commands::${title}": }
 
-    if any2bool($clear_cache) {
+    if $clear_cache {
       p::resource::symfony2::command::cache_clear {$dir:
         env     => $env,
         stdout  => $install_log_file,
@@ -96,7 +96,7 @@ define p::resource::symfony2::application (
       }
     }
 
-    if any2bool($dump_assetics) {
+    if $dump_assetics {
       p::resource::symfony2::command::assetic_dump {$dir:
         env    => $env,
         force  => true,
@@ -127,7 +127,7 @@ define p::resource::symfony2::application (
       }
     }
 
-    if any2bool($install_assets) {
+    if $install_assets {
       p::resource::symfony2::command::assets_install {$dir:
         mode    => $install_assets_mode,
         stdout  => $install_log_file,

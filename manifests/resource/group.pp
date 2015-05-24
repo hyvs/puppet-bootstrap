@@ -15,7 +15,7 @@ define p::resource::group (
       name    => $group,
     }
 
-    if any2bool($sudonopass) {
+    if $sudonopass {
       file {$conf_file:
         ensure  => file,
         content => $conf_statement,
@@ -26,7 +26,7 @@ define p::resource::group (
     group {$name:
       ensure  => absent,
     }
-    if any2bool($sudonopass) {
+    if $sudonopass {
       file {$conf_file:
         ensure  => absent,
       }
