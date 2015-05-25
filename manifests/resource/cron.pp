@@ -24,9 +24,8 @@ define p::resource::cron (
     }
   }
 
-  file { "job_${title}":
+  file { "/etc/cron.d/${title}":
     ensure  => 'present',
-    path    => "/etc/cron.d/${title}",
     content => template( 'p/cron/job.erb' ),
     require => Package['cron'],
   }

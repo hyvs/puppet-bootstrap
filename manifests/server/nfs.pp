@@ -9,18 +9,12 @@ class p::server::nfs (
     notify  => Service['nfs-kernel-server'],
   }
 
-  service {'nfs-kernel-server':
-    ensure => 'running',
-    enable => true,
-    require => Anchor['p::server::nfs::begin'],
-    before  => Anchor['p::server::nfs::end'],
-  }
-
-  anchor {'p::server::nfs::begin': } ->
-    p::resource::package {'nfs-kernel-server': } ->
-    p::resource::directory {'/etc/exports.d':
-  } ->
-  anchor {'p::server::nfs::end': }
+    anchor                  { 'p::server::nfs::begin': }
+  -> p::resource::package   { 'nfs-kernel-server':     }
+  -> p::resource::directory { '/etc/exports.d':        }
+  -> service                { 'nfs-kernel-server': ensure => 'running', enable => true }
+  -> anchor                 { 'p::server::nfs::end':   }
 
   create_resources($export_resource, $exports, $exports_defaults)
+
 }

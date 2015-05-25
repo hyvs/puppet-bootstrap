@@ -3,17 +3,14 @@ class p::system::hosts (
   $resource = 'p::resource::host'
 ) {
 
-  anchor {'p::system::hosts::begin': }
-  
   $defaults = {
     require => Anchor['p::system::hosts::begin'],
     before  => Anchor['p::system::hosts::end'],
   }
-  
+
+     anchor { 'p::system::hosts::begin': }
+  -> anchor { 'p::system::hosts::end':   }
+
   create_resources($resource, $hosts, $defaults)
-  
-  anchor {'p::system::hosts::end':
-    require => Anchor['p::system::hosts::begin'],
-  }
-  
+
 }

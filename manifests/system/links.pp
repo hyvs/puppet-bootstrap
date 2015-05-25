@@ -3,17 +3,14 @@ class p::system::links (
   $resource = 'p::resource::link'
 ) {
 
-  anchor {'p::system::links::begin': }
-  
   $defaults = {
     require => Anchor['p::system::links::begin'],
     before  => Anchor['p::system::links::end'],
   }
-  
+
+     anchor { 'p::system::links::begin': }
+  -> anchor { 'p::system::links::end':   }
+
   create_resources($resource, $links, $defaults)
-  
-  anchor {'p::system::links::end':
-    require => Anchor['p::system::links::begin'],
-  }
-  
+
 }

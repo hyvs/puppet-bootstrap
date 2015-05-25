@@ -9,7 +9,7 @@ define p::resource::firewall::tcp (
 
     firewall { "500 ${description}":
       action => accept,
-      port   => any2int($port),
+      port   => $port,
       proto  => 'tcp'
     }
 

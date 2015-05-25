@@ -1,22 +1,20 @@
 class p::system::crons (
-  $crons    = hiera_hash('crons'),
-  $resource = 'p::resource::cron',
-  $defaults = hiera_hash('defaults')
+  $crons       = hiera_hash('crons'),
+  $environment = hiera_hash('cron_environment'),
+  $resource    = 'p::resource::cron',
+  $user        = 'root'
 ) {
 
-  anchor {'p::system::crons::begin': }
-  
   $cron_defaults = {
-    user                => $defaults['cron.user'],
-    default_environment => $defaults['cron.environment'],
+    user                => $user,
+    default_environment => $environment,
     require             => Anchor['p::system::crons::begin'],
     before              => Anchor['p::system::crons::end'],
   }
-  
+
+     anchor { 'p::system::crons::begin': }
+  -> anchor { 'p::system::crons::end':   }
+
   create_resources($resource, $crons, $cron_defaults)
-  
-  anchor {'p::system::crons::end':
-    require => Anchor['p::system::crons::begin'],
-  }
-  
+
 }

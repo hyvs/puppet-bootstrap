@@ -1,6 +1,6 @@
 class p::system::repos (
-  $repo_resource = 'p::resource::apt::repo',
-  $repos         = hiera_hash('repos')
+  $repos         = hiera_hash('repos'),
+  $repo_resource = 'p::resource::apt::repo'
 ) {
 
   $repos_defaults = {
@@ -8,8 +8,8 @@ class p::system::repos (
     before  => Anchor['p::system::repos::end']
   }
 
-  anchor {'p::system::repos::begin': } ->
-  anchor {'p::system::repos::end': }
+     anchor { 'p::system::repos::begin': }
+  -> anchor { 'p::system::repos::end':   }
 
   create_resources($repo_resource, $repos, $repos_defaults)
 

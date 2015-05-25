@@ -1,17 +1,16 @@
 {
     "name": "phppro/puppet-bootstrap",
-    "version": "0.1.0",
+    "version": "2.0",
     "summary": "Puppet Bootstrap",
     "source": "git@github.com/phppro/puppet-bootstrap.git",
     "project_page": "http://github.com/phppro/puppet-bootstrap",
     "author": "PHPPRO",
     "license": "Apache-2.0",
     "operatingsystem_support": [
-        "Debian",
-        "Ubuntu"
+        "Debian"
     ],
     "puppet_version": [
-        3.6
+        4.0
     ],
     "dependencies": [
     ]

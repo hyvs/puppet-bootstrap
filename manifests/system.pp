@@ -1,7 +1,8 @@
-class p::system (
-) {
+class p::system {
 
-  anchor { 'p::system::begin': }
+     anchor { 'p::system::begin': }
+  -> anchor { 'p::system::end':   }
+
 
   class { 'p::system::repos':
     require => Anchor['p::system::begin'],
@@ -66,10 +67,6 @@ class p::system (
   class { 'p::system::commands':
     require => Anchor['p::system::begin'],
     before  => Anchor['p::system::end'],
-  }
-
-  anchor { 'p::system::end':
-    require => Anchor['p::system::begin'],
   }
 
 }

@@ -1,115 +1,62 @@
 {
-    "dirs": {
-        "logs": "/var/log",
-        "tmp":  "/tmp",
-        "home.jenkins": "/var/lib/jenkins"
-    },
-    "secrets": {
-        "newrelic.license": "FILL_ME"
-    },
-    "directories": {},
-    "links": {},
-    "users": {},
-    "groups": {
-        "sudonopass": {
-            "gid": 1051,
-            "sudonopass": true
-        }
-    },
-    "files": {},
-    "crons": {},
-    "hosts": {},
-    "packages": {},
-    "defaults": {
-        "cron.user": "root",
-        "cron.environment": {
-            "SHELL": "/bin/bash",
-            "PATH":  "/usr/local/bin:/usr/bin:/bin"
-        }
-    },
+    "ntp_servers": [
+        "0.debian.pool.ntp.org",
+        "1.debian.pool.ntp.org",
+        "2.debian.pool.ntp.org",
+        "3.debian.pool.ntp.org"
+    ],
+    "ntp_restricts": [
+        "-4 default kod notrap nomodify nopeer noquery",
+        "-6 default kod notrap nomodify nopeer noquery",
+        "127.0.0.1",
+        "::1"
+    ],
     "daemons": {},
+    "newrelic_license_key": null,
+    "autofs_roots": {},
+    "capistrano_applications": {},
+    "capistrano_home": "/apps",
+    "npm_packages": {},
+    "nodejs_version": null,
+    "gems": {},
+    "ruby_version": null,
+    "gandi_defaults": {},
+    "gandi_system_defaults": {},
+    "mongodb_version": "3.0.3",
+    "nfs_exports": {},
+    "puppetserver_version": null,
+    "commands": {},
+    "cron_environment": {
+        "SHELL": "/bin/bash",
+        "PATH":  "/usr/local/bin:/usr/bin:/bin"
+    },
+    "crons": {},
+    "directories": {},
+    "files": {},
     "opened_tcp_ports": [],
     "opened_udp_ports": [],
     "opened_ports": [],
-    "user_authorized_keys": {},
-    "user_keys": {},
-    "postfix_sender_canonical_maps": {
-        "maps": {
-        }
-    },
-    "postfix_canonical_maps": {
-        "maps": {
-        }
-    },
-    "postfix_maps": {
-    },
-    "php_directives": {
-    },
-    "php_modules": {
-    },
-    "pear_modules": {
-    },
-    "pecl_modules": {
-    },
-    "ntp_servers": [],
-    "npm_local_packages": {
-    },
-    "npm_packages": {
-    },
-    "memcached_instances": {
-    },
-    "mcollective_plugins": {
-    },
-    "jenkins_jobs": {
-    },
-    "jenkins_plugins": {
-    },
-    "java_package": "openjdk-7-jre-headless",
-    "repos": {
-    },
-    "git_repos": {
-    },
-    "commands": {
-    },
+    "opened_interfaces": [],
+    "hosts": {},
+    "links": {},
     "lang": "en_US.UTF-8",
     "locales": [
         "en_US ISO-8859-1",
         "en_US.UTF-8 UTF-8"
     ],
     "timezone": "Europe/Paris",
-    "ssh_knownhosts": {
-        "github.com": {
-            "ssh_user": "git",
-            "user": "root"
-        }
-    },
-    "symfony2_applications": {
-    },
-    "composer_projects": {
-    },
-    "apache_expires": {
-    },
-    "apache_modules": {
-    },
-    "apache_types": {
-    },
-    "apache_vhosts": {
-    },
-    "varnish_acls": [],
-    "varnish_backends": [],
-    "varnish_conditions": [],
-    "varnish_directors": [],
-    "varnish_probes": [],
-    "varnish_selectors": [],
-    "gems": {
-    },
-    "backup_crons": {
-    },
-    "mysql_databases": {
-    },
-    "mcollective_middleware_hosts": [],
-    "opened_interfaces": [],
-    "autofs_roots": {},
     "network_interfaces": {},
-    "extra_network_interfaces": {}
+    "extra_network_interfaces": {},
+    "packages": {},
+    "repos": {},
+    "ssh_knownhosts": {
+        "github.com": {"ssh_user": "git", "user": "root"}
+    },
+    "users": {},
+    "groups": {
+        "sudonopass": {"gid": 1051, "sudonopass": true}
+    },
+    "user_authorized_keys": {},
+    "user_keys": {},
+    "phantomjs_version": "2.0.0"
 }

@@ -28,7 +28,7 @@ define p::resource::supervisord::daemon (
     $stderr_file = $stderr
   }
 
-  file {$conf_file:
+  file { $conf_file:
     ensure  => file,
     content => template($conf_template),
     group   => $conf_group,

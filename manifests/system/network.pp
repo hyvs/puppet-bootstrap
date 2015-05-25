@@ -7,10 +7,10 @@ class p::system::network (
   $interfaces_file      = "/etc/network/interfaces"
   $extra_interfaces_dir = "/etc/network/interfaces.d"
 
-  anchor {'p::system::network::begin': } ->
-  anchor {'p::system::network::reload': } ->
-  exec {'reload network': command => "sudo service networking restart"} ->
-  anchor {'p::system::network::end': }
+     anchor { 'p::system::network::begin':  }
+  -> anchor { 'p::system::network::reload': }
+  -> exec   { 'reload network':             command => "sudo service networking restart" }
+  -> anchor { 'p::system::network::end':    }
 
   if !empty($interfaces) {
     if !$interfaces['lo'] {

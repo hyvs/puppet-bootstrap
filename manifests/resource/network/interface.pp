@@ -4,11 +4,11 @@ define p::resource::network::interface (
   $broadcast,
   $comment   = undef,
   $auto      = true,
-  $type       = 'static',
+  $type      = 'static',
   $dir       = '/etc/network/interfaces.d'
 ) {
 
-  file {"${dir}/${name}.cfg":
+  file { "${dir}/${name}.cfg":
     content => template('p/network/interface.cfg.erb'),
   }
 

@@ -1,5 +1,5 @@
 name 'p'
-version '0.1.0'
+version '2.0'
 source 'git://github.com/phppro/puppet-bootstrap.git'
 author 'phppro'
 license 'Apache 2.0'

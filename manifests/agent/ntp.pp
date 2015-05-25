@@ -1,19 +1,12 @@
 class p::agent::ntp (
-  $servers  = hiera_array('ntp_servers'),
-  $restrict = ['127.0.0.1']
+  $servers   = hiera_array('ntp_servers'),
+  $restricts = hiera_array('ntp_restricts')
 ) {
 
-  anchor {'p::agent::ntp::begin': }
-
-  class { '::ntp':
-    servers  => $servers,
-    restrict => $restrict,
-    require => Anchor['p::agent::ntp::begin'],
-    before  => Anchor['p::agent::ntp::end'],
-  }
-
-  anchor {'p::agent::ntp::end':
-    require => Anchor['p::agent::ntp::begin'],
-  }
+     anchor               { 'p::agent::ntp::begin':                                           }
+  -> p::resource::package { 'ntp':                                                            }
+  -> file                 { '/etc/ntp.conf':        content => template('p/ntp/ntp.conf.erb'), notify => Service['ntp'], }
+  -> service              { 'ntp':                  ensure => 'running'                       }
+  -> anchor               { 'p::agent::ntp::end':                                             }
 
 }

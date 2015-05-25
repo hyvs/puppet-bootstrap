@@ -9,7 +9,7 @@ define p::resource::firewall::udp (
 
     firewall { "500 ${description}":
       action => accept,
-      port   => any2int($port),
+      port   => $port,
       proto  => 'udp'
     }
 

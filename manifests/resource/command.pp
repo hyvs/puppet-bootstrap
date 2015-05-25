@@ -31,7 +31,7 @@ define p::resource::command (
 
   $real_command = "${sudo_string}${command}${redirect}"
 
-  exec {"command ${name}":
+  exec { "command ${name}":
     command => $real_command,
     cwd     => $cwd,
     user    => $user,

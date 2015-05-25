@@ -1,6 +1,2 @@
-class p (
-) {
-
-  Apt::Source <| |> -> Package <| |>
-
+class p {
 }

@@ -1,9 +1,9 @@
 define p::resource::capistrano::application (
   $dir,
-  $require_dir = undef,
+  $require_dir         = undef,
   $before_apache_vhost = undef,
-  $owner = undef,
-  $group = undef
+  $owner               = undef,
+  $group               = undef
 ) {
 
   if undef != $require_dir {
