@@ -9,8 +9,8 @@ class p::system::network (
 
   exec { 'reload network': command => "sudo service networking restart" }
 
-  $interfaces_count = $interfaces.reduce |$interface, $s| { return $s + 1 }
-  $extra_interfaces_count = $extra_interfaces.reduce |$interface, $s| { return $s + 1 }
+  $interfaces_count = $interfaces.reduce |$interface, $s| { $s + 1 }
+  $extra_interfaces_count = $extra_interfaces.reduce |$interface, $s| { $s + 1 }
 
   if $interfaces_count > 0 {
     p::resource::file { $interfaces_file:
