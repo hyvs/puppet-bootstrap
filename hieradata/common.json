@@ -45,7 +45,6 @@
         "en_US.UTF-8 UTF-8"
     ],
     "timezone": "Europe/Paris",
-    "network_interfaces": {},
     "extra_network_interfaces": {},
     "packages": {},
     "repos": {},
