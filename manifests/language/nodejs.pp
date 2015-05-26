@@ -1,6 +1,6 @@
 class p::language::nodejs (
   $packages         = hiera_hash('npm_packages'),
-  $version          = hiera('nodejs_version', undef),
+  $version          = hiera('nodejs_version', "installed"),
   $package_resource = 'p::resource::nodejs::package'
 ) {
 

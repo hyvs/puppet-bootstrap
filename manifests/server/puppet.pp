@@ -1,5 +1,5 @@
 class p::server::puppet (
-  $version        = hiera('puppetserver_version', undef),
+  $version        = hiera('puppetserver_version', "installed"),
   $firewall       = true,
   $port           = 8140
 ) {
