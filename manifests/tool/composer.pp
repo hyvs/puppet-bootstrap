@@ -9,13 +9,11 @@ class p::tool::composer (
 
   if !defined(Package['curl']) and !defined(P::Resource::Package['curl']) {
     p::resource::package {'curl':
-      require => Anchor['p::tool::composer::begin'],
-      before  => Anchor['p::tool::composer::end'],
+      before  => Exec['download composer.phar'],
     }
   }
 
-     anchor { 'p::tool::composer::begin': }
-  -> exec   { 'download composer.phar':
+     exec { 'download composer.phar':
        command => "${download_command}",
        cwd     => $tmp_dir,
        creates => "${tmp_dir}/${filename}",
@@ -27,6 +25,5 @@ class p::tool::composer (
        cwd     => $tmp_dir,
        unless  => $test_install,
      }
-  -> anchor { 'p::tool::composer::end': }
 
 }

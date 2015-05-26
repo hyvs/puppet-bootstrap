@@ -1,14 +1,12 @@
 class p::repo::jenkins (
 ) {
 
-     anchor { 'p::repo::jenkins::begin': }
-  -> p::resource::apt::repo { 'jenkins':
-       location   => 'http://pkg.jenkins-ci.org/debian',
-       release    => 'binary/',
-       repos      => '',
-       key        => '9B7D32F2D50582E6',
-       key_source => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
-     }
-  -> anchor { 'p::repo::jenkins::end': }
+  p::resource::apt::repo { 'jenkins':
+    location   => 'http://pkg.jenkins-ci.org/debian',
+    release    => 'binary/',
+    repos      => '',
+    key        => '9B7D32F2D50582E6',
+    key_source => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
+  }
 
 }

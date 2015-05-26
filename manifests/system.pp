@@ -1,72 +1,17 @@
 class p::system {
 
-     anchor { 'p::system::begin': }
-  -> anchor { 'p::system::end':   }
-
-
-  class { 'p::system::repos':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::locales':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::network':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::firewall':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::packages':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::hosts':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::users':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::directories':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::files':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::links':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::crons':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::ssh':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
-
-  class { 'p::system::commands':
-    require => Anchor['p::system::begin'],
-    before  => Anchor['p::system::end'],
-  }
+  contain p::system::repos
+  contain p::system::locales
+  contain p::system::network
+  contain p::system::firewall
+  contain p::system::packages
+  contain p::system::hosts
+  contain p::system::users
+  contain p::system::directories
+  contain p::system::files
+  contain p::system::links
+  contain p::system::crons
+  contain p::system::ssh
+  contain p::system::commands
 
 }

@@ -9,17 +9,13 @@ class p::server::mongodb (
     class {'p::repo::tengen': }
   }
 
-     anchor                     { 'p::server::mongodb::begin':          }
-  -> p::resource::package       { ['mongodb-org', 'mongodb-org-server', 'mongodb-org-shell', 'mongodb-org-mongos', 'mongodb-org-tools']: version => $version }
-  -> anchor                     { 'p::server::mongodb::after_packages': }
+     p::resource::package       { ['mongodb-org', 'mongodb-org-server', 'mongodb-org-shell', 'mongodb-org-mongos', 'mongodb-org-tools']: version => $version }
   -> p::resource::firewall::tcp { 'mongodb':                            enabled => $firewall, port    => $port  }
   -> service                    { "mongod":                             ensure  => "running", enable  => "true" }
-  -> anchor                     { 'p::server::mongodb::end':            }
 
   if $listen_all {
     file_line { 'mongodb enable listen on all interfaces':
-      require => Anchor['p::server::mongodb::after_packages'],
-      before  => Anchor['p::server::mongodb::end'],
+      require => [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
       path    => '/etc/mongod.conf',
       line    => '#bind_ip = 127.0.0.1',
       match   => '^(\#)?bind_ip ',

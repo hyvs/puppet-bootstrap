@@ -4,8 +4,7 @@ class p::system::locales (
   $timezone = hiera('timezone')
 ) {
 
-     anchor {'p::system::locales::begin': }
-  -> p::resource::package { 'locales': ensure  => 'installed' }
+     p::resource::package { 'locales': ensure  => 'installed' }
   -> file { '/etc/locale.gen':
        ensure  => 'present',
        mode    => '0644',
@@ -39,6 +38,5 @@ class p::system::locales (
        subscribe   => File['/etc/timezone'],
        refreshonly => true,
      }
-  -> anchor {'p::system::locales::end': }
-  
+
 }

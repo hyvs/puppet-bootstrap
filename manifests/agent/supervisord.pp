@@ -16,11 +16,9 @@ class p::agent::supervisord (
     before       => Service['supervisorctl'],
   }
 
-     anchor                 { 'p::agent::supervisord::begin':    }
-  -> p::resource::package   { 'supervisor':                      }
+     p::resource::package   { 'supervisor':                      }
   -> p::resource::directory { $log_dir:        mode    => '0777' }
   -> service                { 'supervisorctl': ensure  => 'running', start => $start_command, restart => $restart_command, stop => $stop_command, status => $status_command }
-  -> anchor                 { 'p::agent::supervisord::end':      }
 
   create_resources($daemon_resource, $daemons, $daemons_defaults)
 

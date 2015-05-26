@@ -9,13 +9,11 @@ class p::tool::phantomjs (
 
   if !defined(Package['wget']) {
     p::resource::package {'wget':
-      require => Anchor['p::tool::phantomjs::begin'],
-      before  => Anchor['p::tool::phantomjs::end'],
+      before => Exec['download_phantomjs'],
     }
   }
 
-     anchor { 'p::tool::phantomjs::begin': }
-  -> exec   { 'download_phantomjs':
+     exec   { 'download_phantomjs':
        command     => "wget -O ${tar} https://bitbucket.org/ariya/phantomjs/downloads/${tar}",
        cwd         => $tmp_dir,
        creates     => "${tmp_dir}/${tar}",
@@ -34,6 +32,5 @@ class p::tool::phantomjs (
        timeout     => 0,
        unless      => $test_install,
      }
-  -> anchor { 'p::tool::phantomjs::end': }
 
 }

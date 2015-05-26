@@ -3,13 +3,7 @@ class p::tool::git (
 ) {
 
   if !defined(P::Resource::Package[$package]) {
-    p::resource::package {$package:
-      require  => Anchor['p::tool::git::begin'],
-      before   => Anchor['p::tool::git::end'],
-    }
+    p::resource::package {$package: }
   }
-
-     anchor { 'p::tool::git::begin': }
-  -> anchor { 'p::tool::git::end':   }
 
 }

@@ -8,27 +8,22 @@ class p::language::php5 (
 ) {
 
   $modules_defaults = {
-    require => Class['::php'],
-    before  => Anchor['p::language::php::end']
+    require => P::Resource::Package['php5-cli'],
   }
 
   $pecl_modules_defaults = {
-    require => Class['::php'],
-    before  => Anchor['p::language::php::end']
+    require => P::Resource::Package['php5-cli'],
   }
 
   $directives_defaults = {
-    require => Class['::php'],
-    before  => Anchor['p::language::php::end']
+    require => P::Resource::Package['php5-cli'],
   }
 
   if !defined(Class['p::repo::dotdeb']) {
     class {'p::repo::dotdeb': }
   }
 
-     anchor               {'p::language::php::begin': }
-  -> p::resource::package { 'php5-cli': }
-  -> anchor               {'p::language::php::end': }
+  p::resource::package { 'php5-cli': }
 
   create_resources($module_resource, $modules, $modules_defaults)
   create_resources($pecl_module_resource, $pecl_modules, $pecl_modules_defaults)

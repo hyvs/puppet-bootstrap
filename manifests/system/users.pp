@@ -9,32 +9,9 @@ class p::system::users (
   $user_resource            = 'p::resource::user'
 ) {
 
-  $groups_defaults = {
-    require => Anchor['p::system::users::begin'],
-    before  => Anchor['p::system::users::end']
-  }
-  
-  $users_defaults = {
-    require => Anchor['p::system::users::begin'],
-    before  => Anchor['p::system::users::end']
-  }
-  
-  $ssh_public_keys_defaults = {
-    require => Anchor['p::system::users::begin'],
-    before  => Anchor['p::system::users::end']
-  }
-  
-  $ssh_private_keys_defaults = {
-    require => Anchor['p::system::users::begin'],
-    before  => Anchor['p::system::users::end']
-  }
-
-     anchor { 'p::system::users::begin': }
-  -> anchor { 'p::system::users::end':   }
-
-  create_resources($group_resource, $groups, $groups_defaults)
-  create_resources($user_resource, $users, $users_defaults)
-  create_resources($ssh_public_key_resource, $user_authorized_keys, $ssh_public_keys_defaults)
-  create_resources($ssh_private_key_resource, $user_keys, $ssh_private_keys_defaults)
+  create_resources($group_resource, $groups)
+  create_resources($user_resource, $users)
+  create_resources($ssh_public_key_resource, $user_authorized_keys)
+  create_resources($ssh_private_key_resource, $user_keys)
   
 }

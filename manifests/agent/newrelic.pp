@@ -9,11 +9,9 @@ class p::agent::newrelic (
   $log_dir     = '/var/log/newrelic'
   $log_file    = '/var/log/newrelic/nrsysmond.log'
 
-     anchor                 { 'p::agent::newrelic::begin':                          }
-  -> p::resource::directory { $log_dir:                                             }
+     p::resource::directory { $log_dir:                                             }
   -> p::resource::package   { 'newrelic-sysmond':            ensure  => 'installed' }
   -> file                   { '/etc/newrelic/nrsysmond.cfg': content => template('p/newrelic/nrsysmond.cfg.erb') }
   -> service                { 'newrelic-sysmond':            ensure => 'running'    }
-  -> anchor                 { 'p::agent::newrelic::end':                            }
 
 }

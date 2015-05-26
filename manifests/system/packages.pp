@@ -3,14 +3,6 @@ class p::system::packages (
   $resource = 'p::resource::package'
 ) {
 
-  $defaults = {
-    require => Anchor['p::system::packages::begin'],
-    before  => Anchor['p::system::packages::end'],
-  }
-
-     anchor { 'p::system::packages::begin': }
-  -> anchor { 'p::system::packages::end':   }
-
-  create_resources($resource, $packages, $defaults)
+  create_resources($resource, $packages)
 
 }

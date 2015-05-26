@@ -8,9 +8,7 @@ class p::server::puppet (
     class {'p::repo::puppetlabs': }
   }
 
-     anchor                     { 'p::server::puppet::begin': }
-  -> p::resource::package       { 'puppetserver':             version => $version                 }
-  -> p::resource::firewall::tcp { 'puppetserver':             enabled => $firewall, port => $port }
-  -> anchor                     { 'p::server::puppet::end':   }
+     p::resource::package       { 'puppetserver': version => $version                 }
+  -> p::resource::firewall::tcp { 'puppetserver': enabled => $firewall, port => $port }
 
 }

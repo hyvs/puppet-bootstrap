@@ -5,8 +5,6 @@ class p::agent::puppet (
     class {'p::repo::puppetlabs': }
   }
 
-     anchor               { 'p::agent::puppet::begin': }
-  -> p::resource::package { 'puppet-agent':            }
-  -> anchor               { 'p::agent::puppet::end':   }
+  p::resource::package { 'puppet-agent': }
 
 }

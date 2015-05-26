@@ -8,12 +8,9 @@ class p::endpoint::capistrano (
 
   $applications_defaults = {
     require => P::Resource::Directory[$home],
-    before  => Anchor['p::endpoint::capistrano::end']
   }
 
-     anchor {'p::endpoint::capistrano::begin': }
-  -> p::resource::directory {$home: owner => $home_owner, group => $home_group }
-  -> anchor {'p::endpoint::capistrano::end':   }
+  p::resource::directory {$home: owner => $home_owner, group => $home_group }
 
   create_resources($application_resource, $applications, $applications_defaults)
 
