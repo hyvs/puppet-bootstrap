@@ -9,7 +9,10 @@ class p::system::network (
 
   exec { 'reload network': command => "sudo service networking restart" }
 
-  if !empty($interfaces) {
+  $interfaces_count = $interfaces.reduce |$interface, $s| { return $s + 1 }
+  $extra_interfaces_count = $extra_interfaces.reduce |$interface, $s| { return $s + 1 }
+
+  if $interfaces_count > 0 {
     p::resource::file { $interfaces_file:
       template => "p/network/interfaces.erb",
       vars     => {interfaces => $interfaces},
@@ -17,7 +20,7 @@ class p::system::network (
     }
   }
 
-  if !empty($extra_interfaces) {
+  if $extra_interfaces_count > 0 {
     file_line { 'interfaces.d support enable':
       path  => $interfaces_file,
       line  => "source ${extra_interfaces_dir}/*.cfg",
