@@ -1,4 +1,4 @@
 deb <%= @location %> <%= @release %> <%= repos %>
-<%= if @src %>
+<% if @src -%>
 deb-src <%= @location %> <%= @release %> <%= repos %>
-<%= end %>
+<%- end -%>
