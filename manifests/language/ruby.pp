@@ -1,6 +1,6 @@
 class p::language::ruby (
   $gems         = hiera_hash('gems'),
-  $version      = hiera('ruby_version'),
+  $version      = hiera('ruby_version', undef),
   $gem_resource = 'p::resource::ruby::gem'
 ) {
 

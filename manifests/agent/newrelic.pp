@@ -1,5 +1,5 @@
 class p::agent::newrelic (
- $license_key = hiera('newrelic_license_key')
+ $license_key = hiera('newrelic_license_key', undef)
 ) {
 
   if !defined(Class['p::repo::newrelic']) {
