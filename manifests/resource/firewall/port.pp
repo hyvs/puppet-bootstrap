@@ -3,16 +3,12 @@ define p::resource::firewall::port (
   $enabled = true
 ) {
 
-  if $enabled and defined('::firewall') {
+  if $enabled
 
-    $description = "Allow access to ${name} (TCP/UDP ${port})"
-
-    firewall { "500 ${description}":
+    firewall { "500 accept ${name} (TCP/UDP:${port})":
       action => accept,
       port   => $port,
       proto  => 'all'
     }
-
-  }
 
 }

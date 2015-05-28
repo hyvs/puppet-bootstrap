@@ -2,16 +2,12 @@ define p::resource::firewall::state (
   $enabled = true
 ) {
 
-  if $enabled and defined('::firewall') {
+  if $enabled
 
-    $description = "Allow access to ${name} state(s)"
-
-    firewall { "030 ${description}":
+    firewall { "130 accept all with state ${name}":
       action => 'accept',
       proto  => 'all',
       state  => split($name, ','),
     }
-
-  }
 
 }

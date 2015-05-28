@@ -1,5 +1,10 @@
 class p::system::firewall_post {
 
-  p::resource::firewall::protocol { 'all': action => 'drop', rule_name => '999 drop all' }
+  ::firewall { '999 (post) drop all':
+    action  => 'drop',
+    proto   => 'all',
+    require => Class['p::system::firewall_pre'],
+    before  => undef,
+  }
 
 }

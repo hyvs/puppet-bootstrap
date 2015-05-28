@@ -2,16 +2,12 @@ define p::resource::firewall::interface (
   $enabled = true
 ) {
 
-  if $enabled and defined('::firewall') {
+  if $enabled
 
-    $description = "Allow access to ${name} interface"
-
-    firewall { "020 ${description}":
+    firewall { "120 accept all on ${name} interface":
       action  => 'accept',
       proto   => 'all',
       iniface => $name,
     }
-
-  }
 
 }

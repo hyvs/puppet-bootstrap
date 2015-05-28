@@ -3,16 +3,12 @@ define p::resource::firewall::tcp (
   $enabled = true
 ) {
 
-  if $enabled and defined('::firewall') {
+  if $enabled
 
-    $description = "Allow access to ${name} (TCP ${port})"
-
-    firewall { "500 ${description}":
+    firewall { "500 accept ${name} (TCP:${port})":
       action => accept,
       port   => $port,
       proto  => 'tcp'
     }
-
-  }
 
 }
