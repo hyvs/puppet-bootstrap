@@ -1,4 +1,4 @@
-class p::system::firewall (
+class p::system::firewalls (
   $opened_tcp_ports  = hiera_array('opened_tcp_ports'),
   $opened_udp_ports  = hiera_array('opened_udp_ports'),
   $opened_ports      = hiera_array('opened_ports'),

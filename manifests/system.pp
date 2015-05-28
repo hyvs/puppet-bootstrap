@@ -3,7 +3,7 @@ class p::system {
   contain p::system::repos
   contain p::system::locales
   contain p::system::network
-  contain p::system::firewall
+  contain p::system::firewalls
   contain p::system::packages
   contain p::system::hosts
   contain p::system::users
