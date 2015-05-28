@@ -13,7 +13,7 @@ define p::resource::apt::repo (
   if $key_server {
     exec { "download key ${key_server}":
       command => "wget -O- ${key_server} | sudo apt-key add -",
-      before  => File["/etc/apt/sources.list.d/${name}"],
+      before  => File["/etc/apt/sources.list.d/${name}.list"],
     }
   }
 
