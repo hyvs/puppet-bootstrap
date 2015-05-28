@@ -8,7 +8,7 @@ define p::resource::apt::repo (
   $src        = false
 ) {
 
-  file { "/etc/apt/sources.list.d/${name}": content => template('p/apt/repo.list.erb')}
+  file { "/etc/apt/sources.list.d/${name}.list": content => template('p/apt/repo.list.erb')}
 
   if $key_server {
     exec { "download key ${key_server}":
