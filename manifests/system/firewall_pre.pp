@@ -1,6 +1,6 @@
 class p::system::firewall_pre {
 
-  Firewall { require => undef }
+  ::Firewall { require => undef }
 
      p::resource::firewall::protocol  { 'icmp':                }
   -> p::resource::firewall::interface { 'lo':                  }
