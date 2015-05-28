@@ -1,13 +1,19 @@
 define p::resource::firewall::protocol (
-  $enabled = true
+  $enabled = true,
+  $action  = 'accept',
+  $rule_name = undef
 ) {
 
   if $enabled and defined('::firewall') {
 
-    $description = "Allow protocol ${name}"
+    if !$rule_name {
+      $full_description = "010 ${action} protocol ${name}"
+    } else {
+      $full_description = $rule_name
+    }
 
-    firewall { "010 ${description}":
-      action => 'accept',
+    firewall { $full_description:
+      action => $action,
       proto  => $name
     }
 

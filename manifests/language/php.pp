@@ -1,4 +1,4 @@
-class p::language::php5 (
+class p::language::php (
   $directives           = hiera_hash('php_directives'),
   $modules              = hiera_hash('php_modules'),
   $pecl_modules         = hiera_hash('pecl_modules'),
