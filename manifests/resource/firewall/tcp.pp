@@ -12,5 +12,5 @@ define p::resource::firewall::tcp (
     }
 
   }
-  
+
 }
