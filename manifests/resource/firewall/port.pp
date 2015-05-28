@@ -3,12 +3,14 @@ define p::resource::firewall::port (
   $enabled = true
 ) {
 
-  if $enabled
+  if $enabled {
 
     firewall { "500 accept ${name} (TCP/UDP:${port})":
       action => accept,
       port   => $port,
       proto  => 'all'
     }
+
+  }
 
 }

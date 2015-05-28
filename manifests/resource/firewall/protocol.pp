@@ -3,11 +3,13 @@ define p::resource::firewall::protocol (
   $action    = 'accept'
 ) {
 
-  if $enabled
+  if $enabled {
 
     firewall { "110 ${action} protocol ${name}":
       action => $action,
       proto  => $name
     }
+
+  }
 
 }

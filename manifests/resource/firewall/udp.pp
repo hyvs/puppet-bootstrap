@@ -3,7 +3,7 @@ define p::resource::firewall::udp (
   $enabled = true
 ) {
 
-  if $enabled
+  if $enabled {
 
     firewall { "500 accept ${name} (UDP:${port})":
       action => accept,
@@ -11,4 +11,6 @@ define p::resource::firewall::udp (
       proto  => 'udp'
     }
 
+  }
+  
 }
