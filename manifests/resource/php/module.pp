@@ -1,5 +1,6 @@
 define p::resource::php::module (
-  $enabled  = true
+  $enabled      = true,
+  $package_name = undef
 ) {
 
   if !defined(Package['php5-cli']) and !defined(P::Resource::Package['php5-cli']) {
@@ -12,7 +13,13 @@ define p::resource::php::module (
     $ensure = 'absent'
   }
 
-  p::resource::package { $name:
+  if $package_name {
+    $real_package_name = $package_name
+  } else {
+    $real_package_name = "php5-${name}"
+  }
+
+  p::resource::package { $real_package_name:
     ensure  => $ensure,
     require => Package['php5-cli'],
   }
