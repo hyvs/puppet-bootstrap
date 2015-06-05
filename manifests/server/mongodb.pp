@@ -2,7 +2,8 @@ class p::server::mongodb (
   $version    = hiera('mongodb_version'),
   $firewall   = false,
   $port       = 27017,
-  $listen_all = false
+  $listen_all = false,
+  $listen_only = undef
 ) {
 
   if !defined(Class['p::repo::tengen']) {
@@ -13,13 +14,23 @@ class p::server::mongodb (
   -> p::resource::firewall::tcp { 'mongodb':                            enabled => $firewall, port    => $port  }
   -> service                    { "mongod":                             ensure  => "running", enable  => "true" }
 
-  if $listen_all {
-    file_line { 'mongodb enable listen on all interfaces':
+  if ($listen_only) {
+    file_line { 'mongodb enable listen on specified interfaces':
       require => [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
       path    => '/etc/mongod.conf',
-      line    => '#bind_ip = 127.0.0.1',
+      line    => "bind_ip = ${listen_only}",
       match   => '^(\#)?bind_ip ',
       notify   => Service['mongod'],
+    }
+  } else {
+    if $listen_all {
+      file_line { 'mongodb enable listen on all interfaces':
+        require => [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
+        path    => '/etc/mongod.conf',
+        line    => '#bind_ip = 127.0.0.1',
+        match   => '^(\#)?bind_ip ',
+        notify   => Service['mongod'],
+      }
     }
   }
 
