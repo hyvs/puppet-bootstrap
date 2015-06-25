@@ -4,5 +4,5 @@ define p::resource::apache::vhost (
 ) {
 
   # todo
-  
+
 }
