@@ -1,0 +1,18 @@
+server {
+ listen <%= @listen %>;
+ server_name <%= @server_name %>;
+ location / {
+  root <%= @docroot %>;
+ }
+
+ <% if 'phpfpm' == @type %>
+ location ~ .*$ {
+    try_files $uri =404;
+    fastcgi_pass   <%= @params['socket'] %>;
+    fastcgi_index  index.php;
+    fastcgi_param SCRIPT_FILENAME <%= @docroot %>$fastcgi_script_name;
+    include fastcgi_params;
+ }
+ <%- end -%>
+
+}
