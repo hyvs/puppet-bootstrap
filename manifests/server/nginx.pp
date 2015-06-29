@@ -17,6 +17,7 @@ class p::server::nginx (
 
      p::resource::package       { 'nginx': version => $version                 }
   -> p::resource::firewall::tcp { 'nginx': enabled => $firewall, port => $port }
+  -> service                    { 'nginx': ensure => 'running', enable => true }
 
   create_resources($vhost_resource, $vhosts, $vhosts_defaults)
 
