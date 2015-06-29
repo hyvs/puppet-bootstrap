@@ -6,13 +6,15 @@ define p::resource::phpfpm::pool (
   $user = "www-data",
   $group = "www-data",
   $pm = "dynamic",
+  $pm_start_servers = 3,
   $pm_max_children = 5,
   $pm_min_spare_servers = 1,
   $pm_max_spare_servers = 3,
   $pm_max_requests = 500,
   $pm_status_path = undef,
   $ping_path = undef,
-  $request_slowlog_timeout = "10s"
+  $request_slowlog_timeout = "10s",
+  $slowlog = '/var/log/phpfpm-pool-$pool.log.slow'
 ) {
 
   $conf_file   = "/etc/php5/fpm/pool.d/${name}.conf"
