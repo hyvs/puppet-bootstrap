@@ -1,8 +1,9 @@
 define p::resource::phpfpm::pool (
   $listen,
-  $listen_backlog = -1,
-  $listen_allowed_clients = "127.0.0.1",
-  $listen_mode = "0600",
+  $type = 'basic',
+  $listen_backlog = undef,
+  $listen_allowed_clients = undef,
+  $listen_mode = undef,
   $user = "www-data",
   $group = "www-data",
   $pm = "dynamic",

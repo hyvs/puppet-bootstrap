@@ -1,11 +1,11 @@
 [<%= @name %>]
 
 listen = <%= @listen %>
-listen.backlog = <%= @listen_backlog %>
-listen.allowed_clients = <%= @listen_allowed_clients %>
-; listen.owner = <%= @user %>
-; listen.group = <%= @group %>
-listen.mode  = <%= @listen_mode %>
+<%- if @listen_backlog -%>listen.backlog = <%= @listen_backlog %><%- end %>
+<%- if @listen_allowed_clients -%>listen.allowed_clients = <%= @listen_allowed_clients %><%- end %>
+listen.owner = <%= @user %>
+listen.group = <%= @group %>
+<%- if @listen_mode -%>listen.mode  = <%= @listen_mode %><%- end %>
 
 user = <%= @user %>
 group = <%= @group %>
@@ -17,13 +17,10 @@ pm.min_spare_servers = <%= @pm_min_spare_servers %>
 pm.max_spare_servers = <%= @pm_max_spare_servers %>
 pm.max_requests = <%= @pm_max_requests %>
 
-<%- if @pm_status_path -%>
-pm.status_path = <%= @pm_status_path %>
-<%- end %>
+<%- if @pm_status_path -%>pm.status_path = <%= @pm_status_path %><%- end %>
+<%- if @ping_path -%>ping.path = <%= @ping_path %><%- end %>
 
-<%- if @ping_path -%>
-ping.path = <%= @ping_path %>
-<%- end %>
-
+<%- if @slowlog -%>
 slowlog = <%= @slowlog %>
 request_slowlog_timeout = <%= @request_slowlog_timeout %>
+<%- end %>

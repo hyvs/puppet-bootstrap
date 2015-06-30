@@ -1,18 +1,74 @@
 server {
- listen <%= @listen %>;
- server_name <%= @server_name %>;
- location / {
-  root <%= @docroot %>;
- }
+    listen      <%= @listen %>;
+    server_name <%= @server_name %>;
+    root        <%= @docroot %>;
 
- <% if 'phpfpm' == @type %>
- location ~ .*$ {
-    try_files $uri =404;
-    fastcgi_pass   <%= @params['socket'] %>;
-    fastcgi_index  index.php;
-    fastcgi_param SCRIPT_FILENAME <%= @docroot %>$fastcgi_script_name;
-    include fastcgi_params;
- }
- <%- end -%>
+    <%- if @type == 'phpfpm_symfony2' -%>
+    location / {
+        try_files $uri /app.php$is_args$args;
+    }
+        <%- if defined?(@params['dev']) and @params['dev'] %>
+    location ~ ^/app_dev\.php(/|$) {
+        fastcgi_pass            <%= @params['socket'] %>;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include                 fastcgi_params;
+        fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param           HTTPS           off;
+    }
+        <%- end -%>
+    location ~ ^/app\.php(/|$) {
+        fastcgi_pass            <%= @params['socket'] %>;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include                 fastcgi_params;
+        fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param           HTTPS off;
+        internal;
+        gzip                    on;
+        gzip_comp_level         3;
+    }
+    location ~ ^/assets/c/nc/.+ {
+        expires now;
+        gzip    off;
+    }
+    location ~ ^/assets/c/5m/.+ {
+        expires 5m;
+        gzip    off;
+    }
+    location ~ ^/assets/c/h/.+ {
+        expires 1h;
+        gzip    off;
+    }
+    location ~ ^/assets/c/d/.+ {
+        expires 1d;
+        gzip    off;
+    }
+    location ~ ^/assets/c/w/.+ {
+        expires 1w;
+        gzip    off;
+    }
+    location ~ ^/assets/c/2w/.+ {
+        expires 2w;
+        gzip    off;
+    }
+    location ~ ^/assets/c/m/.+ {
+        expires 1m;
+        gzip    off;
+    }
+    <%- elsif @type == 'phpfpm' -%>
+    location / {
+        try_files $uri /index.php$is_args$args;
+        fastcgi_pass            <%= @params['socket'] %>;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include                 fastcgi_params;
+        fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param           HTTPS off;
+    }
+    <%- else -%>
+    location / {
+        try_files $uri =404;
+    }
+    <%- end -%>
 
+    error_log /var/log/nginx/project_error.log;
+    access_log /var/log/nginx/project_access.log;
 }
