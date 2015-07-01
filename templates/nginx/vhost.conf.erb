@@ -27,7 +27,7 @@ server {
         gzip_comp_level         3;
     }
     location ~ ^/assets/c/nc/.+ {
-        expires now;
+        expires 0;
         gzip    off;
     }
     location ~ ^/assets/c/5m/.+ {
@@ -51,7 +51,7 @@ server {
         gzip    off;
     }
     location ~ ^/assets/c/m/.+ {
-        expires 1m;
+        expires 1M;
         gzip    off;
     }
     <%- elsif @type == 'phpfpm' -%>
