@@ -11,9 +11,11 @@ define p::resource::apt::repo (
   file { "/etc/apt/sources.list.d/${name}.list": content => template('p/apt/repo.list.erb')}
 
   if $key_server {
-    exec { "download key ${key_server}":
-      command => "wget -O- ${key_server} | sudo apt-key add -",
-      before  => File["/etc/apt/sources.list.d/${name}.list"],
+    if !defined(Exec["download key ${key_server}"]) {
+      exec { "download key ${key_server}":
+        command => "wget -O- ${key_server} | sudo apt-key add -",
+        before  => File["/etc/apt/sources.list.d/${name}.list"],
+      }
     }
   }
 
