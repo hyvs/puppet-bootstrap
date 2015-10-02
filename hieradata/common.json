@@ -38,6 +38,7 @@
     "opened_ports": [],
     "opened_interfaces": [],
     "subnet_gateways": {},
+    "sysctl": {},
     "hosts": {},
     "links": {},
     "lang": "en_US.UTF-8",
