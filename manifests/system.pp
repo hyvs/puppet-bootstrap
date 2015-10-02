@@ -2,6 +2,7 @@ class p::system {
 
   contain p::system::repos
   contain p::system::locales
+  contain p::system::kernel
   contain p::system::network
   contain p::system::firewalls
   contain p::system::packages

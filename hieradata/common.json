@@ -37,6 +37,7 @@
     "opened_udp_ports": [],
     "opened_ports": [],
     "opened_interfaces": [],
+    "subnet_gateways": {},
     "hosts": {},
     "links": {},
     "lang": "en_US.UTF-8",
