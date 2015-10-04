@@ -3,7 +3,7 @@ class p::system::firewalls (
   $opened_udp_ports  = hiera_array('opened_udp_ports'),
   $opened_ports      = hiera_array('opened_ports'),
   $opened_interfaces = hiera_array('opened_interfaces'),
-  $subnet_gateways   = hiera_array('subnet_gateways')
+  $subnet_gateways   = hiera_hash('subnet_gateways')
 ) {
 
   $opened_tcp_ports.each |$port| {
