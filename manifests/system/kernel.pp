@@ -4,10 +4,6 @@ class p::system::kernel (
   $file       = '/etc/sysctl.d/local.conf'
 ) {
 
-  if !defined(Exec['reload network']) {
-    exec { 'reload network': command => "sudo service networking restart" }
-  }
-
   $defaults = {
     before  => Exec['reload network'],
   }
