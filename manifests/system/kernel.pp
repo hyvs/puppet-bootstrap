@@ -5,6 +5,7 @@ class p::system::kernel (
 ) {
 
   $defaults = {
+    file    => $file,
     before  => Exec['reload network'],
   }
 
