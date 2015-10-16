@@ -40,8 +40,8 @@ class p::server::mongodb (
     file_line { "mongodb enable replica set mode with name ${replica_set}":
       require => [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
       path    => '/etc/mongod.conf',
-      line    => "replication:\n  replSetName: ${replica_set}",
-      match   => '^\#replication:',
+      line    => "replication: {replSetName: ${replica_set}}",
+      match   => '^(\#)?replication:',
       notify   => Service['mongod'],
     }
   }
