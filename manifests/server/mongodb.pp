@@ -49,7 +49,7 @@ class p::server::mongodb (
   if $data_dir {
        exec { "move mongodb data dir to custom location ${data_dir} if need":
          cwd     => "${data_dir}",
-         command => "service mongod stop; cp -R /var/lib/mongodb/* ${data_dir}/",
+         command => "service mongod stop; cp -aR /var/lib/mongodb/* ${data_dir}/",
          unless  => "[ -f ${data_dir}/storage.bson ]",
          require => [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
          notify  => Service['mongod'],
