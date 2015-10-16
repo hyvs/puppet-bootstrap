@@ -20,8 +20,8 @@ class p::server::mongodb (
     file_line { 'mongodb enable listen on specified interfaces':
       require => [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
       path    => '/etc/mongod.conf',
-      line    => "bind_ip=${listen_only}",
-      match   => '^(\#)?bind_ip ',
+      line    => "  bindIp: ${listen_only}",
+      match   => '^(\#)?  bindIp\:',
       notify   => Service['mongod'],
     }
   } else {
@@ -29,8 +29,8 @@ class p::server::mongodb (
       file_line { 'mongodb enable listen on all interfaces':
         require => [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
         path    => '/etc/mongod.conf',
-        line    => '#bind_ip=127.0.0.1',
-        match   => '^(\#)?bind_ip ',
+        line    => '#  bindIp: 127.0.0.1',
+        match   => '^(\#)?  bindIp\:',
         notify   => Service['mongod'],
       }
     }
@@ -40,8 +40,8 @@ class p::server::mongodb (
     file_line { "mongodb enable replica set mode with name ${replica_set}":
       require => [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
       path    => '/etc/mongod.conf',
-      line    => "replSet=${replica_set}",
-      match   => '^(\#)?replSet',
+      line    => "replication:\n  replSetName: ${replica_set}",
+      match   => '^\#replication:',
       notify   => Service['mongod'],
     }
   }
@@ -56,8 +56,8 @@ class p::server::mongodb (
        }
     -> file_line { "mongodb set custom db path to ${data_dir}":
          path   => '/etc/mongod.conf',
-         line   => "dbpath=${data_dir}",
-         match  => '^(\#)?dbpath',
+         line   => "  dbPath: ${data_dir}",
+         match  => '^(\#)?  dbPath\:',
          notify => Service['mongod'],
        }
   }
@@ -66,8 +66,8 @@ class p::server::mongodb (
     file_line { "mongodb set custom port to ${port}":
       require => [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
       path    => '/etc/mongod.conf',
-      line    => "port=${port}",
-      match   => '^(\#)?port',
+      line    => "  port: ${port}",
+      match   => '^(\#)?  port\:',
       notify   => Service['mongod'],
     }
   }
