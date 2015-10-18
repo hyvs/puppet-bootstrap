@@ -47,16 +47,11 @@ class p::server::mongodb (
   }
 
   if $data_dir {
-      if defined(P::Resource::Directory[$data_dir]) {
-        $pre_requisites = [P::Resource::Directory[$data_dir], P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']]
-      } else {
-        $pre_requisites = [P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']]
-      }
        exec { "move mongodb data dir to custom location ${data_dir} if need":
          cwd     => "${data_dir}",
          command => "service mongod stop; cp -aR /var/lib/mongodb/* ${data_dir}/",
          unless  => "[ -f ${data_dir}/storage.bson ]",
-         require => $pre_requisites,
+         require => [P::Resource::Directory[$data_dir], P::Resource::Package['mongodb-org'], P::Resource::Package['mongodb-org-server']],
          notify  => Service['mongod'],
        }
     -> file_line { "mongodb set custom db path to ${data_dir}":
