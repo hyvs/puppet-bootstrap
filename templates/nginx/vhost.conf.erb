@@ -69,7 +69,7 @@ server {
     }
     <%- end -%>
 
-    <%- if @cors == 'wide-open' -%>
+    <%- if defined?(@params['cors']) and @params['cors'] == 'wide-open' %>
     location / {
          if ($request_method = 'OPTIONS') {
             add_header 'Access-Control-Allow-Origin' '*';
