@@ -11,7 +11,10 @@ define p::resource::supervisord::daemon (
   $stdout             = undef,
   $stdout_file_suffix = 'stdout',
   $tool_package       = 'supervisor',
-  $user               = 'root'
+  $user               = 'root',
+  $numprocs           = 1,
+  $numprocs_start     = 0,
+  $directory          = undef
 ) {
 
   $conf_file = "${conf_dir}/${daemon}.conf"

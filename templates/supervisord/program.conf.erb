@@ -5,3 +5,12 @@ autostart=true
 autorestart=true
 stdout_logfile=<%= @stdout_file %>
 stderr_logfile=<%= @stderr_file %>
+<%- if @numprocs -%>
+numprocs=<%= @numprocs %>
+<%- end -%>
+<%- if @numprocs_start -%>
+numprocs_start=<%= @numprocs_start %>
+<%- end -%>
+<%- if @directory -%>
+directory=<%= @directory %>
+<%- end -%>
