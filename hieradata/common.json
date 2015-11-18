@@ -23,6 +23,7 @@
     "gandi_defaults": {},
     "gandi_system_defaults": {},
     "mongodb_version": "3.0.3",
+    "redis_version": "3.0.5",
     "nfs_exports": {},
     "puppetserver_version": "installed",
     "commands": {},
