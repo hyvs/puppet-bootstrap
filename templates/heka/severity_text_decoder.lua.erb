@@ -1,0 +1,18 @@
+local severity_map = {
+    [0] = "EMERGENCY",
+    [1] = "ALERT",
+    [2] = "CRITICAL",
+    [3] = "ERROR",
+    [4] = "WARNING",
+    [5] = "NOTICE",
+    [6] = "INFO",
+    [7] = "DEBUG"
+}
+
+function process_message()
+    local severity = read_message("Severity")
+
+    write_message("Fields[SeverityText]", severity_map[severity])
+
+    return 0
+end

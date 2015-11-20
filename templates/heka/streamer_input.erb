@@ -1,0 +1,14 @@
+[<%= @name %>]
+type = "LogstreamerInput"
+decoder = "<%= @name %>_decoder"
+<%- if @splitter -%>
+splitter = "<%= @splitter %>"
+<% end -%>
+log_directory = "<%= @directory %>"
+file_match = "<%= @file %>"
+
+[<%= @name %>_decoder]
+type = "MultiDecoder"
+subs = ["<%= @type %>_decoder", "severity_text_decoder", "scribble_env", "scribble_server"<% if @app %>, "scribble_app_<%= @app %>"<% end %>]
+cascade_strategy = "all"
+log_sub_errors = true

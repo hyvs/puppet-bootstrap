@@ -1,0 +1,8 @@
+<% @apps.each do |app| -%>
+[scribble_app_<%= app %>]
+type = "ScribbleDecoder"
+
+    [scribble_app_<%= app %>.message_fields]
+    App = "<%= app %>"
+
+<% end -%>
