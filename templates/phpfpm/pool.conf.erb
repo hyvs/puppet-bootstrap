@@ -25,4 +25,8 @@ slowlog = <%= @slowlog %>
 request_slowlog_timeout = <%= @request_slowlog_timeout %>
 <%- end %>
 
+<%- if @errorlog -%>
+php_admin_value[error_log] = <%= @errorlog %>
+<%- end %>
+
 <%- if @date_timezone -%>php_admin_value[date.timezone] = <%= @date_timezone %><%- end %>

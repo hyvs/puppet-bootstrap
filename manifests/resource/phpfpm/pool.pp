@@ -16,6 +16,7 @@ define p::resource::phpfpm::pool (
   $ping_path = undef,
   $request_slowlog_timeout = "10s",
   $slowlog = '/var/log/phpfpm-pool-$pool.log.slow',
+  $errorlog = '/var/log/nginx/$pool_fpm_error.log',
   $date_timezone = undef
 ) {
 
