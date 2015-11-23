@@ -1,7 +1,9 @@
 server {
     listen      <%= @listen %>;
     server_name <%= @server_name %>;
+    <%- if @type != 'proxy' -%>
     root        <%= @docroot %>;
+    <%- end -%>
 
     <%- if @type == 'phpfpm_symfony2' -%>
     location / {
@@ -110,6 +112,14 @@ server {
             add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
          }
     <%- end -%>
+    }
+    <%- elsif @type == 'proxy' -%>
+    location / {
+        proxy_pass <%= @params['proxy_path'] %>;
+        <%- if defined?(@params['restricted']) %>
+        auth_basic Restricted;
+        auth_basic_user_file /etc/nginx/.htpasswd;
+        <%- end -%>
     }
     <%- else -%>
     location / {
