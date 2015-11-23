@@ -1,11 +1,12 @@
 class p::repo::elasticsearch (
+  $version = '1.6'
 ) {
 
   p::resource::apt::repo { 'elasticsearch':
-    location   => 'http://packages.elasticsearch.org/elasticsearch/1.6/debian',
+    location   => "http://packages.elastic.co/elasticsearch/${version}/debian",
     release    => 'stable',
     repos      => 'main',
-    key        => 'D27D666CD88E42B4',
+    key        => 'D88E42B4',
     key_server => 'https://packages.elasticsearch.org/GPG-KEY-elasticsearch',
   }
 
