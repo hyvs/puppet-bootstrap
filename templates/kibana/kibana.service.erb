@@ -1,0 +1,12 @@
+[Unit]
+Description=Kibana service
+After=network-online.target
+
+[Service]
+EnvironmentFile=-/etc/default/kibana
+ExecStart=<%= @install_path %>/kibana/bin/kibana
+User=<%= @user %>
+Group=<%= @group %>
+
+[Install]
+WantedBy=multi-user.target
