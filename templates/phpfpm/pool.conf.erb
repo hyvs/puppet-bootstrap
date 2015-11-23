@@ -24,3 +24,5 @@ pm.max_requests = <%= @pm_max_requests %>
 slowlog = <%= @slowlog %>
 request_slowlog_timeout = <%= @request_slowlog_timeout %>
 <%- end %>
+
+<%- if @date_timezone -%>php_admin_value[date.timezone] = <%= @date_timezone %><%- end %>

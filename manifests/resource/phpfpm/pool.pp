@@ -15,7 +15,8 @@ define p::resource::phpfpm::pool (
   $pm_status_path = undef,
   $ping_path = undef,
   $request_slowlog_timeout = "10s",
-  $slowlog = '/var/log/phpfpm-pool-$pool.log.slow'
+  $slowlog = '/var/log/phpfpm-pool-$pool.log.slow',
+  $date_timezone = undef
 ) {
 
   $conf_file   = "/etc/php5/fpm/pool.d/${name}.conf"
