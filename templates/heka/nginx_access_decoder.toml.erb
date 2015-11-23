@@ -1,0 +1,9 @@
+[nginx_access_decoder]
+type = "SandboxDecoder"
+filename = "lua_decoders/nginx_access.lua"
+
+    [nginx_access_decoder.config]
+    type = "nginx.access"
+    log_format = '<%= @nginx_log_format %>'
+    user_agent_transform = true
+    user_agent_keep = true

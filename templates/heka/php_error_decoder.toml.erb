@@ -1,0 +1,15 @@
+[php_error_decoder]
+type = "PayloadRegexDecoder"
+timestamp_layout = "02-Jan-2006 15:04:05 Europe/Paris"
+timestamp_location = "Europe/Paris"
+match_regex = '(?m)^\\n\[(?P<Timestamp>[^\]]+)\] PHP (?P<Level>(?P<Severity>[^ ]+)(.*)):  (?P<Message>.*)$'
+
+    [php_error_decoder.severity_map]
+    Informational = 6
+    Notice = 5
+    Warning = 4
+    Fatal = 3 # Fatal error
+
+    [php_error_decoder.message_fields]
+    Type = "php.error"
+    Message = "%Message%"

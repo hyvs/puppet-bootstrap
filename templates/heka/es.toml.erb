@@ -1,0 +1,17 @@
+[ESLogstashV0Encoder]
+es_index_from_timestamp = true
+type_name = "%{Type}"
+
+[ElasticSearchOutput]
+message_matcher = "Logger != 'hekad'"
+encoder = "ESLogstashV0Encoder"
+flush_interval = 5000
+flush_count = 10
+server = "<%= @es_server %>"
+use_buffering = true
+
+    [ElasticSearchOutput.buffering]
+    max_file_size = 104857600 # 100 MiB
+    max_buffer_size = 1073741824 # 1 GiB
+    full_action = "block"
+    cursor_update_count = 1
