@@ -3,7 +3,8 @@ class p::server::nginx (
   $port     = 80,
   $version  = undef,
   $vhosts   = hiera_hash('nginx_vhosts'),
-  $vhost_resource = 'p::resource::nginx::vhost'
+  $vhost_resource = 'p::resource::nginx::vhost',
+  $users    = hiera_hash('nginx_users', {})
 ) {
 
   $vhosts_defaults = {
@@ -20,5 +21,12 @@ class p::server::nginx (
   -> service                    { 'nginx': ensure => 'running', enable => true }
 
   create_resources($vhost_resource, $vhosts, $vhosts_defaults)
+
+  file { "/etc/nginx/.htpasswd":
+    ensure  => 'file',
+    content => template('p/nginx/htpasswd.erb'),
+    require => P::Resource::Package['nginx'],
+    notify  => Service['nginx'],
+  }
 
 }

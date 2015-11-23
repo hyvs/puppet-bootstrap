@@ -1,5 +1,5 @@
 define p::resource::nginx::vhost (
-  $docroot,
+  $docroot     = undef,
   $listen      = 80,
   $server_name = $name,
   $type        = 'phpfpm',
