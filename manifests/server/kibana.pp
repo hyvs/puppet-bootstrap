@@ -1,12 +1,15 @@
 class p::server::kibana (
-  $firewall          = hiera('kibana_firewall', true),
-  $port              = hiera('kibana_port', 5601),
-  $version           = hiera('kibana_version', '4.2.1'),
-  $user              = hiera('kibana_user', 'kibana'),
-  $group             = hiera('kibana_group', 'kibana'),
-  $base_url          = "https://download.elastic.co/kibana/kibana",
-  $install_path      = hiera('kibana_install_path', '/opt'),
-  $elasticsearch_url = hiera('kibana_elasticsearch_url', 'http://localhost:9200'),
+  $firewall               = hiera('kibana_firewall', true),
+  $port                   = hiera('kibana_port', 5601),
+  $host                   = hiera('kibana_host', '0.0.0.0'),
+  $version                = hiera('kibana_version', '4.2.1'),
+  $user                   = hiera('kibana_user', 'kibana'),
+  $group                  = hiera('kibana_group', 'kibana'),
+  $base_url               = "https://download.elastic.co/kibana/kibana",
+  $install_path           = hiera('kibana_install_path', '/opt'),
+  $elasticsearch_url      = hiera('kibana_elasticsearch_url', 'http://localhost:9200'),
+  $elasticsearch_user     = hiera('kibana_elasticsearch_user', undef),
+  $elasticsearch_password = hiera('kibana_elasticsearch_password', undef),
 ) {
 
   $filename = $::architecture ? {

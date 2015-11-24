@@ -2,7 +2,7 @@
 server.port: <%= @port %>
 
 # The host to bind the server to.
-# server.host: "0.0.0.0"
+server.host: "<%= @host %>"
 
 # A value to use as a XSRF token. This token is sent back to the server on each request
 # and required if you want to execute requests from other clients (like curl).
@@ -26,8 +26,16 @@ elasticsearch_url: "<%= @elasticsearch_url %>"
 # used by the Kibana server to perform maintenance on the kibana_index at startup. Your Kibana
 # users will still need to authenticate with Elasticsearch (which is proxied through
 # the Kibana server)
+<%- if @elasticsearch_user -%>
+elasticsearch.username: "<%= @elasticsearch_user %>"
+<% else -%>
 # elasticsearch.username: "user"
+<% end -%>
+<%- if @elasticsearch_password -%>
+elasticsearch.password: "<%= @elasticsearch_password %>"
+<% else -%>
 # elasticsearch.password: "pass"
+<% end -%>
 
 # SSL for outgoing requests from the Kibana Server to the browser (PEM formatted)
 # server.ssl.cert: /path/to/your/server.crt
