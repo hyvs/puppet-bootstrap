@@ -151,6 +151,6 @@ server {
     }
     <%- end -%>
 
-    error_log /var/log/nginx/project_error.log;
-    access_log /var/log/nginx/project_access.log app;
+    error_log /var/log/nginx/<%= @name %>_error.log;
+    access_log /var/log/nginx/<%= @name %>_access.log app;
 }
