@@ -2,7 +2,7 @@ class p::agent::heka (
   $version           = hiera('heka_version', '0.10.0b2'),
   $base_url          = "https://github.com/mozilla-services/heka/releases/download",
   $debug             = hiera('heka_debug', false),
-  $env               = hiera('heka_env', 'prod'),
+  $envs              = hiera('heka_envs', ['prod', 'preprod', 'recette', 'dev']),
   $server            = hiera('heka_server', 'prod'),
   $apps              = hiera_array('heka_apps', []),
   $streamer_inputs   = hiera_hash('heka_streamer_inputs', {}),

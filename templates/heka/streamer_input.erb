@@ -9,6 +9,6 @@ file_match = "<%= @file %>"
 
 [<%= @name %>_decoder]
 type = "MultiDecoder"
-subs = ["<%= @type %>_decoder", "severity_text_decoder", "scribble_env", "scribble_server"<% if @app %>, "scribble_app_<%= @app %>"<% end %>]
+subs = ["<%= @type %>_decoder", "severity_text_decoder", "scribble_server"<% if @app %>, "scribble_app_<%= @app %>"<% end %><% if @env %>, "scribble_env_<%= @env %>"<% end %>]
 cascade_strategy = "all"
 log_sub_errors = true

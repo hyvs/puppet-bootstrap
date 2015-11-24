@@ -2,6 +2,7 @@ define p::resource::heka::streamer_input (
   $type,
   $directory,
   $file,
+  $env = undef,
   $app = undef,
   $splitter = undef
 ) {
