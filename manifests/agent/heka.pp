@@ -8,6 +8,8 @@ class p::agent::heka (
   $streamer_inputs   = hiera_hash('heka_streamer_inputs', {}),
   $udp_inputs        = hiera_hash('heka_udp_inputs', {}),
   $es_server         = hiera('heka_es_server', 'http://127.0.0.1:9200'),
+  $es_username       = hiera('heka_es_username', undef),
+  $es_password       = hiera('heka_es_password', undef),
 ) {
 
   $nginx_log_format = $p::server::nginx::log_format

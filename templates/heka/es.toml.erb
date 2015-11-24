@@ -8,6 +8,12 @@ encoder = "ESLogstashV0Encoder"
 flush_interval = 5000
 flush_count = 10
 server = "<%= @es_server %>"
+<%- if @es_username -%>
+username = "<%= @es_username %>"
+<% end -%>
+<%- if @es_password -%>
+password = "<%= @es_password %>"
+<% end -%>
 use_buffering = true
 
     [ElasticSearchOutput.buffering]
