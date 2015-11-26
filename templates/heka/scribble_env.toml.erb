@@ -1,5 +1,8 @@
-[scribble_env]
+<% @envs.each do |env| -%>
+[scribble_env_<%= env %>]
 type = "ScribbleDecoder"
 
-    [scribble_env.message_fields]
-    Env = "<%= @env %>"
+    [scribble_env_<%= env %>.message_fields]
+    Env = "<%= env %>"
+
+<% end -%>
