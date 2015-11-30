@@ -1,6 +1,7 @@
 define p::resource::ssh::private_key (
   $key,
   $login,
+  $group  = 'users',
   $home   = undef,
   $absent = false
 ) {
@@ -19,10 +20,10 @@ define p::resource::ssh::private_key (
     $ensure = 'absent'
   }
 
-  if !defined(File[$ssh_dir]) {
+  if !defined(P::Resource::Directory[$ssh_dir]) {
     p::resource::directory {$ssh_dir:
       owner   => $login,
-      group   => $login,
+      group   => $group,
       mode    => '0600',
     }
   }
@@ -31,9 +32,9 @@ define p::resource::ssh::private_key (
     ensure  => $ensure,
     content => $key,
     owner   => $login,
-    group   => $login,
+    group   => $group,
     mode    => '0600',
-    require => [User[$login], File[$ssh_dir]],
+    require => [User[$login], P::Resource::Directory[$ssh_dir]],
   }
 
 }
